@@ -1,0 +1,28 @@
+section {
+  border-bottom: 2px solid var(--space-cadet);
+
+  h1 {
+    text-align: center;
+    font-size: 32px;
+    color: var(--lavender-blush);
+    margin-bottom: 2rem;
+  }
+
+  .articles-container {
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 140px 140px 140px;
+    gap: 50px;
+
+    .triple-article {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .simple-article:last-child {
+        border: none;
+      }
+    }
+  }
+}

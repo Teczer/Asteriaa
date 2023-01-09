@@ -1,0 +1,67 @@
+main {
+  padding-bottom: 40px;
+  border-bottom: 2px solid var(--space-cadet);
+  margin-bottom: 20px;
+  h1 {
+    text-align: center;
+    color: var(--lavender-blush);
+    margin-bottom: 4rem;
+
+    i {
+      cursor: pointer;
+      font-size: 25px;
+      color: var(--lavender-blush);
+    }
+
+    i:hover {
+      color: var(--carnation-pink);
+    }
+  }
+
+  .cards-container {
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: var(--lavender-blush);
+      width: 350px;
+
+      h2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        color: var(--lavender-blush);
+        margin: 0;
+        padding: 0;
+        width: 200px;
+        height: 80px;
+        margin-left: 35px;
+      }
+
+      h5 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: var(--lavender-blush);
+        margin: 0;
+        padding: 0;
+        height: 100px;
+      }
+
+      .niveau-card {
+        margin: 0;
+        padding: 0;
+        color: var(--lavender-blush);
+      }
+    }
+  }
+}

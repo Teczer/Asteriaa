@@ -1,0 +1,12 @@
+/* import */
+@import "reset";
+@import "base";
+@import "utils";
+@import "media-queries";
+@import "variables";
+
+/* Body */
+
+body {
+  background-color: var(--oxford-blue);
+}

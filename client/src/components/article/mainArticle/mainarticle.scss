@@ -1,0 +1,46 @@
+.main-article {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: space-between;
+  width: 100%;
+
+  a {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+
+    img {
+      width: 100%;
+      height: 63.5%;
+      object-fit: cover;
+    }
+
+    h4 {
+      color: var(--lavender-blush);
+      opacity: 0.8;
+    }
+
+    h2 {
+      color: var(--lavender-blush);
+      margin: 0;
+    }
+
+    p {
+      width: auto;
+      height: auto;
+      color: var(--lavender-blush);
+      opacity: 0.8;
+      text-align: left;
+    }
+  }
+
+  a:hover {
+    h2 {
+      color: var(--carnation-pink);
+    }
+  }
+}
