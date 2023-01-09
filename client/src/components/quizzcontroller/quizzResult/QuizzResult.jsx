@@ -13,7 +13,7 @@ function QuizzResult({ CorrectAns }) {
 		localStorage.setItem(params.quizzType, Number(params.quizzProgression) + 1);
 		const quiZz = params.quizzType;
 		const response = await axios.patch(
-			"http://localhost:5001/workouts/63bbd758b9ea583d921f2721",
+			"http://localhost:5001/workouts/63bc1a548273257b27676385",
 			{ [params.quizzType]: Number(params.quizzProgression) + 1 },
 			{
 				headers: {
