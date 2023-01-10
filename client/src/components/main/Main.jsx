@@ -6,37 +6,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useQuizzContext } from "../../../hooks/useQuizzContext";
-
+/* import { useLogin } from "../../../hooks/useLogin";
+ */
 function Main() {
 	const [userProgression, setUserProgression] = useState();
 	const { user } = useAuthContext();
 	const { quizz, dispatch } = useQuizzContext();
-
-	async function toSetDb() {
-		const response = await axios.post(
-			"http://localhost:5001/workouts",
-			{
-				quizzSystemeSolaire: 1,
-				quizzGalaxies: 1,
-				quizzPhenomenesObservables: 1,
-				quizzAstronautes: 1,
-			},
-			{
-				headers: {
-					Authorization: `Bearer ${user.token}`,
-				},
-			},
-		);
-		console.log(response.data);
-	}
-
-	/* 	let systemeSolaireProgressionValue =
-		userProgression?.quizzSystemeSolaire || 1;
-	let galaxiesProgressionValue = userProgression?.quizzGalaxies || 1;
-	let phenomenesObservablesProgressionValue =
-		userProgression?.quizzPhenomenesObservables || 1;
-	let astronautesProgressionValue = userProgression?.quizzAstronautes || 1; */
-
+	/* 	const { login, error, isLoading } = useLogin();
+	 */
 	const imagess = [
 		[
 			"https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675179/images-collections/1-systeme%20solaire/collec1-cardFrontImage-1-soleil_bb36ak.jpg",
@@ -73,17 +50,14 @@ function Main() {
 	];
 
 	useEffect(() => {
+		/* 		login();
+		 */
+		console.log("llaala", user);
 		const fetchQuizz = async () => {
-			const res = await fetch("http://localhost:5001/workouts/", {
-				headers: { Authorization: `Bearer ${user.token}` },
-			});
-			const data = await res.json();
-			console.log("zdozod", data[0].quizzAstronautes);
-
 			let mescouilles = [
 				{
 					label: "Système Solaire",
-					level: data[0].quizzSystemeSolaire,
+					level: user.quizzSystemeSolaire,
 					img: [
 						"https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675179/images-collections/1-systeme%20solaire/collec1-cardFrontImage-1-soleil_bb36ak.jpg",
 						"https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675181/images-collections/1-systeme%20solaire/collec1-cardFrontImage-2-comet_wnzq4h.jpg",
@@ -95,7 +69,7 @@ function Main() {
 				},
 				{
 					label: "Galaxies",
-					level: data[0].quizzGalaxies,
+					level: "1",
 					img: [
 						"https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675173/images-collections/2-galaxies/collec2-cardFrontImage-6-voielactee_emeafm.jpg",
 						"https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675171/images-collections/2-galaxies/collec2-cardFrontImage-7-whirlpool_xmk2zn.jpg",
@@ -107,7 +81,7 @@ function Main() {
 				},
 				{
 					label: "Phénomènes Observables",
-					level: data[0].quizzPhenomenesObservables,
+					level: "1",
 					img: [
 						"https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677917/images-quizz/PhenomenesObservable/eclipse_w3bgwj.jpg",
 						"https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675177/images-collections/3-phenomenes/collec3-cardBackImage-11-eclipse_hqzlbx.jpg",
@@ -119,7 +93,7 @@ function Main() {
 				},
 				{
 					label: "Astronautes",
-					level: data[0].quizzAstronautes,
+					level: "1",
 					img: [
 						"https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675173/images-collections/4-astronautes/collec4-cardFrontImage-18-leonov_xri8tn.jpg",
 						"https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675177/images-collections/4-astronautes/collec4-cardFrontImage-17-armstrong_zrq05u.jpg",
@@ -131,34 +105,19 @@ function Main() {
 				},
 			];
 
-			if (res.ok) {
-				dispatch({
-					type: "SET_QUIZZ",
-					payload: mescouilles,
-				});
-			}
+			dispatch({
+				type: "SET_QUIZZ",
+				payload: mescouilles,
+			});
+			console.log("yooo", user.quizzSystemeSolaire);
 		};
 		if (user) {
 			fetchQuizz();
 		}
-
-		/* console.log("jorrr", quizz);
-		if (quizz === null) {
-			if (quizz?.length === 0) {
-				toSetDb();
-			}
-		} else {
-			console.log("cest deja creer");
-		} */
 	}, [dispatch, user]);
-
-	/* 	useEffect(async () => {}, []);
-	 */
 	return (
 		<>
 			<main>
-				<button onClick={toSetDb}>OUIASAos</button>
-
 				<h1>
 					{" "}
 					<i className="fa-solid fa-chevron-left" /> Quizz Espace{" "}

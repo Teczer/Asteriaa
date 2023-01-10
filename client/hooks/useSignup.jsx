@@ -10,17 +10,16 @@ export const useSignup = () => {
 	const signup = async (email, password) => {
 		setIsLoading(true);
 		setError(null);
-		/* 	const response = await fetch("http://localhost:5001/user/signup", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ email, password }),
-		}); */
 		try {
 			const { data } = await axios.post(
 				"http://localhost:5001/user/signup",
 				JSON.stringify({
 					email,
 					password,
+					quizzSystemeSolaire: 1,
+					quizzGalaxies: 1,
+					quizzPhenomenesObservables: 1,
+					quizzAstronautes: 1,
 				}),
 				{
 					headers: { "Content-Type": "application/json" },

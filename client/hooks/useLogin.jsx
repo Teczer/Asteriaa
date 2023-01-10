@@ -10,11 +10,6 @@ export const useLogin = () => {
 	const login = async (email, password) => {
 		setIsLoading(true);
 		setError(null);
-		/* 	const response = await fetch("http://localhost:5001/user/login", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ email, password }),
-		}); */
 		try {
 			const { data } = await axios.post(
 				"http://localhost:5001/user/login",
@@ -28,6 +23,7 @@ export const useLogin = () => {
 			);
 			// save the user to localstorage
 			localStorage.setItem("user", JSON.stringify(data));
+			console.log("dkoaokda", data);
 			// update the auth context
 			dispatch({ type: "LOGIN", payload: data });
 

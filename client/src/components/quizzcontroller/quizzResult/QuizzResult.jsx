@@ -9,17 +9,15 @@ function QuizzResult({ CorrectAns }) {
 	const { user } = useAuthContext();
 	async function saveProgression() {
 		console.log("wsh");
-		const currentProgression = localStorage.getItem(params.quizzType);
-		localStorage.setItem(params.quizzType, Number(params.quizzProgression) + 1);
-		const quiZz = params.quizzType;
+		console.log(user);
 		const response = await axios.patch(
-			"http://localhost:5001/workouts/63bc1a548273257b27676385",
+			`http://localhost:5001/user/${user.id}`,
 			{ [params.quizzType]: Number(params.quizzProgression) + 1 },
-			{
+			/* 	{
 				headers: {
 					Authorization: `Bearer ${user.token}`,
 				},
-			},
+			}, */
 		);
 		console.log(response.data);
 		console.log(params.quizzProgression);
