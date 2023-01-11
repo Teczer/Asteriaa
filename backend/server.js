@@ -4,11 +4,29 @@ const mongoose = require("mongoose").set("strictQuery", false);
 const workoutRoutes = require("./routes/workouts.js");
 const userRoutes = require("./routes/user.js");
 const cors = require("cors");
+const jsonServer = require("json-server");
+const path = require("path");
 
 dotenv.config({ path: "./.env" });
 
 // express app
 const app = express();
+const server = jsonServer.create();
+const router = jsonServer.router(path.join(__dirname, "db.json"));
+const middlewares = jsonServer.defaults();
+
+// server use
+
+server.use(cors());
+server.use(jsonServer.bodyParser);
+server.use(middlewares);
+server.use(router);
+
+const PORT = 3000;
+
+server.listen(PORT, () => {
+	console.log(`JSON Server is running on http://localhost:${PORT}`);
+});
 
 // middleware
 
