@@ -12,7 +12,7 @@ function Quizzcontroller() {
 	useEffect(() => {
 		axios
 			.get(
-				`http://localhost:3000/${params.quizzType}0${params.quizzProgression}`,
+				`http://146.59.150.192:3000/${params.quizzType}0${params.quizzProgression}`,
 			)
 			.then((res) => {
 				console.log(res);
