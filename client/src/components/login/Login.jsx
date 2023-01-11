@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./login.scss";
 import { useLogin } from "../../../hooks/useLogin";
-import Header from "../header/Header";
 
 function Login() {
 	const [email, setEmail] = useState("");

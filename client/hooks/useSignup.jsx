@@ -12,7 +12,7 @@ export const useSignup = () => {
 		setError(null);
 		try {
 			const { data } = await axios.post(
-				"http://localhost:5001/user/signup",
+				"http://146.59.150.192:5001/user/signup",
 				JSON.stringify({
 					email,
 					password,

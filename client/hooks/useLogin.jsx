@@ -12,7 +12,7 @@ export const useLogin = () => {
 		setError(null);
 		try {
 			const { data } = await axios.post(
-				"http://localhost:5001/user/login",
+				"http://146.59.150.192:5001/user/login",
 				JSON.stringify({
 					email,
 					password,
@@ -26,7 +26,6 @@ export const useLogin = () => {
 			console.log("dkoaokda", data);
 			// update the auth context
 			dispatch({ type: "LOGIN", payload: data });
-
 			setIsLoading(false);
 		} catch (error) {
 			const { response } = error;

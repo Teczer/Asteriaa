@@ -5,6 +5,7 @@ const {
 	signupUser,
 	loginUser,
 	updateUser,
+	getUser,
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -18,5 +19,9 @@ router.post("/signup", signupUser);
 // UPDATE a single user
 
 router.patch("/:id", updateUser);
+
+//GET single user
+
+router.get("/:id", getUser);
 
 module.exports = router;

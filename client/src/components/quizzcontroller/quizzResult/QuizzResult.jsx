@@ -7,23 +7,24 @@ import { useAuthContext } from "../../../../hooks/useAuthContext";
 function QuizzResult({ CorrectAns }) {
 	const params = useParams();
 	const { user } = useAuthContext();
+	const { dispatch } = useAuthContext();
+
 	async function saveProgression() {
-		console.log("wsh");
-		console.log(user);
 		const response = await axios.patch(
-			`http://localhost:5001/user/${user.id}`,
+			`http://146.59.150.192:5001/user/${user._id}`,
 			{ [params.quizzType]: Number(params.quizzProgression) + 1 },
-			/* 	{
-				headers: {
-					Authorization: `Bearer ${user.token}`,
-				},
-			}, */
 		);
-		console.log(response.data);
-		console.log(params.quizzProgression);
+
+		const afterpatch = axios.get(`http://146.59.150.192:5001/user/${user._id}`);
+
+		console.log(afterpatch);
+
+		console.log("user", user);
+		console.log("response.data", response.data);
 	}
 
 	useEffect(() => {
+		console.log(user);
 		saveProgression();
 	}, []);
 	return (

@@ -24,7 +24,7 @@ const loginUser = async (req, res) => {
 			quizzGalaxies: user.quizzGalaxies,
 			quizzPhenomenesObservables: user.quizzPhenomenesObservables,
 			quizzAstronautes: user.quizzAstronautes,
-			id: user._id,
+			_id: user._id,
 		});
 	} catch (error) {
 		res.status(400).json({ error: error.message });
@@ -61,7 +61,7 @@ const signupUser = async (req, res) => {
 			quizzGalaxies,
 			quizzPhenomenesObservables,
 			quizzAstronautes,
-			id: user._id,
+			_id: user._id,
 		});
 	} catch (error) {
 		res.status(400).json({ error: error.message });
@@ -90,4 +90,21 @@ const updateUser = async (req, res) => {
 	res.status(200).json(user);
 };
 
-module.exports = { signupUser, loginUser, updateUser };
+// get a single workout
+const getUser = async (req, res) => {
+	const { id } = req.params;
+
+	if (!mongoose.Types.ObjectId.isValid(id)) {
+		return res.status(404).json({ error: "No such user" });
+	}
+
+	const user = await User.findById(id);
+
+	if (!user) {
+		return res.status(404).json({ error: "No such user" });
+	}
+
+	res.status(200).json(user);
+};
+
+module.exports = { signupUser, loginUser, updateUser, getUser };
