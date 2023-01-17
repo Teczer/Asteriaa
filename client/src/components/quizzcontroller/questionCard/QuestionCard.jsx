@@ -15,6 +15,10 @@ function QuestionCard({
 	changeActiveAnswer,
 	activeAnswer,
 }) {
+	const handleClick = (event) => {
+		event.currentTarget.disabled = true;
+		console.log("button clicked");
+	};
 	return (
 		<div
 			className="question-container"
@@ -30,6 +34,7 @@ function QuestionCard({
 						className="button-quizz"
 						tabIndex={(1, 2, 3, 4)}
 						onClick={() => {
+							handleClick(event);
 							hanldleAnswrOption(question.isCorrect);
 							changeActiveAnswer(question.questionAnswer);
 							toChangeColorGreen(question);
