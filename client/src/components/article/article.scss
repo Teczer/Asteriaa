@@ -1,5 +1,15 @@
+@mixin xs {
+  @media (max-width: 480px) {
+    @content;
+  }
+}
+
 section {
   border-bottom: 2px solid var(--space-cadet);
+  @include xs {
+    background-color: red;
+    display: none !important;
+  }
 
   h1 {
     text-align: center;

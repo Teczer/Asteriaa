@@ -1,12 +1,27 @@
+@mixin xs {
+  @media (max-width: 480px) {
+    @content;
+  }
+}
+
 main {
+  width: 100vw;
   padding-bottom: 40px;
   border-bottom: 2px solid var(--space-cadet);
   margin-bottom: 20px;
+
+  @include xs {
+    display: flex;
+    flex-direction: column;
+  }
   h1 {
     text-align: center;
     color: var(--lavender-blush);
     margin-bottom: 4rem;
 
+    @include xs {
+      margin-bottom: 6rem;
+    }
     i {
       cursor: pointer;
       font-size: 25px;
@@ -22,6 +37,13 @@ main {
     width: 100vw;
     display: flex;
     justify-content: space-around;
+    @include xs {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 80px;
+    }
 
     .card-container {
       display: flex;
@@ -30,6 +52,14 @@ main {
       align-items: center;
       color: var(--lavender-blush);
       width: 350px;
+
+      @include xs {
+        border-bottom: 1px solid var(--purple-mountain-majesty);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 90px;
+      }
 
       h2 {
         display: flex;
@@ -43,6 +73,10 @@ main {
         width: 200px;
         height: 80px;
         margin-left: 35px;
+
+        @include xs {
+          height: 10px;
+        }
       }
 
       h5 {
@@ -63,5 +97,12 @@ main {
         color: var(--lavender-blush);
       }
     }
+  }
+}
+
+.card-container:last-child {
+  @include xs {
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
   }
 }

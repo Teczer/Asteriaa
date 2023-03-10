@@ -1,3 +1,11 @@
+// @import url(../../scss/_media-queries.scss);
+
+@mixin xs {
+  @media (max-width: 480px) {
+    @content;
+  }
+}
+
 header {
   display: flex;
   justify-content: space-around;
@@ -7,19 +15,26 @@ header {
   height: 15vh;
   border-bottom: 2px solid var(--space-cadet);
   margin-bottom: 20px;
+  @include xs {
+  }
   a {
+    @include xs {
+      display: none;
+    }
     cursor: pointer;
     img {
       width: 110px;
       height: 110px;
       object-fit: contain;
+      margin-right: 180px;
+      margin-left: 40px;
     }
   }
 
   .nav-input {
     display: flex;
+    flex-direction: row;
     gap: 70px;
-    padding-left: 90px;
     a {
       color: var(--lavender-blush);
     }
@@ -37,6 +52,7 @@ header {
     align-items: center;
     text-align: center;
     gap: 10px;
+
     input[type="submit"] {
       border-radius: 3px;
       -moz-border-radius: 3px;
