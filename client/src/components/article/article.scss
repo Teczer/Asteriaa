@@ -7,7 +7,6 @@
 section {
   border-bottom: 2px solid var(--space-cadet);
   @include xs {
-    background-color: red;
     display: none !important;
   }
 

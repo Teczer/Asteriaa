@@ -1,3 +1,8 @@
+@mixin xs {
+  @media (max-width: 480px) {
+    @content;
+  }
+}
 .login-screen {
   display: flex;
   flex-direction: column;
@@ -7,17 +12,19 @@
   height: 100vh;
   margin: 0;
   padding: 0;
-  /* 
-  img {
-    position: fixed;
-    z-index: -1;
-    top: -200px;
-    left: 190px;
-    width: 1400px;
-    height: 1400px;
-    object-fit: contain;
+  @include xs {
+    padding: 20px !important;
   }
- */
+
+  // img {
+  //   position: fixed;
+  //   z-index: -1;
+  //   top: -200px;
+  //   left: 190px;
+  //   width: 1400px;
+  //   height: 1400px;
+  //   object-fit: contain;
+  // }
 
   h1 {
     .asteria-name {
@@ -26,6 +33,9 @@
   }
   .loginform-container {
     /* margin-top: 200px; */
+    @include xs {
+      display: flex !important;
+    }
     #login {
       width: 280px;
 
