@@ -15,10 +15,16 @@ function Login() {
   };
   return (
     <main className="login-screen">
-      {/* <img
+      <img
         src="https://res.cloudinary.com/dw3mwclgk/image/upload/v1670710895/launchlogo_3x_gw4cwy.png"
         alt="Asterialogo"
-      /> */}
+        className="asteria-login-fake-logo"
+      />
+      <img
+        src="https://res.cloudinary.com/dw3mwclgk/image/upload/v1670710895/launchlogo_3x_gw4cwy.png"
+        alt="Asterialogo"
+        className="asteria-login-logo"
+      />
       <h1>
         Bienvenue sur <span className="asteria-name">Asteria</span>,
         veuillez-vous authenthifiez

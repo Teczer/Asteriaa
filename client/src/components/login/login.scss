@@ -3,6 +3,37 @@
     @content;
   }
 }
+
+.asteria-login-fake-logo {
+  // height: 600px !important;
+  // width: 600px !important;
+  align-self: center;
+  object-fit: contain;
+  visibility: hidden;
+
+  @include xs {
+    width: 10px;
+    height: 300px;
+  }
+}
+
+.asteria-login-logo {
+  object-fit: contain;
+  position: fixed;
+  left: 165px;
+  top: -200px;
+  width: 1200px;
+  height: 1200px;
+  z-index: -1;
+
+  @include xs {
+    left: -16px;
+    top: -100px;
+    width: 400px;
+    height: 800px;
+  }
+}
+
 .login-screen {
   display: flex;
   flex-direction: column;
@@ -14,17 +45,8 @@
   padding: 0;
   @include xs {
     padding: 20px !important;
+    font-size: 13px;
   }
-
-  // img {
-  //   position: fixed;
-  //   z-index: -1;
-  //   top: -200px;
-  //   left: 190px;
-  //   width: 1400px;
-  //   height: 1400px;
-  //   object-fit: contain;
-  // }
 
   h1 {
     .asteria-name {
