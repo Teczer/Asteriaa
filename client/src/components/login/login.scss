@@ -20,18 +20,10 @@
 .asteria-login-logo {
   object-fit: contain;
   position: fixed;
-  left: 165px;
-  top: -200px;
-  width: 1200px;
-  height: 1200px;
+  margin: auto;
+  width: 100vw;
+  height: 130vh;
   z-index: -1;
-
-  @include xs {
-    left: -16px;
-    top: -100px;
-    width: 400px;
-    height: 800px;
-  }
 }
 
 .login-screen {
@@ -44,7 +36,6 @@
   margin: 0;
   padding: 0;
   @include xs {
-    padding: 20px !important;
     font-size: 13px;
   }
 
