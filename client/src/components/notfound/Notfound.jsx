@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../header/Header";
 import "./notfound.scss";
+import { Link } from "react-router-dom";
 
 function Notfound() {
   return (
@@ -19,9 +20,9 @@ function Notfound() {
           Vous vous rapprochez d'un trou noir, veuillez faire demi tout le plus
           rapidement possible !
         </h2>
-        <a href="/" className="sign-in">
+        <Link to="/" className="backhome-notfound">
           Retourner à l'accueil
-        </a>
+        </Link>
       </section>
     </>
   );

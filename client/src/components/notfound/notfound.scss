@@ -5,6 +5,10 @@
   gap: 20px;
   align-items: center;
   border: none;
+  margin-top: 120px;
+  margin-bottom: 50px;
+  border-bottom: 2px solid var(--space-cadet);
+  padding: 40px 0px;
 
   .notfound-wrapper {
     display: flex;
@@ -40,5 +44,21 @@
 
   a.sign-in:hover {
     box-shadow: rgb(255, 255, 255, 0.5) 0px 0px 10px;
+  }
+}
+
+.backhome-notfound {
+  border-radius: 3px;
+  background-color: var(--purple-mountain-majesty);
+  color: var(--lavender-blush);
+  font-weight: 700;
+  text-transform: uppercase;
+  border: none;
+  font-size: 14px;
+  padding: 20px 30px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--space-cadet);
   }
 }
