@@ -23,7 +23,7 @@ function QuestionAnswerCard({ post, handleNextQuestion }) {
 
   return (
     <div className="question-answer-container">
-      <h3>RÉPONSE</h3>
+      <h3 className="question-response">RÉPONSE</h3>
       <img src={post.photoAnswer} alt="photoAnswer" />
       <h4>{correctAnswer && correctAnswer.questionAnswer}</h4>
       <p>{post.answerExplanation}</p>

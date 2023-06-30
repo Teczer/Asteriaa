@@ -30,7 +30,7 @@ function QuestionCard({
 
   return (
     <div className="question-container">
-      <h3>QUESTION {currentQuestionNumber}</h3>
+      <h3 className="question-number">QUESTION {currentQuestionNumber}</h3>
       <img src={post.photoQuestion} alt="questionImage" />
       <p>{post.questionValue}</p>
       <div className="button-anwser-container">
