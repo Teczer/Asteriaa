@@ -61,11 +61,13 @@ function Quizzcontroller() {
 
       {modal && (
         <div className="backToHomeModal">
-          <h3>Êtes vous sûr de vouloir retourner à l'accueil ?</h3>
+          <h3 className="backtohome-title">
+            Êtes vous sûr de vouloir retourner à l'accueil ?
+          </h3>
           <a href="/">
             <input type="submit" value="QUITTER" />
           </a>
-          <div className="cancelBackToHome" onClick={() => setModal(true)}>
+          <div className="cancelBackToHome" onClick={() => setModal(false)}>
             <input type="submit" value="ANNULER" />
           </div>
         </div>

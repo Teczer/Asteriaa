@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import "./quizzresult.scss";
@@ -33,18 +33,17 @@ function QuizzResult({ CorrectAns }) {
         <h2>bonnes réponses</h2>
       </div>
       <div className="btn-containerr">
-        <div className="button-to-home">
-          <Link to="/">Retourner à l'accueil</Link>
-        </div>
-        <div className="button-to-home">
-          <a
-            href={`/quizzcontroller/${params.quizzType}/${
-              Number(params.quizzProgression) + 1
-            }`}
-          >
-            Niveau suivant
-          </a>
-        </div>
+        <Link className="button-to-home" to="/">
+          Retourner à l'accueil
+        </Link>
+        <a
+          className="button-to-home"
+          href={`/quizzcontroller/${params.quizzType}/${
+            Number(params.quizzProgression) + 1
+          }`}
+        >
+          Niveau suivant
+        </a>
       </div>
     </div>
   );

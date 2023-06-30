@@ -29,6 +29,11 @@
     background-color: rgba(0, 0, 0, 0.6);
     position: fixed;
 
+    .backtohome-title {
+      color: var(--lavender-blush);
+      margin-bottom: 30px;
+    }
+
     input[type="submit"] {
       border-radius: 3px;
       -moz-border-radius: 3px;
