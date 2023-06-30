@@ -78,7 +78,7 @@ function Main() {
 
   return (
     <>
-      <main>
+      <main className="main-content">
         <h1>
           {" "}
           <i className="fa-solid fa-chevron-left" /> Quizz Espace{" "}

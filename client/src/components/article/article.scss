@@ -1,7 +1,8 @@
 @import "../../scss/media-queries";
 
-section {
+.article-section {
   border-bottom: 2px solid var(--space-cadet);
+  margin-top: 150px;
 
   h1 {
     text-align: center;

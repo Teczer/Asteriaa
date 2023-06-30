@@ -6,10 +6,12 @@ header {
   align-items: center;
   background: var(--oxford-blue);
   width: 100vw;
-  height: 13vh;
+  height: 11vh;
   border-bottom: 2px solid var(--space-cadet);
   position: fixed;
   z-index: 4;
+  top: 0;
+  right: 0;
 
   .logo-container {
     display: flex;
