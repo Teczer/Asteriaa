@@ -1,43 +1,45 @@
-import React from "react";
+import { useState } from "react";
 import "./questionanswercard.scss";
 
-function QuestionAnswerCard({
-	photoAnswer,
-	answerName,
-	answerExplanation,
-	handleNextOption,
-	questionAnswerCardDisplay,
-	displayFromAnswerToQuestion,
-}) {
-	return (
-		<div
-			className="question-answer-container"
-			style={{ display: questionAnswerCardDisplay }}
-		>
-			<h3>RÉPONSE</h3>
-			<img src={photoAnswer} alt="" />
-			<h4>{answerName}</h4>
-			<p>{answerExplanation}</p>
-			{/* rome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
-			<div
-				className="button-next-question"
-				// rome-ignore lint/a11y/noPositiveTabindex: <explanation>
-				tabIndex={1}
-				onClick={() => {
-					handleNextOption();
-					displayFromAnswerToQuestion();
-				}}
-				onKeyDownCapture={() => {
-					if (event.key === "Enter") {
-						handleNextOption();
-						displayFromAnswerToQuestion();
-					}
-				}}
-			>
-				Continuer
-			</div>
-		</div>
-	);
+function QuestionAnswerCard({ post, handleNextQuestion }) {
+  // Trouver la réponse correcte
+  const correctAnswer = post.questionOptions.find(
+    (option) => option.isCorrect === 1
+  );
+
+  // ANTI ABUSE BUTTON
+
+  const [buttonEnabled, setButtonEnabled] = useState(true);
+
+  const cancelButtonAbuse = () => {
+    // Désactiver le bouton "Continuer"
+    setButtonEnabled(false);
+
+    // Attendre 2 secondes avant de réactiver le bouton
+    setTimeout(() => {
+      setButtonEnabled(true);
+    }, 2000); // Laps de temps en millisecondes (ici, 2 secondes)
+  };
+
+  return (
+    <div className="question-answer-container">
+      <h3>RÉPONSE</h3>
+      <img src={post.photoAnswer} alt="photoAnswer" />
+      <h4>{correctAnswer && correctAnswer.questionAnswer}</h4>
+      <p>{post.answerExplanation}</p>
+      <button
+        className="button-next-question"
+        tabIndex={1}
+        onClick={() => {
+          handleNextQuestion();
+          cancelButtonAbuse();
+        }}
+        disabled={!buttonEnabled}
+      >
+        Continuer
+      </button>
+    </div>
+  );
 }
 
 export default QuestionAnswerCard;

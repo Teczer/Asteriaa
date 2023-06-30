@@ -1,69 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
 import "./questioncard.scss";
 
 function QuestionCard({
-	photoQuestion,
-	questionValue,
-	chiffre,
-	questionOptions,
-	handleNextOption,
-	hanldleAnswrOption,
-	questionCardDisplay,
-	displayFromQuestionToAnswer,
-	goodAnswerColorEffect,
-	toChangeColorGreen,
-	changeActiveAnswer,
-	activeAnswer,
+  displayFromQuestionToAnswer,
+  post,
+  currentQuestionNumber,
+  setCorrectAns,
+  CorrectAns,
 }) {
-	const handleClick = (event) => {
-		event.currentTarget.disabled = true;
-		console.log("button clicked");
-	};
-	return (
-		<div
-			className="question-container"
-			style={{ display: questionCardDisplay }}
-		>
-			<h3>QUESTION {chiffre}</h3>
-			<img src={photoQuestion} alt="" />
-			<p>{questionValue}</p>
-			<div className="button-anwser-container">
-				{questionOptions.map((question, index) => (
-					// rome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-					<div
-						className="button-quizz"
-						tabIndex={(1, 2, 3, 4)}
-						onClick={() => {
-							handleClick(event);
-							hanldleAnswrOption(question.isCorrect);
-							changeActiveAnswer(question.questionAnswer);
-							toChangeColorGreen(question);
+  const [selectedOption, setSelectedOption] = useState(null);
 
-							setTimeout(() => {
-								displayFromQuestionToAnswer();
-							}, "1800");
-						}}
-						onKeyDownCapture={() => {
-							if (event.key === "Enter") {
-								hanldleAnswrOption(question.isCorrect);
-								changeActiveAnswer(question.questionAnswer);
-								toChangeColorGreen(question);
+  const handleOptionClick = (index) => {
+    if (selectedOption === null) {
+      setSelectedOption(index);
+    }
+  };
 
-								setTimeout(() => {
-									displayFromQuestionToAnswer();
-								}, "1800");
-							}
-						}}
-						// rome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-						key={index}
-						style={{ backgroundColor: goodAnswerColorEffect }}
-					>
-						{question.questionAnswer}
-					</div>
-				))}
-			</div>
-		</div>
-	);
+  const [buttonsEnabled, setButtonsEnabled] = useState(true);
+
+  const handleButtonClick = () => {
+    // Désactiver les boutons
+    setButtonsEnabled(false);
+
+    // Attendre 2 secondes avant de réactiver les boutons
+    setTimeout(() => {
+      setButtonsEnabled(true);
+    }, 2000); // Laps de temps en millisecondes (ici, 2 secondes)
+  };
+
+  return (
+    <div className="question-container">
+      <h3>QUESTION {currentQuestionNumber}</h3>
+      <img src={post.photoQuestion} alt="questionImage" />
+      <p>{post.questionValue}</p>
+      <div className="button-anwser-container">
+        {post.questionOptions.map((question, index) => {
+          const isCorrect = question.isCorrect === 1;
+          const isSelected = selectedOption === index;
+          const buttonClassName = `button-quizz ${
+            isSelected ? (isCorrect ? "correct" : "incorrect") : ""
+          }`;
+
+          return (
+            <button
+              className={buttonClassName}
+              tabIndex={(1, 2, 3, 4)}
+              onClick={() => {
+                handleButtonClick();
+                handleOptionClick(index);
+                setTimeout(() => {
+                  displayFromQuestionToAnswer();
+                }, "1800");
+                if (isCorrect) {
+                  setCorrectAns((prevCorrectAns) => prevCorrectAns + 1);
+                }
+              }}
+              key={index}
+              disabled={!buttonsEnabled}
+            >
+              {question.questionAnswer}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 export default QuestionCard;

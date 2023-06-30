@@ -1,15 +1,13 @@
 import Article from "../article/Article";
 import CardQuizz from "./cardsQuizz/CardQuizz";
 import "./main.scss";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-// import { useQuizzContext } from "../../../hooks/useQuizzContext";
 
 function Main() {
   const { user } = useAuthContext();
-  // const { quizz, dispatch } = useQuizzContext();
 
   const [userProgression, setUserProgression] = useState([]);
 
@@ -87,10 +85,8 @@ function Main() {
           <i className="fa-solid fa-chevron-right" />
         </h1>
         <ul className="cards-container">
-          {/* rome-ignore lint/complexity/useOptionalChain: <explanation> */}
           {mescouilles &&
             mescouilles.map((value, index) => (
-              // rome-ignore lint/suspicious/noArrayIndexKey: <explanation>
               <li className="card-container" key={index}>
                 <Link
                   to={
@@ -107,7 +103,6 @@ function Main() {
                       ? "Niveau fini"
                       : `Niveau ${value.level} / 5`}
                   </h5>
-                  {/* rome-ignore lint/style/noUnusedTemplateLiteral: <explanation> */}
                   <CardQuizz
                     src={
                       value.level === 5

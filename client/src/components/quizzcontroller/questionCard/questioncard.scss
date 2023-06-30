@@ -39,6 +39,10 @@ p {
   margin-bottom: 40px;
 
   .button-quizz {
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    outline: none;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,4 +58,14 @@ p {
   .button-quizz:hover {
     box-shadow: rgb(255, 255, 255, 0.5) 0px 0px 10px;
   }
+}
+
+.correct {
+  background-color: green !important;
+  /* autres styles pour les boutons corrects */
+}
+
+.incorrect {
+  background-color: red !important;
+  /* autres styles pour les boutons incorrects */
 }

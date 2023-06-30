@@ -36,6 +36,10 @@ p {
 }
 
 .button-next-question {
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
   display: flex;
   justify-content: center;
   align-items: center;

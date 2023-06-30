@@ -37,6 +37,8 @@ main {
     width: 100vw;
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
+
     @include xs {
       display: flex;
       flex-direction: column;
@@ -52,6 +54,7 @@ main {
       align-items: center;
       color: var(--lavender-blush);
       width: 350px;
+      margin-top: 20px;
 
       @include xs {
         border-bottom: 1px solid var(--purple-mountain-majesty);

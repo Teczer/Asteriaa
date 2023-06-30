@@ -1,14 +1,7 @@
-@mixin xs {
-  @media (max-width: 480px) {
-    @content;
-  }
-}
+@import "../../scss/media-queries";
 
 section {
   border-bottom: 2px solid var(--space-cadet);
-  @include xs {
-    display: none !important;
-  }
 
   h1 {
     text-align: center;
@@ -33,5 +26,21 @@ section {
         border: none;
       }
     }
+  }
+}
+
+@include md {
+  .articles-container {
+    flex-direction: column;
+  }
+
+  .simple-article a .article-content-container h2 {
+    font-size: 17px;
+  }
+}
+
+@include xs {
+  section {
+    display: none !important;
   }
 }
