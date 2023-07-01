@@ -14,18 +14,17 @@ mongoose.set("strictQuery", true);
 
 // express app
 const app = express();
+app.use(cors());
 const server = jsonServer.create();
+server.use(cors());
 const middlewares = jsonServer.defaults();
 
 // server use
 
-server.use(cors());
 server.use(jsonServer.bodyParser);
 server.use(middlewares);
 
 // middleware
-
-app.use(cors());
 
 app.use(express.json());
 app.use((req, res, next) => {
