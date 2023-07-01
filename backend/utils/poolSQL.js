@@ -8,7 +8,7 @@ export const pool = mysql
     host: "0.0.0.0",
     user: "root",
     password: "root",
-    database: "asteriaquizz",
+    database: "asteriaQuizz",
     port: 3306,
   })
   .promise();
