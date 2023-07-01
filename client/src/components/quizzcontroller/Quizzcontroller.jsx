@@ -5,6 +5,8 @@ import QuestionCard from "./questionCard/QuestionCard";
 import QuestionAnswerCard from "./questionAnswerCard/QuestionAnswerCard";
 import QuizzResult from "./quizzResult/QuizzResult";
 import { useParams } from "react-router-dom";
+import classNames from "classnames";
+import Stepper from "./stepper/Stepper";
 
 function Quizzcontroller() {
   const [posts, setPosts] = useState([]);
@@ -54,11 +56,19 @@ function Quizzcontroller() {
 
   const [modal, setModal] = useState(false);
 
+  useEffect(() => {
+    console.log("currentQuestion1", currentQuestion1);
+  });
+
   return (
     <div className="quizzcontroller">
       {/* MODAL CONTROLLER SECTION */}
-      <div className="backToHomeContainer" onClick={() => setModal(true)}>
-        <i className="fa-solid fa-circle-chevron-left" />
+      <div className="back-icon-container">
+        <i
+          className="fa-solid fa-circle-chevron-left"
+          onClick={() => setModal(true)}
+        />
+        <Stepper currentQuestion1={currentQuestion1} />
       </div>
 
       {modal && (

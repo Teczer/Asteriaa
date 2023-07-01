@@ -10,6 +10,57 @@
     rgba(0, 0, 0, 0.3)
   );
 
+  .stepper-container {
+    width: 100%;
+    height: 3px;
+    background-color: var(--lavender-blush);
+    opacity: 0.8;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .bar-step-container {
+    width: 360px;
+    height: 3px;
+    position: relative;
+    background-color: var(--lavender-blush);
+  }
+
+  // BARRE ROSE
+
+  .animation-step {
+    position: absolute;
+    height: 100%;
+    background-color: var(--carnation-pink);
+    transition: all 0.5s ease;
+  }
+
+  // CERCLE
+
+  .step-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: var(--lavender-blush);
+    transition: all 1.5s ease;
+  }
+
+  .step-finished {
+    background-color: var(--carnation-pink);
+    transition: all 1.5s ease;
+  }
+
+  .back-icon-container {
+    position: fixed;
+    top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+
   .fa-circle-chevron-left {
     color: var(--lavender-blush);
     font-size: 40px;
