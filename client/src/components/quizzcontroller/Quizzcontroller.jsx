@@ -63,14 +63,6 @@ function Quizzcontroller() {
   return (
     <div className="quizzcontroller">
       {/* MODAL CONTROLLER SECTION */}
-      <div className="back-icon-container">
-        <i
-          className="fa-solid fa-circle-chevron-left"
-          onClick={() => setModal(true)}
-        />
-        <Stepper currentQuestion1={currentQuestion1} />
-      </div>
-
       {modal && (
         <div className="backToHomeModal">
           <h3 className="backtohome-title">
@@ -84,37 +76,51 @@ function Quizzcontroller() {
           </div>
         </div>
       )}
-      {/* QUIZZ CONTROLLER SECTION */}
-      {showResult ? (
-        <QuizzResult CorrectAns={CorrectAns} />
-      ) : (
-        <>
-          {posts.map((post, index) => (
-            <React.Fragment key={index}>
-              {index >= currentQuestion && index < currentQuestion1 && (
-                <div className="main-zoubli">
-                  <div className={`zoubli ${isFlipping ? "rotate-card" : ""}`}>
-                    <QuestionCard
-                      post={post}
-                      currentQuestionNumber={index + 1}
-                      // displayFromQuestionToAnswer={() => setShowAnswer(true)}
-                      CorrectAns={CorrectAns}
-                      setCorrectAns={setCorrectAns}
-                      setIsFlipping={setIsFlipping}
-                    />
-                    {index >= currentQuestion && index < currentQuestion1 && (
-                      <QuestionAnswerCard
+      {/* ICON BACK MENU */}
+      <div className="question-stepper-wrapper">
+        <div className="back-icon-container">
+          <i
+            className="fa-solid fa-circle-chevron-left"
+            onClick={() => setModal(true)}
+          />
+        </div>
+        {/* QUIZZ CONTROLLER SECTION */}
+        <Stepper currentQuestion1={currentQuestion1} />
+        {showResult ? (
+          <QuizzResult CorrectAns={CorrectAns} />
+        ) : (
+          <>
+            {posts.map((post, index) => (
+              <React.Fragment key={index}>
+                {index >= currentQuestion && index < currentQuestion1 && (
+                  <div className="main-zoubli">
+                    <div
+                      className={classNames(
+                        "zoubli",
+                        isFlipping && "rotate-card"
+                      )}
+                    >
+                      <QuestionCard
                         post={post}
-                        handleNextQuestion={handleNextQuestion}
+                        currentQuestionNumber={index + 1}
+                        CorrectAns={CorrectAns}
+                        setCorrectAns={setCorrectAns}
+                        setIsFlipping={setIsFlipping}
                       />
-                    )}
+                      {index >= currentQuestion && index < currentQuestion1 && (
+                        <QuestionAnswerCard
+                          post={post}
+                          handleNextQuestion={handleNextQuestion}
+                        />
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
-            </React.Fragment>
-          ))}
-        </>
-      )}
+                )}
+              </React.Fragment>
+            ))}
+          </>
+        )}
+      </div>
     </div>
   );
 }

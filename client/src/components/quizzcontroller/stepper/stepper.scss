@@ -1,0 +1,44 @@
+@import "../../../scss/media-queries";
+
+.stepper-container {
+  width: 100%;
+  height: 3px;
+  background-color: var(--lavender-blush);
+  opacity: 0.8;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bar-step-container {
+  width: 100%;
+  height: 3px;
+  position: relative;
+  background-color: var(--lavender-blush);
+}
+
+// BARRE ROSE
+
+.animation-step {
+  position: absolute;
+  height: 100%;
+  background-color: var(--carnation-pink);
+  transition: all 0.5s ease;
+}
+
+// CERCLE
+
+.step-circle {
+  width: 50px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: var(--lavender-blush);
+  transition: all 1.5s ease;
+}
+
+@include md {
+  .bar-step-container {
+    width: 100%;
+  }
+}

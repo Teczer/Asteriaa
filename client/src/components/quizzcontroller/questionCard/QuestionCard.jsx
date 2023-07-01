@@ -30,8 +30,14 @@ function QuestionCard({
   return (
     <div className="question-container">
       <h3 className="question-number">QUESTION {currentQuestionNumber}</h3>
-      <img src={post.photoQuestion} alt="questionImage" />
-      <p>{post.questionValue}</p>
+      <div className="image-demerde" style={{ width: "100%" }}>
+        <img
+          className="question-picture"
+          src={post.photoQuestion}
+          alt="questionImage"
+        />
+      </div>
+      <p className="question-questionvalue">{post.questionValue}</p>
       <div className="button-anwser-container">
         {post.questionOptions.map((question, index) => {
           const isCorrect = question.isCorrect === 1;

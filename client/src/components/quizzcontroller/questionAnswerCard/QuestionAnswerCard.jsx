@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./questionanswercard.scss";
+import classNames from "classnames";
 
 function QuestionAnswerCard({ post, handleNextQuestion }) {
   // Trouver la réponse correcte
@@ -25,14 +26,27 @@ function QuestionAnswerCard({ post, handleNextQuestion }) {
 
   return (
     <div
-      className={`question-answer-container ${
-        answerCardDisappear ? "disappear-animation" : ""
-      }`}
+      className={classNames(
+        "question-answer-container",
+        answerCardDisappear && "disappear-animation"
+      )}
     >
-      <h3 className="question-response">RÉPONSE</h3>
-      <img src={post.photoAnswer} alt="photoAnswer" />
-      <h4>{correctAnswer && correctAnswer.questionAnswer}</h4>
-      <p>{post.answerExplanation}</p>
+      <div className="answer-content-wrapper">
+        <div style={{ width: "100%" }}>
+          <h3 className="question-response">RÉPONSE</h3>
+          <div className="image-demerde" style={{ width: "100%" }}>
+            <img
+              className="question-picture"
+              src={post.photoAnswer}
+              alt="photoAnswer"
+            />
+          </div>
+        </div>
+        <h4 className="question-correctanswer">
+          {correctAnswer && correctAnswer.questionAnswer}
+        </h4>
+        <p className="answer-explanation">{post.answerExplanation}</p>
+      </div>
       <button
         className="button-next-question"
         tabIndex={1}
