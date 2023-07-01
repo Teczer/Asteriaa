@@ -14,18 +14,19 @@ mongoose.set("strictQuery", true);
 
 // express app
 const app = express();
+
+// Middleware CORS pour Express
 app.use(cors());
+
 const server = jsonServer.create();
-server.use(cors());
 const middlewares = jsonServer.defaults();
 
 // server use
-
+server.use(cors());
 server.use(jsonServer.bodyParser);
 server.use(middlewares);
 
 // middleware
-
 app.use(express.json());
 app.use((req, res, next) => {
   console.log(req.path, req.method);
@@ -33,18 +34,15 @@ app.use((req, res, next) => {
 });
 
 // routes
-
 app.use("/workouts", workoutRoutes);
 app.use("/user", userRoutes);
 app.use("/quizz", quizzRouter);
 
 // connect to db
-
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     // listen for requests
-
     app.listen(process.env.PORT, () => {
       console.log("Server started on Port", process.env.PORT);
     });
