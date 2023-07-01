@@ -5,10 +5,9 @@ dotenv.config();
 
 export const pool = mysql
   .createPool({
-    host: "0.0.0.0",
+    host: "localhost:5001",
     user: "root",
     password: "root",
     database: "asteriaquizz",
-    port: 3306,
   })
   .promise();
