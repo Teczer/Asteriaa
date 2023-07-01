@@ -1,12 +1,13 @@
-const express = require("express");
+import express from "express";
 
 // controller functions
-const {
-	signupUser,
-	loginUser,
-	updateUser,
-	getUser,
-} = require("../controllers/userController");
+
+import {
+  signupUser,
+  loginUser,
+  updateUser,
+  getUser,
+} from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -20,8 +21,8 @@ router.post("/signup", signupUser);
 
 router.patch("/:id", updateUser);
 
-//GET single user
+// GET single user
 
 router.get("/:id", getUser);
 
-module.exports = router;
+export default router;
