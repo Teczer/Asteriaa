@@ -21,8 +21,14 @@ function QuestionAnswerCard({ post, handleNextQuestion }) {
     }, 2000); // Laps de temps en millisecondes (ici, 2 secondes)
   };
 
+  const [answerCardDisappear, setAnswerCardDisappear] = useState(false);
+
   return (
-    <div className="question-answer-container">
+    <div
+      className={`question-answer-container ${
+        answerCardDisappear ? "disappear-animation" : ""
+      }`}
+    >
       <h3 className="question-response">RÉPONSE</h3>
       <img src={post.photoAnswer} alt="photoAnswer" />
       <h4>{correctAnswer && correctAnswer.questionAnswer}</h4>
@@ -31,7 +37,11 @@ function QuestionAnswerCard({ post, handleNextQuestion }) {
         className="button-next-question"
         tabIndex={1}
         onClick={() => {
-          handleNextQuestion();
+          setAnswerCardDisappear(true);
+          setTimeout(() => {
+            handleNextQuestion();
+            setAnswerCardDisappear(false);
+          }, 500);
           cancelButtonAbuse();
         }}
         disabled={!buttonEnabled}

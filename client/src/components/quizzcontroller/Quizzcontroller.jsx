@@ -38,7 +38,8 @@ function Quizzcontroller() {
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < posts.length) {
       setCurrentQuestion(nextQuestion);
-      setShowAnswer(false);
+      // setShowAnswer(false);
+      setIsFlipping(false);
     } else {
       setShowResult(true);
     }
@@ -46,7 +47,8 @@ function Quizzcontroller() {
     setCurrentQuestion2(nextQuestion1);
   };
 
-  const [showAnswer, setShowAnswer] = useState(false);
+  // const [showAnswer, setShowAnswer] = useState(false);
+  const [isFlipping, setIsFlipping] = useState(false);
 
   // Modal Quizz Controller
 
@@ -79,29 +81,26 @@ function Quizzcontroller() {
         <>
           {posts.map((post, index) => (
             <React.Fragment key={index}>
-              {!showAnswer &&
-                index >= currentQuestion &&
-                index < currentQuestion1 && (
-                  <div>
+              {index >= currentQuestion && index < currentQuestion1 && (
+                <div className="main-zoubli">
+                  <div className={`zoubli ${isFlipping ? "rotate-card" : ""}`}>
                     <QuestionCard
                       post={post}
                       currentQuestionNumber={index + 1}
-                      displayFromQuestionToAnswer={() => setShowAnswer(true)}
+                      // displayFromQuestionToAnswer={() => setShowAnswer(true)}
                       CorrectAns={CorrectAns}
                       setCorrectAns={setCorrectAns}
+                      setIsFlipping={setIsFlipping}
                     />
+                    {index >= currentQuestion && index < currentQuestion1 && (
+                      <QuestionAnswerCard
+                        post={post}
+                        handleNextQuestion={handleNextQuestion}
+                      />
+                    )}
                   </div>
-                )}
-              {showAnswer &&
-                index >= currentQuestion &&
-                index < currentQuestion1 && (
-                  <div>
-                    <QuestionAnswerCard
-                      post={post}
-                      handleNextQuestion={handleNextQuestion}
-                    />
-                  </div>
-                )}
+                </div>
+              )}
             </React.Fragment>
           ))}
         </>

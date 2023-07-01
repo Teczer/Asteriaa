@@ -55,3 +55,39 @@ p {
 .button-next-question:hover {
   box-shadow: rgb(255, 255, 255, 0.8) 0px 0px 20px;
 }
+
+.question-answer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  // height: 700px;
+  // width: 500px;
+  background-color: var(--orchid-crayola);
+  box-shadow: 0px 0px 5px var(--lavender-blush);
+  border-radius: 20px;
+  padding: 20px;
+  position: absolute;
+  // top: 0px;
+  // left: 0px;
+  // transition: all 2s;
+  // transform: rotateY(180deg);
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  opacity: 1;
+}
+
+.disappear-animation {
+  animation: fadein 300ms linear both;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

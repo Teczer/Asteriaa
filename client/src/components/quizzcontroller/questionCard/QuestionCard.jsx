@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import "./questioncard.scss";
 
 function QuestionCard({
-  displayFromQuestionToAnswer,
   post,
   currentQuestionNumber,
   setCorrectAns,
-  CorrectAns,
+  setIsFlipping,
 }) {
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -48,12 +47,10 @@ function QuestionCard({
               onClick={() => {
                 handleButtonClick();
                 handleOptionClick(index);
-                setTimeout(() => {
-                  displayFromQuestionToAnswer();
-                }, "1800");
                 if (isCorrect) {
                   setCorrectAns((prevCorrectAns) => prevCorrectAns + 1);
                 }
+                setIsFlipping(true);
               }}
               key={index}
               disabled={!buttonsEnabled}
