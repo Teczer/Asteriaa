@@ -4,13 +4,14 @@
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.3)
+  );
 
   .fa-circle-chevron-left {
     color: var(--lavender-blush);
-    position: relative;
-    bottom: 330px;
-    left: 800px;
     font-size: 40px;
     cursor: pointer;
   }
@@ -28,6 +29,7 @@
     align-items: center;
     background-color: rgba(0, 0, 0, 0.6);
     position: fixed;
+    z-index: 1;
 
     .backtohome-title {
       color: var(--lavender-blush);
