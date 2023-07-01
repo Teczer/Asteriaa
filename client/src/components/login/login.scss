@@ -1,36 +1,10 @@
-@mixin xs {
-  @media (max-width: 480px) {
-    @content;
-  }
-}
-
-.asteria-login-fake-logo {
-  // height: 600px !important;
-  // width: 600px !important;
-  align-self: center;
-  object-fit: contain;
-  visibility: hidden;
-
-  @include xs {
-    width: 10px;
-    height: 300px;
-  }
-}
-
-.asteria-login-logo {
-  object-fit: contain;
-  position: fixed;
-  margin: auto;
-  width: 100vw;
-  height: 130vh;
-  z-index: -1;
-}
+@import "../../scss/media-queries";
 
 .login-screen {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   width: 100vw;
   height: 100vh;
   margin: 0;
@@ -39,15 +13,41 @@
     font-size: 13px;
   }
 
-  h1 {
+  .asteria-login-logo {
+    width: 500px;
+    height: auto;
+    object-fit: cover;
+
+    @include md {
+      width: 400px;
+    }
+
+    @include xs {
+      width: 300px;
+    }
+  }
+
+  .login-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    margin-bottom: 100px;
+  }
+
+  .login-title {
+    color: var(--lavender-blush);
+    font-family: var(--font-family-fjalla);
+    text-align: center;
     .asteria-name {
       color: var(--carnation-pink);
     }
   }
   .loginform-container {
-    /* margin-top: 200px; */
     @include xs {
       display: flex !important;
+      flex-direction: column;
     }
     #login {
       width: 280px;
