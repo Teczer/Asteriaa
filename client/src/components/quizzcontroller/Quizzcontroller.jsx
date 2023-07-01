@@ -15,7 +15,7 @@ function Quizzcontroller() {
 
   async function getSqlQuizz(params) {
     try {
-      const response = await axios.post("http://localhost:5001/quizz", {
+      const response = await axios.post("http://mehdiv.fr/quizz", {
         quizzType: params.quizzType,
         quizzProgression: params.quizzProgression,
       });
