@@ -19,7 +19,7 @@
   h1 {
     text-align: center;
     color: var(--lavender-blush);
-    margin-bottom: 4rem;
+    margin-bottom: 1rem;
 
     @include xs {
       margin-bottom: 6rem;
@@ -56,7 +56,8 @@
       align-items: center;
       color: var(--lavender-blush);
       width: 350px;
-      margin-top: 20px;
+      margin-top: 50px;
+      gap: 50px;
 
       @include xs {
         border-bottom: 1px solid var(--purple-mountain-majesty);
@@ -66,33 +67,19 @@
         padding-bottom: 90px;
       }
 
-      h2 {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        text-align: center;
-        align-items: center;
+      .category-name {
         color: var(--lavender-blush);
-        margin: 0;
-        padding: 0;
-        width: 200px;
-        margin-left: 35px;
+        max-width: 350px;
+        text-align: center;
 
         @include xs {
           height: 10px;
         }
       }
 
-      h5 {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
+      .category-level-progression {
         color: var(--lavender-blush);
-        margin: 0;
-        padding: 0;
-        height: 100px;
+        text-align: center;
       }
 
       .niveau-card {

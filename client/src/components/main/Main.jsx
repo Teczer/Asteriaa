@@ -33,6 +33,7 @@ function Main() {
         "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675178/images-collections/1-systeme%20solaire/collec1-cardBackImage-1-soleil_fcgefa.jpg",
         "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677915/images-quizz/PhenomenesObservable/nebuleuse4_3x_hhw3yd.jpg",
       ],
+      to: "quizzSystemeSolaire",
     },
     {
       label: "Galaxies",
@@ -45,6 +46,7 @@ function Main() {
         "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675171/images-collections/2-galaxies/collec2-cardFrontImage-10-horsehead_ixzx8i.jpg",
         "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677915/images-quizz/PhenomenesObservable/nebuleuse4_3x_hhw3yd.jpg",
       ],
+      to: "quizzGalaxies",
     },
     {
       label: "Phénomènes Observables",
@@ -57,6 +59,7 @@ function Main() {
         "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675175/images-collections/3-phenomenes/collec3-cardFrontImage-12-moon_veahxq.jpg",
         "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677915/images-quizz/PhenomenesObservable/nebuleuse4_3x_hhw3yd.jpg",
       ],
+      to: "quizzPhenomenesObservables",
     },
     {
       label: "Astronautes",
@@ -69,6 +72,7 @@ function Main() {
         "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675174/images-collections/4-astronautes/collec4-cardFrontImage-16-gagarine_nrk3re.jpg",
         "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677915/images-quizz/PhenomenesObservable/nebuleuse4_3x_hhw3yd.jpg",
       ],
+      to: "quizzAstronautes",
     },
   ];
 
@@ -80,7 +84,6 @@ function Main() {
     <>
       <main className="main-content">
         <h1>
-          {" "}
           <i className="fa-solid fa-chevron-left" /> Quizz Espace{" "}
           <i className="fa-solid fa-chevron-right" />
         </h1>
@@ -88,21 +91,19 @@ function Main() {
           {mescouilles &&
             mescouilles.map((value, index) => (
               <li className="card-container" key={index}>
+                <h2 className="category-name">{value.label}</h2>
+                <h5 className="category-level-progression">
+                  {value.level === 5
+                    ? "Niveau fini"
+                    : `Niveau ${value.level} / 5`}
+                </h5>
                 <Link
                   to={
                     value.level === 5
                       ? "/"
-                      : `/quizzcontroller/quizzSystemeSolaire/${value.level}`
+                      : `/quizzcontroller/${value.to}/${value.level}`
                   }
                 >
-                  {/* 								<Link to={value.to} onClick>
-                   */}{" "}
-                  <h2>{value.label}</h2>
-                  <h5>
-                    {value.level === 5
-                      ? "Niveau fini"
-                      : `Niveau ${value.level} / 5`}
-                  </h5>
                   <CardQuizz
                     src={
                       value.level === 5

@@ -14,6 +14,9 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  profilePicture: {
+    type: String,
+  },
   quizzSystemeSolaire: {
     type: Number,
   },
@@ -32,6 +35,7 @@ const userSchema = new Schema({
 userSchema.statics.signup = async function (
   email,
   password,
+  profilePicture,
   quizzSystemeSolaire,
   quizzGalaxies,
   quizzPhenomenesObservables,
@@ -66,6 +70,7 @@ userSchema.statics.signup = async function (
   const user = await this.create({
     email,
     password: hash,
+    profilePicture,
     quizzSystemeSolaire,
     quizzGalaxies,
     quizzPhenomenesObservables,

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "./header.scss";
 import { useLogout } from "../../../hooks/useLogout";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Header = () => {
   const [modalBurger, setModalBurger] = useState(false);
@@ -14,6 +14,9 @@ const Header = () => {
     logout();
   };
 
+  useEffect(() => {
+    console.log("userFROMHEADER", user);
+  }, [user]);
   return (
     <>
       <header className="header-asteria">
@@ -45,11 +48,17 @@ const Header = () => {
           <Link to="quizz">Quizz</Link>
           <Link to="news">Actualités</Link>
         </div>
-
         {user && (
           <div className="logout-wrapper">
             <span style={{ color: "var(--lavender-blush)" }}>{user.email}</span>
             <input type="submit" value="SE DÉCONNECTER" onClick={handleClick} />
+            <figure className="figure-user-profile-picture">
+              <img
+                className="user-profile-picture"
+                src={user.profilePicture}
+                alt="user-profil-picture"
+              />
+            </figure>
           </div>
         )}
 
