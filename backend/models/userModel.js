@@ -66,10 +66,6 @@ userSchema.statics.signup = async function (
     throw Error("Password is too weak");
   }
 
-  if (userName.length > 16) {
-    throw Error("Your username is too long, 16 characters max");
-  }
-
   const exists = await this.findOne({ email });
 
   if (exists) {
