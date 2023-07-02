@@ -14,6 +14,12 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  isAdmin: {
+    type: Boolean,
+  },
+  userName: {
+    type: String,
+  },
   profilePicture: {
     type: String,
   },
@@ -35,6 +41,8 @@ const userSchema = new Schema({
 userSchema.statics.signup = async function (
   email,
   password,
+  isAdmin,
+  userName,
   profilePicture,
   quizzSystemeSolaire,
   quizzGalaxies,
@@ -58,6 +66,10 @@ userSchema.statics.signup = async function (
     throw Error("Password is too weak");
   }
 
+  if (userName.lenght > 16) {
+    throw Error("Your username is too long, 16 characters max");
+  }
+
   const exists = await this.findOne({ email });
 
   if (exists) {
@@ -70,6 +82,8 @@ userSchema.statics.signup = async function (
   const user = await this.create({
     email,
     password: hash,
+    isAdmin,
+    userName,
     profilePicture,
     quizzSystemeSolaire,
     quizzGalaxies,

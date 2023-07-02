@@ -21,6 +21,8 @@ export const loginUser = async (req, res) => {
     res.status(200).json({
       email,
       token,
+      isAdmin: user.isAdmin,
+      userName: user.userName,
       profilePicture: user.profilePicture,
       quizzSystemeSolaire: user.quizzSystemeSolaire,
       quizzGalaxies: user.quizzGalaxies,
@@ -37,6 +39,8 @@ export const signupUser = async (req, res) => {
   const {
     email,
     password,
+    isAdmin,
+    userName,
     profilePicture,
     quizzSystemeSolaire,
     quizzGalaxies,
@@ -48,6 +52,8 @@ export const signupUser = async (req, res) => {
     const user = await User.signup(
       email,
       password,
+      isAdmin,
+      userName,
       profilePicture,
       quizzSystemeSolaire,
       quizzGalaxies,
@@ -61,6 +67,8 @@ export const signupUser = async (req, res) => {
     res.status(200).json({
       email,
       token,
+      isAdmin,
+      userName,
       profilePicture,
       quizzSystemeSolaire,
       quizzGalaxies,
