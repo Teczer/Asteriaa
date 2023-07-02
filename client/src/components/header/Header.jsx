@@ -68,7 +68,7 @@ const Header = () => {
                     className="close-user-modal-btn"
                     onClick={() => setUserModal(false)}
                   >
-                    <i class="fa-solid fa-circle-xmark"></i>
+                    <i className="fa-solid fa-circle-xmark"></i>
                   </button>
                   <div className="user-information-wrapper">
                     <figure className="figure-user-profile-picture --modal">
@@ -79,7 +79,7 @@ const Header = () => {
                       />
                       <div className="btn-change-container">
                         <button className="change-picture-btn">
-                          <i class="fa-solid fa-camera"></i>
+                          <i className="fa-solid fa-camera"></i>
                         </button>
                       </div>
                     </figure>

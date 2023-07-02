@@ -16,7 +16,7 @@ function Signup() {
       "http://localhost:5001/workouts",
       {
         isAdmin: false,
-        userName: username,
+        userName: userName,
         profilePicture:
           "https://static-cdn.jtvnw.net/user-default-pictures-uv/ead5c8b2-a4c9-4724-b1dd-9f00b46cbd3d-profile_image-70x70.png",
         quizzSystemeSolaire: 1,
@@ -36,8 +36,8 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await signup(email, password);
-    console.log(email, password);
+    await signup(email, password, userName);
+    console.log(email, password, userName);
     await console.log("joriszs", user);
     toSetDb();
   };
