@@ -84,7 +84,8 @@ header {
       cursor: pointer;
 
       &:hover {
-        background-color: var(--space-cadet);
+        box-shadow: 3px 4px 40px rgba(255, 255, 255, 0.1),
+          -2px 1px 30px rgba(255, 255, 255, 0.1);
       }
     }
 
@@ -216,10 +217,175 @@ header {
   width: 6rem;
   height: 6rem;
   cursor: pointer;
+
+  &.--modal {
+    width: 9rem;
+    height: 9rem;
+  }
 }
+
 .user-profile-picture {
-  display: block !important;
-  border-radius: 9000px !important;
-  width: 100% !important;
+  display: block;
+  border-radius: 9000px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border: 1px solid rgba(255, 246, 252, 0.7);
+
+  &:hover {
+    color: var(--carnation-pink);
+    border-color: var(--carnation-pink);
+  }
+}
+
+.user-controller-modal {
+  overflow: hidden;
+  position: absolute;
+  z-index: 991;
+  width: 370px;
+  height: 280px;
+  top: 90px;
+  right: 13%;
+  max-height: calc(-61px + 100vh);
+  max-width: calc(-8px + 100vw);
+  transition: opacity 0.1s ease 0.02s;
+  opacity: 1;
+  background: var(--space-cadet);
+  padding: 4px 8px;
+  border-radius: 27px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+.close-user-modal-btn {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 27px;
+  color: white;
+  border: 1px solid #c4c7c5;
+  background: #181836;
+  position: absolute;
+  top: 0px;
+  right: 6px;
+
+  &:hover {
+    border-color: var(--carnation-pink);
+    color: var(--carnation-pink);
+  }
+}
+.user-controller-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  background: #181836;
+  height: 60%;
+  border-top-right-radius: 27px;
+  border-top-left-radius: 27px;
+  padding: 10px 5px 0;
+}
+
+.user-information-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px 20px;
+  gap: 20px;
+}
+.to-user-page {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: normal;
+  border-radius: 8px;
+  border: 1px solid #8e918f;
+  float: left;
+  margin-bottom: 9px;
+  margin-left: 78px;
+  margin-top: 8px;
+  max-width: 254px;
+  padding: 5px 15px;
+  position: relative;
+  text-align: center;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  color: #e3e3e3;
+
+  &:hover {
+    color: var(--carnation-pink);
+    border-color: var(--carnation-pink);
+  }
+}
+
+.username-usermail-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: start;
+}
+
+.username-modal {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: normal;
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #e3e3e3;
+}
+
+.usermail-modal {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.1px;
+  max-width: 250px;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #c4c7c5;
+}
+
+.btn-change-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  bottom: -4px;
+  height: 35px;
+  position: absolute;
+  right: -4px;
+  width: 35px;
+  background: #181836;
+}
+
+.change-picture-btn {
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  outline: 0;
+  background: none;
+  border: 1px solid #c4c7c5;
+  box-sizing: border-box;
+  height: 24px;
+  padding: 0;
+  position: relative;
+  width: 24px;
+  margin: 3px;
+  border-color: #444746;
+  color: var(--lavender-blush);
+
+  &:hover {
+    border-color: var(--carnation-pink) !important;
+  }
 }

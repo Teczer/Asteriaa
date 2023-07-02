@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 const Header = () => {
   const [modalBurger, setModalBurger] = useState(false);
+  const [userModal, setUserModal] = useState(false);
 
   const { logout } = useLogout();
   const { user } = useAuthContext();
@@ -50,15 +51,54 @@ const Header = () => {
         </div>
         {user && (
           <div className="logout-wrapper">
-            <span style={{ color: "var(--lavender-blush)" }}>{user.email}</span>
-            <input type="submit" value="SE DÉCONNECTER" onClick={handleClick} />
-            <figure className="figure-user-profile-picture">
+            <figure
+              className="figure-user-profile-picture"
+              onClick={() => setUserModal(true)}
+            >
               <img
                 className="user-profile-picture"
                 src={user.profilePicture}
                 alt="user-profil-picture"
               />
             </figure>
+            {userModal && (
+              <div className="user-controller-modal">
+                <div className="user-controller-wrapper">
+                  <button
+                    className="close-user-modal-btn"
+                    onClick={() => setUserModal(false)}
+                  >
+                    <i class="fa-solid fa-circle-xmark"></i>
+                  </button>
+                  <div className="user-information-wrapper">
+                    <figure className="figure-user-profile-picture --modal">
+                      <img
+                        className="user-profile-picture"
+                        src={user.profilePicture}
+                        alt="user-profil-picture"
+                      />
+                      <div className="btn-change-container">
+                        <button className="change-picture-btn">
+                          <i class="fa-solid fa-camera"></i>
+                        </button>
+                      </div>
+                    </figure>
+                    <div className="username-usermail-wrapper">
+                      <p className="username-modal">Teczer</p>
+                      <span className="usermail-modal">{user.email}</span>
+                    </div>
+                  </div>
+                  <Link className="to-user-page" to="/">
+                    Gérer votre compte Asteria
+                  </Link>
+                </div>
+                <input
+                  type="submit"
+                  value="SE DÉCONNECTER"
+                  onClick={handleClick}
+                />
+              </div>
+            )}
           </div>
         )}
 

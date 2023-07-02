@@ -17,7 +17,7 @@ export const useSignup = () => {
           email,
           password,
           profilePicture:
-            "https://static-cdn.jtvnw.net/user-default-pictures-uv/ead5c8b2-a4c9-4724-b1dd-9f00b46cbd3d-profile_image-70x70.png",
+            "https://cdn.dribbble.com/users/1438762/screenshots/11159465/media/47bff5efea8682a4a28d8f10675225de.jpg?compress=1&resize=400x300&vertical=center",
           quizzSystemeSolaire: 1,
           quizzGalaxies: 1,
           quizzPhenomenesObservables: 1,
