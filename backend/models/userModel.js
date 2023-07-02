@@ -66,7 +66,7 @@ userSchema.statics.signup = async function (
     throw Error("Password is too weak");
   }
 
-  if (userName.lenght > 16) {
+  if (userName.length > 16) {
     throw Error("Your username is too long, 16 characters max");
   }
 

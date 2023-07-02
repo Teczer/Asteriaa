@@ -84,7 +84,7 @@ const Header = () => {
                       </div>
                     </figure>
                     <div className="username-usermail-wrapper">
-                      <p className="username-modal">Teczer</p>
+                      <p className="username-modal">{user.userName}</p>
                       <span className="usermail-modal">{user.email}</span>
                     </div>
                   </div>

@@ -7,7 +7,7 @@ export const useSignup = () => {
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
 
-  const signup = async (email, password) => {
+  const signup = async (email, password, userName) => {
     setIsLoading(true);
     setError(null);
     try {
@@ -16,6 +16,8 @@ export const useSignup = () => {
         JSON.stringify({
           email,
           password,
+          isAdmin: false,
+          userName,
           profilePicture:
             "https://cdn.dribbble.com/users/1438762/screenshots/11159465/media/47bff5efea8682a4a28d8f10675225de.jpg?compress=1&resize=400x300&vertical=center",
           quizzSystemeSolaire: 1,
