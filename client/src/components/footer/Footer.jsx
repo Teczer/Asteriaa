@@ -37,10 +37,47 @@ const footerSections = [
   },
 ];
 
+const footerMobileSection = [
+  {
+    text: "Politique de confidentialité",
+    to: "/",
+  },
+  {
+    text: "Catégories",
+    to: "/",
+  },
+  {
+    text: "À propos",
+    to: "/",
+  },
+  {
+    text: "Investir et Soutenir",
+    to: "/",
+  },
+  {
+    text: "Crédits",
+    to: "/",
+  },
+];
+
 function Footer() {
   return (
     <footer className="footer-asteria">
       <div className="footer-sections-container">
+        {/* FOOTER MOBILE */}
+        <section className="footer-section --mobile">
+          <ul className="footer-link-container --mobile">
+            {footerMobileSection.map((title, index) => (
+              <li className="footer-link-item --mobile" key={index}>
+                <Link className="footer-h3 --mobile" to={title.to}>
+                  {title.text}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+        {/* FOOTER DESKTOP */}
+
         {footerSections.map((section, index) => (
           <section key={index} className="footer-section">
             <h3 className="footer-h3">{section.title}</h3>
@@ -56,7 +93,7 @@ function Footer() {
           </section>
         ))}
       </div>
-      <div className="social-medials">
+      <div className="social-medials --mobile">
         <div className="footer-copyright">
           <Link className="footer-link" to="/">
             © 2023 Asteria Inc.
