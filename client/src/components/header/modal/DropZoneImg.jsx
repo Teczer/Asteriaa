@@ -55,9 +55,9 @@ const img = {
   objectFit: "cover",
 };
 
-function Previews(props) {
-  const { user } = useAuthContext();
+function Previews({ setChangingPicture, handleFileUpload, handleSubmit }) {
   const [files, setFiles] = useState([]);
+  const { user } = useAuthContext();
 
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
     useDropzone({
@@ -72,24 +72,25 @@ function Previews(props) {
             })
           )
         );
+        acceptedFiles.map(async (file) => {
+          const base64 = await convertToBase64(file);
+          console.log(base64);
 
-        const base64 = await convertToBase64(files);
-        console.log("base64", base64);
+          const response = await axios.patch(
+            `http://146.59.150.192:5001/user/${user._id}`,
+            { profilePicture: base64 }
+          );
 
-        const response = await axios.patch(
-          `http://146.59.150.192:5001/user/${user._id}`,
-          { profilePicture: base64 }
-        );
+          const afterpatch = await axios.get(
+            `http://146.59.150.192:5001/user/${user._id}`
+          );
 
-        const afterpatch = await axios.get(
-          `http://146.59.150.192:5001/user/${user._id}`
-        );
+          dispatch({ type: "UPDATE_USER", payload: afterpatch.data });
 
-        dispatch({ type: "UPDATE_USER", payload: afterpatch.data });
-
-        console.log("afterpatch", afterpatch);
-        console.log("user", user);
-        console.log("response.data", response.data);
+          console.log("afterpatch", afterpatch);
+          console.log("user", user);
+          console.log("response.data", response.data);
+        });
       },
     });
 

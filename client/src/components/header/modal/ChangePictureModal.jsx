@@ -29,6 +29,31 @@ function ChangePictureModal({ setIsChangingProfilePicture }) {
     console.log("response.data", response.data);
   }
 
+  // DROPZONE
+
+  const [postImage, setPostImage] = useState({ myFile: "" });
+
+  const createPost = async (newImage) => {
+    try {
+      await axios.post(`http://146.59.150.192:5001/user/${user._id}`, newImage);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createPost(postImage);
+    console.log("Uploaded");
+  };
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertToBase64(file);
+    console.log(base64);
+    setPostImage({ ...postImage, myFile: base64 });
+  };
+
   return (
     <div className="modal-changepicture-container">
       <div className="selector-profile-picture-container">
@@ -42,12 +67,17 @@ function ChangePictureModal({ setIsChangingProfilePicture }) {
           <figure className="figure-user-profile-picture --change-picture">
             <img
               className="user-profile-picture"
-              src={changingPicture || user.profilePicture}
+              src={(changingPicture && postImage.myFile) || user.profilePicture}
               alt="user-profil-picture"
             />
           </figure>
         </div>
-        <Previews setChangingPicture={setChangingPicture} />
+
+        <Previews
+          setChangingPicture={setChangingPicture}
+          handleFileUpload={handleFileUpload}
+          handleSubmit={handleSubmit}
+        />
         <form
           className="profile-picture-url-form"
           onSubmit={changeUserProfilePicture}
