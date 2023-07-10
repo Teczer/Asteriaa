@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
 import jsonServer from "json-server";
-import bodyParser from "body-parser";
 
 import workoutRoutes from "./routes/workouts.js";
 import userRoutes from "./routes/user.js";
@@ -35,18 +34,11 @@ const middlewares = jsonServer.defaults();
 
 // server use
 server.use(cors());
+server.use(jsonServer.bodyParser);
 server.use(middlewares);
 
 // middleware
 app.use(express.json());
-app.use(bodyParser.json({ limit: "500mb" }));
-app.use(
-  bodyParser.urlencoded({
-    limit: "500mb",
-    extended: true,
-    parameterLimit: 50000,
-  })
-);
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();

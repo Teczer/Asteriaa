@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 import { convertToBase64 } from "../../../../helpers";
+import ImageCompressor from "image-compressor";
 import axios from "axios";
 
 const thumbsContainer = {
@@ -60,24 +61,72 @@ function Previews({ setChangingPicture, handleFileUpload, handleSubmit }) {
   const { user } = useAuthContext();
   const { dispatch } = useAuthContext();
 
+  async function compressImage(file, options) {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.src = URL.createObjectURL(file);
+      image.onload = () => {
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+
+        const { maxWidth, maxHeight } = options;
+        let width = image.width;
+        let height = image.height;
+
+        if (width > maxWidth) {
+          height = (maxWidth / width) * height;
+          width = maxWidth;
+        }
+
+        if (height > maxHeight) {
+          width = (maxHeight / height) * width;
+          height = maxHeight;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        context.drawImage(image, 0, 0, width, height);
+
+        canvas.toBlob(
+          (blob) => {
+            resolve(new File([blob], file.name, { type: options.mimeType }));
+          },
+          options.mimeType,
+          options.quality
+        );
+      };
+      image.onerror = (error) => {
+        reject(error);
+      };
+    });
+  }
+
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
     useDropzone({
       accept: {
         "image/*": [],
       },
       onDrop: async (acceptedFiles) => {
-        const requests = acceptedFiles.map(async (file) => {
-          const base64 = await convertToBase64(file);
+        const compressedFiles = await Promise.all(
+          acceptedFiles.map(async (file) => {
+            const compressedFile = await compressImage(file, {
+              quality: 0.6,
+              maxWidth: 800,
+              maxHeight: 800,
+              mimeType: "image/jpeg",
+            });
 
-          return axios.patch(`http://146.59.150.192:5001/user/${user._id}`, {
-            profilePicture: base64,
-          });
-        });
+            const base64 = await convertToBase64(compressedFile);
+
+            return axios.patch(`http://146.59.150.192:5001/user/${user._id}`, {
+              profilePicture: base64,
+            });
+          })
+        );
 
         try {
-          const responses = await Promise.all(requests);
-          // Mise à jour du contexte d'authentification ici avec les réponses
-
+          const responses = await Promise.all(compressedFiles);
           const afterpatch = await axios.get(
             `http://146.59.150.192:5001/user/${user._id}`
           );

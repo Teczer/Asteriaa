@@ -226,6 +226,7 @@ header {
   &.--change-picture {
     width: 25rem;
     height: 25rem;
+    cursor: initial;
   }
 }
 
@@ -488,13 +489,13 @@ input[type="text"] {
 
 .input-url-btn-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
+  gap: 20px;
 
   .url-btn-check {
-    border-radius: 5px;
     width: 10%;
     height: 100%;
     background-color: var(--purple-mountain-majesty);
@@ -502,6 +503,12 @@ input[type="text"] {
     cursor: pointer;
     color: var(--lavender-blush);
     font-size: 17px;
+    border-radius: 3px 0 0 3px;
+
+    &:hover {
+      box-shadow: 3px 4px 40px rgba(255, 255, 255, 0.1),
+        -2px 1px 30px rgba(255, 255, 255, 0.1);
+    }
   }
 }
 

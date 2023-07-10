@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 import Previews from "./DropZoneImg";
 import axios from "axios";
@@ -6,6 +6,7 @@ import axios from "axios";
 function ChangePictureModal({ setIsChangingProfilePicture }) {
   const { user } = useAuthContext();
   const [changingPicture, setChangingPicture] = useState("");
+  const [isUsingUrl, setIsUsingUrl] = useState(false);
   const { dispatch } = useAuthContext();
 
   async function changeUserProfilePicture(e) {
@@ -54,6 +55,12 @@ function ChangePictureModal({ setIsChangingProfilePicture }) {
     setPostImage({ ...postImage, myFile: base64 });
   };
 
+  useEffect(() => {
+    if (changingPicture.length === 0) {
+      setIsUsingUrl(false);
+    }
+  }, [changingPicture]);
+
   return (
     <div className="modal-changepicture-container">
       <div className="selector-profile-picture-container">
@@ -86,12 +93,17 @@ function ChangePictureModal({ setIsChangingProfilePicture }) {
           <div className="input-url-btn-wrapper">
             <input
               type="text"
-              onChange={(e) => setChangingPicture(e.currentTarget.value)}
+              onChange={(e) => {
+                setChangingPicture(e.currentTarget.value);
+                setIsUsingUrl(true);
+              }}
               placeholder="https://exemple-votre-image.fr"
             />
-            <button className="url-btn-check" type="submit">
-              <i className="fa-solid fa-check" />
-            </button>
+            {isUsingUrl && (
+              <button className="url-btn-check" type="submit">
+                <i className="fa-solid fa-check" />
+              </button>
+            )}
           </div>
         </form>
       </div>

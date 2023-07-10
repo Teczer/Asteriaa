@@ -1,5 +1,6 @@
 import express from "express";
-import multer from "multer";
+
+// controller functions
 
 import {
   signupUser,
@@ -10,33 +11,18 @@ import {
 
 const router = express.Router();
 
-// Créez un middleware multer pour gérer le téléchargement de fichiers
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/"); // Choisissez le répertoire de destination approprié
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
-
-const upload = multer({
-  storage,
-  limits: { fileSize: 1024 * 1024 * 10 }, // 10 MB (ajustez la limite selon vos besoins)
-});
-
-// Routes de l'utilisateur
-
-// Route de connexion
+// login route
 router.post("/login", loginUser);
 
-// Route d'inscription
+// signup route
 router.post("/signup", signupUser);
 
-// Route de mise à jour d'un utilisateur
-router.patch("/:id", upload.single("profilePicture"), updateUser);
+// UPDATE a single user
 
-// Route d'obtention d'un utilisateur
+router.patch("/:id", updateUser);
+
+// GET single user
+
 router.get("/:id", getUser);
 
 export default router;
