@@ -89,7 +89,7 @@ function ChangePictureModal({ setIsChangingProfilePicture }) {
               onChange={(e) => setChangingPicture(e.currentTarget.value)}
               placeholder="https://exemple-votre-image.fr"
             />
-            <button className="url-btn-check" type="sumbit">
+            <button className="url-btn-check" type="submit">
               <i className="fa-solid fa-check" />
             </button>
           </div>
