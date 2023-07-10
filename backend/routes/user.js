@@ -1,6 +1,5 @@
 import express from "express";
-
-// controller functions
+import multer from "multer";
 
 import {
   signupUser,
@@ -11,18 +10,29 @@ import {
 
 const router = express.Router();
 
-// login route
+// Créez un middleware multer pour gérer le téléchargement de fichiers
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/"); // Choisissez le répertoire de destination approprié
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({ storage });
+
+// Routes de l'utilisateur
+
+// Route de connexion
 router.post("/login", loginUser);
 
-// signup route
+// Route d'inscription
 router.post("/signup", signupUser);
 
-// UPDATE a single user
+// Route de mise à jour d'un utilisateur
+router.patch("/:id", upload.single("profilePicture"), updateUser);
 
-router.patch("/:id", updateUser);
-
-// GET single user
-
+// Route d'obtention d'un utilisateur
 router.get("/:id", getUser);
 
 export default router;
