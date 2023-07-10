@@ -58,6 +58,7 @@ const img = {
 function Previews({ setChangingPicture, handleFileUpload, handleSubmit }) {
   const [files, setFiles] = useState([]);
   const { user } = useAuthContext();
+  const { dispatch } = useAuthContext();
 
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
     useDropzone({
@@ -65,21 +66,17 @@ function Previews({ setChangingPicture, handleFileUpload, handleSubmit }) {
         "image/*": [],
       },
       onDrop: async (acceptedFiles) => {
-        setFiles(
-          acceptedFiles.map((file) =>
-            Object.assign(file, {
-              preview: URL.createObjectURL(file),
-            })
-          )
-        );
-        acceptedFiles.map(async (file) => {
+        const requests = acceptedFiles.map(async (file) => {
           const base64 = await convertToBase64(file);
-          console.log(base64);
 
-          const response = await axios.patch(
-            `http://146.59.150.192:5001/user/${user._id}`,
-            { profilePicture: base64 }
-          );
+          return axios.patch(`http://146.59.150.192:5001/user/${user._id}`, {
+            profilePicture: base64,
+          });
+        });
+
+        try {
+          const responses = await Promise.all(requests);
+          // Mise à jour du contexte d'authentification ici avec les réponses
 
           const afterpatch = await axios.get(
             `http://146.59.150.192:5001/user/${user._id}`
@@ -89,8 +86,10 @@ function Previews({ setChangingPicture, handleFileUpload, handleSubmit }) {
 
           console.log("afterpatch", afterpatch);
           console.log("user", user);
-          console.log("response.data", response.data);
-        });
+          console.log("responses", responses);
+        } catch (error) {
+          console.log(error);
+        }
       },
     });
 

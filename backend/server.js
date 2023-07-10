@@ -34,17 +34,15 @@ const server = jsonServer.create();
 const middlewares = jsonServer.defaults();
 
 // server use
-
 server.use(cors());
-server.use(jsonServer.bodyParser);
 server.use(middlewares);
 
 // middleware
 app.use(express.json());
-app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.json({ limit: "500mb" }));
 app.use(
   bodyParser.urlencoded({
-    limit: "50mb",
+    limit: "500mb",
     extended: true,
     parameterLimit: 50000,
   })
