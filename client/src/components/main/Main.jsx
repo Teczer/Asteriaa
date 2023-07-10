@@ -19,12 +19,35 @@ function Main() {
     console.log("response.data", response.data);
   }
 
+  useEffect(() => {
+    // IF USER IS NOT CONNECTED
+    if (!user) {
+      // Set default values if the localStorage values are not present
+      localStorage.setItem("quizzSystemeSolaire", 1);
+      localStorage.setItem("quizzGalaxies", 1);
+      localStorage.setItem("quizzPhenomenesObservables", 1);
+      localStorage.setItem("quizzAstronautes", 1);
+    }
+  }, [user]);
+
+  // IF USER IS NOT CONNECTED
+  const progressionSystemeSolaireLocal = localStorage.getItem(
+    "quizzSystemeSolaire"
+  );
+  const progressionGalaxiesLocal = localStorage.getItem("quizzGalaxies");
+  const progressionPhenomenesObservablesLocal = localStorage.getItem(
+    "quizzPhenomenesObservables"
+  );
+  const progressionAstronautesLocal = localStorage.getItem("quizzAstronautes");
+
   console.log("userProgression", userProgression);
 
   let mescouilles = [
     {
       label: "Système Solaire",
-      level: userProgression.quizzSystemeSolaire,
+      level: user
+        ? userProgression.quizzSystemeSolaire || 1
+        : progressionSystemeSolaireLocal,
       img: [
         "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675179/images-collections/1-systeme%20solaire/collec1-cardFrontImage-1-soleil_bb36ak.jpg",
         "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675181/images-collections/1-systeme%20solaire/collec1-cardFrontImage-2-comet_wnzq4h.jpg",
@@ -37,7 +60,7 @@ function Main() {
     },
     {
       label: "Galaxies",
-      level: userProgression.quizzGalaxies,
+      level: user ? userProgression.quizzGalaxies : progressionGalaxiesLocal,
       img: [
         "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675173/images-collections/2-galaxies/collec2-cardFrontImage-6-voielactee_emeafm.jpg",
         "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675171/images-collections/2-galaxies/collec2-cardFrontImage-7-whirlpool_xmk2zn.jpg",
@@ -50,7 +73,9 @@ function Main() {
     },
     {
       label: "Phénomènes Observables",
-      level: userProgression.quizzPhenomenesObservables,
+      level: user
+        ? userProgression.quizzPhenomenesObservables
+        : progressionPhenomenesObservablesLocal,
       img: [
         "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677917/images-quizz/PhenomenesObservable/eclipse_w3bgwj.jpg",
         "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675177/images-collections/3-phenomenes/collec3-cardBackImage-11-eclipse_hqzlbx.jpg",
@@ -63,7 +88,9 @@ function Main() {
     },
     {
       label: "Astronautes",
-      level: userProgression.quizzAstronautes,
+      level: user
+        ? userProgression.quizzAstronautes
+        : progressionAstronautesLocal,
       img: [
         "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675173/images-collections/4-astronautes/collec4-cardFrontImage-18-leonov_xri8tn.jpg",
         "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675177/images-collections/4-astronautes/collec4-cardFrontImage-17-armstrong_zrq05u.jpg",
@@ -77,8 +104,21 @@ function Main() {
   ];
 
   useEffect(() => {
-    getUserProgression();
-  }, []);
+    async function fetchData() {
+      await getUserProgression();
+
+      // IF USER IS NOT CONNECTED
+      if (!user) {
+        // Set default values if the localStorage values are not present
+        localStorage.setItem("quizzSystemeSolaire", 1);
+        localStorage.setItem("quizzGalaxies", 1);
+        localStorage.setItem("quizzPhenomenesObservables", 1);
+        localStorage.setItem("quizzAstronautes", 1);
+      }
+    }
+
+    fetchData();
+  }, [user]);
 
   return (
     <>

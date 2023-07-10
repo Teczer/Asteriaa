@@ -3,10 +3,15 @@ import "./header.scss";
 import { useLogout } from "../../../hooks/useLogout";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useEffect, useState } from "react";
+import Usermodal from "./modal/Usermodal";
+import Modalburger from "./modal/Modalburger";
+import ChangePictureModal from "./modal/ChangePictureModal";
 
 const Header = () => {
   const [modalBurger, setModalBurger] = useState(false);
   const [userModal, setUserModal] = useState(false);
+  const [isChangingProfilePicture, setIsChangingProfilePicture] =
+    useState(false);
 
   const { logout } = useLogout();
   const { user } = useAuthContext();
@@ -21,6 +26,11 @@ const Header = () => {
   return (
     <>
       <header className="header-asteria">
+        {isChangingProfilePicture && (
+          <ChangePictureModal
+            setIsChangingProfilePicture={setIsChangingProfilePicture}
+          />
+        )}
         <button className="menu-burger">
           {!modalBurger && (
             <i className="fas fa-bars" onClick={() => setModalBurger(true)} />
@@ -45,7 +55,6 @@ const Header = () => {
           </div>
         )}
         <div className="nav-menu">
-          <Link to="/">Accueil</Link>
           <Link to="quizz">Quizz</Link>
           <Link to="news">Actualités</Link>
         </div>
@@ -62,42 +71,10 @@ const Header = () => {
               />
             </figure>
             {userModal && (
-              <div className="user-controller-modal">
-                <div className="user-controller-wrapper">
-                  <button
-                    className="close-user-modal-btn"
-                    onClick={() => setUserModal(false)}
-                  >
-                    <i className="fa-solid fa-circle-xmark"></i>
-                  </button>
-                  <div className="user-information-wrapper">
-                    <figure className="figure-user-profile-picture --modal">
-                      <img
-                        className="user-profile-picture"
-                        src={user.profilePicture}
-                        alt="user-profil-picture"
-                      />
-                      <div className="btn-change-container">
-                        <button className="change-picture-btn">
-                          <i className="fa-solid fa-camera"></i>
-                        </button>
-                      </div>
-                    </figure>
-                    <div className="username-usermail-wrapper">
-                      <p className="username-modal">{user.userName}</p>
-                      <span className="usermail-modal">{user.email}</span>
-                    </div>
-                  </div>
-                  <Link className="to-user-page" to="/">
-                    Gérer votre compte Asteria
-                  </Link>
-                </div>
-                <input
-                  type="submit"
-                  value="SE DÉCONNECTER"
-                  onClick={handleClick}
-                />
-              </div>
+              <Usermodal
+                setUserModal={setUserModal}
+                setIsChangingProfilePicture={setIsChangingProfilePicture}
+              />
             )}
           </div>
         )}
@@ -107,48 +84,13 @@ const Header = () => {
             <Link className="signup" to="login">
               Connexion
             </Link>
-            <Link className="login" to="signup">
-              Inscription
+            <Link to="signup">
+              <input type="submit" value="INSCRIPTION" />
             </Link>
           </div>
         )}
       </header>
-      {modalBurger && (
-        <div className="modal-container animated">
-          <nav className="nav-modal-container">
-            <p>Navigation</p>
-            <ul className="ul-modal-container">
-              <li className="li-modal-container">
-                <Link
-                  to="/"
-                  className="modal-link"
-                  onClick={() => setModalBurger(false)}
-                >
-                  <span>Accueil</span>
-                </Link>
-              </li>
-              <li className="li-modal-container">
-                <Link
-                  to="quizz"
-                  className="modal-link"
-                  onClick={() => setModalBurger(false)}
-                >
-                  <span>Quizz</span>
-                </Link>
-              </li>
-              <li className="li-modal-container">
-                <Link
-                  to="news"
-                  className="modal-link"
-                  onClick={() => setModalBurger(false)}
-                >
-                  <span>Actualités</span>
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      )}
+      {modalBurger && <Modalburger setModalBurger={setModalBurger} />}
     </>
   );
 };

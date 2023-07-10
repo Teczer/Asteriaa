@@ -19,15 +19,11 @@ function App() {
   const { user } = useAuthContext();
   return (
     <>
-      {/* rome-ignore lint/complexity/useSimplifiedLogicExpression: <explanation> */}
       {!isQuizzControllerScreen && !isLoginScreen && !isSignUpScreen && (
         <Header />
       )}
       <Routes>
-        <Route
-          path="/"
-          element={user ? <Homepage /> : <Navigate to="/login" />}
-        />
+        <Route path="/" element={<Homepage />} />
         <Route
           path="/login"
           element={!user ? <Login /> : <Navigate to="/" />}
