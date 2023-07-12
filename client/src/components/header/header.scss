@@ -19,8 +19,8 @@ header {
     gap: 1rem;
 
     .header-logo {
-      width: 110px;
-      height: 110px;
+      width: 80px;
+      height: 80px;
       object-fit: contain;
     }
   }
@@ -47,9 +47,18 @@ header {
     background: none;
     border: none;
     color: white;
-    font-size: 35px;
+    font-size: 45px;
     display: none;
     cursor: pointer;
+  }
+
+  .burger-svg {
+    display: none;
+    cursor: pointer;
+  }
+
+  .burger-nav-title {
+    color: var(--lavender-blush);
   }
 
   .user-icon {
@@ -131,11 +140,15 @@ header {
     }
 
     .header-logo {
-      width: 60px !important;
+      display: none !important;
     }
 
     .nav-menu {
       display: none !important;
+    }
+
+    .burger-svg {
+      display: block !important;
     }
 
     .menu-burger {
@@ -152,11 +165,10 @@ header {
 .modal-container {
   position: fixed;
   left: 0;
-  top: 64px;
+  top: 0;
   width: 100%;
-  height: calc(100vh - 64px);
+  height: 100vh;
   background: var(--oxford-blue);
-  padding: 16px 24px;
   transform: translateX(0);
   transition: transform 0.8s ease-out;
   z-index: 3;
@@ -173,7 +185,9 @@ header {
     text-align: center;
     align-items: center;
 
-    p {
+    .burger-nav-title {
+      color: var(--lavender-blush);
+      padding-bottom: 10px;
       border-bottom: 2px solid var(--carnation-pink);
       max-height: 90px;
       font-size: 25px;
@@ -185,6 +199,7 @@ header {
       .li-modal-container {
         list-style: none;
         padding: 16px 0;
+        border-top: 2px solid var(--space-cadet);
 
         .modal-link {
           font-size: 1.8rem;
@@ -194,8 +209,8 @@ header {
           width: 100%;
           display: flex;
           align-items: center;
-          justify-content: center;
-          text-align: center;
+          justify-content: left;
+          padding-left: 12%;
         }
       }
     }
@@ -269,6 +284,11 @@ header {
   align-items: center;
   justify-content: flex-start;
   gap: 20px;
+
+  @include xs {
+    width: 80vw;
+    right: 9%;
+  }
 }
 
 .close-user-modal-btn {
@@ -337,6 +357,10 @@ header {
   overflow: hidden;
   width: 100%;
   color: #e3e3e3;
+
+  @include xs {
+    margin-left: 0px;
+  }
 
   &:hover {
     color: var(--carnation-pink);
@@ -421,6 +445,11 @@ header {
   height: 100vh;
   top: 0;
   right: 0;
+  padding: 0 55px;
+
+  @include xs {
+    padding: 0 25px;
+  }
 }
 
 .selector-profile-picture-container {
@@ -434,6 +463,10 @@ header {
   background: #181836;
   opacity: 1;
   padding-bottom: 40px;
+
+  @include xs {
+    height: 700px;
+  }
 }
 
 .label-dropzone-builder {

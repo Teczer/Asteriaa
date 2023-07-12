@@ -78,14 +78,16 @@ function Quizzcontroller() {
       )}
       {/* ICON BACK MENU */}
       <div className="question-stepper-wrapper">
-        <div className="back-icon-container">
-          <i
-            className="fa-solid fa-circle-chevron-left"
-            onClick={() => setModal(true)}
-          />
+        <div className="stepper-leave-container">
+          <div className="back-icon-container">
+            <i
+              className="fa-solid fa-circle-chevron-left"
+              onClick={() => setModal(true)}
+            />
+          </div>
+          {/* QUIZZ CONTROLLER SECTION */}
+          <Stepper currentQuestion1={currentQuestion1} />
         </div>
-        {/* QUIZZ CONTROLLER SECTION */}
-        <Stepper currentQuestion1={currentQuestion1} />
         {showResult ? (
           <QuizzResult CorrectAns={CorrectAns} />
         ) : (

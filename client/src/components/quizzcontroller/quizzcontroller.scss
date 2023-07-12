@@ -12,6 +12,11 @@
     rgba(0, 0, 0, 0.3)
   );
 
+  @include xs {
+    justify-content: flex-start !important;
+    padding-top: 10px;
+  }
+
   .back-icon-container {
     gap: 30px;
     align-self: flex-start;
@@ -80,6 +85,15 @@
   }
 }
 
+.stepper-leave-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 40px;
+}
+
 // ROTATE CARD
 .main-zoubli {
   position: relative;
@@ -93,22 +107,47 @@
   height: 100%;
   transform-style: preserve-3d;
   transition: all 1s ease;
+
+  @include xs {
+    height: 90vh;
+  }
 }
 
 .rotate-card {
   transform: rotateY(180deg);
 }
 
-@include xl {
-  .main-zoubli {
-    width: 500px;
+@include xs {
+  .stepper-leave-container {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .question-stepper-wrapper {
+    gap: 10px !important;
   }
 }
 
-@include md {
-  .main-zoubli {
-    width: 60vw;
+.main-zoubli {
+  width: 500px;
+
+  @include sm {
+    width: 90vw;
   }
+
+  @include xs {
+    width: 95vw;
+    height: 80vh;
+  }
+
+  // @include xll {
+  //   width: 500px;
+  // }
+
+  // @include md {
+  //   width: 60vw;
+  //   height: 80vh;
+  // }
 }
 
 @include sm {
@@ -116,9 +155,5 @@
     flex-direction: column;
     justify-content: center;
     gap: 20px;
-  }
-
-  .main-zoubli {
-    width: 95vw;
   }
 }

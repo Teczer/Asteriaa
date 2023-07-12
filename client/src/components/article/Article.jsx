@@ -3,9 +3,8 @@ import MainArticle from "./mainArticle/MainArticle";
 import SimpleArticle from "./simpleArticle/SimpleArticle";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Header from "../header/Header";
 
-const Article = () => {
+const Article = ({ marginFix }) => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     axios
@@ -20,10 +19,9 @@ const Article = () => {
   }, []);
   return (
     <>
-      <section className="article-section">
-        <h1>Actualités</h1>
+      <section className="article-section" style={{ marginTop: marginFix }}>
+        <h1 className="category-title">Actualités</h1>
         <div className="articles-container">
-          {/* rome-ignore lint/complexity/useOptionalChain: <explanation> */}
           {posts &&
             posts
               .slice(0, 1)

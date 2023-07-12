@@ -3,9 +3,9 @@
   flex-direction: column;
   gap: 10px;
   justify-content: space-between;
-  width: 100%;
+  width: 50%;
 
-  a {
+  .main-article-link {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -13,23 +13,23 @@
     width: 100%;
     height: 100%;
 
-    img {
+    .main-article-image {
       width: 100%;
       height: 63.5%;
       object-fit: cover;
     }
 
-    h4 {
+    .main-article-date {
       color: var(--lavender-blush);
       opacity: 0.8;
     }
 
-    h2 {
+    .main-article-title {
       color: var(--lavender-blush);
       margin: 0;
     }
 
-    p {
+    .main-article-sommary {
       width: auto;
       height: auto;
       color: var(--lavender-blush);
@@ -38,8 +38,8 @@
     }
   }
 
-  a:hover {
-    h2 {
+  .main-article-link:hover {
+    .main-article-title {
       color: var(--carnation-pink);
     }
   }

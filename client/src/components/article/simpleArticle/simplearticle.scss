@@ -14,10 +14,10 @@
   );
   padding-bottom: 15px;
 
-  a {
+  .simple-article-link {
     display: flex;
     gap: 10px;
-    img {
+    .simple-article-img {
       width: 40%;
       object-fit: cover;
     }
@@ -28,19 +28,19 @@
       gap: 30px;
       text-align: start;
 
-      h4 {
+      .simple-article-date {
         color: var(--lavender-blush);
         opacity: 0.8;
       }
 
-      h2 {
+      .simple-article-title {
         color: var(--lavender-blush);
       }
     }
   }
 
-  a:hover {
-    h2 {
+  .simple-article-link:hover {
+    .simple-article-title {
       color: var(--carnation-pink);
     }
   }

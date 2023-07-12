@@ -21,6 +21,13 @@
 
 /* Large desktop */
 @mixin xl {
+  @media (max-width: 1200px) {
+    @content;
+  }
+}
+
+/* Large desktop */
+@mixin xll {
   @media (min-width: 1200px) {
     @content;
   }

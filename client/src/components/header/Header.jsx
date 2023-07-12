@@ -31,10 +31,34 @@ const Header = () => {
             setIsChangingProfilePicture={setIsChangingProfilePicture}
           />
         )}
+        {!modalBurger && (
+          <svg
+            role="img"
+            aria-hidden="true"
+            focusable="false"
+            width="40"
+            height="40"
+            viewBox="0 0 22 16"
+            fill="#FFFFFF"
+            xmlns="http://www.w3.org/2000/svg"
+            className="burger-svg"
+            onClick={() => setModalBurger(true)}
+          >
+            <path
+              d="M1.94631 16C0.871392 16 0 15.1286 0 14.0537C0 14.024 0.0240384 14 0.0536913 14L20.0537 14C21.1286 14 22 14.8714 22 15.9463C22 15.976 21.976 16 21.9463 16H1.94631Z"
+              fill="#FFFFFF"
+            ></path>
+            <path
+              d="M1.94631 9C0.871392 9 0 8.12861 0 7.05369C0 7.02404 0.0240384 7 0.0536913 7H20.0537C21.1286 7 22 7.87139 22 8.94631C22 8.97596 21.976 9 21.9463 9H1.94631Z"
+              fill="#FFFFFF"
+            ></path>
+            <path
+              d="M1.94631 2C0.871392 2 0 1.12861 0 0.0536913C0 0.0240384 0.0240384 0 0.0536913 0H20.0537C21.1286 0 22 0.871392 22 1.94631C22 1.97596 21.976 2 21.9463 2H1.94631Z"
+              fill="#FFFFFF"
+            ></path>
+          </svg>
+        )}
         <button className="menu-burger">
-          {!modalBurger && (
-            <i className="fas fa-bars" onClick={() => setModalBurger(true)} />
-          )}
           {modalBurger && (
             <i
               className="fa-solid fa-xmark"
@@ -55,6 +79,7 @@ const Header = () => {
           </div>
         )}
         <div className="nav-menu">
+          <Link to="/">Accueil</Link>
           <Link to="quizz">Quizz</Link>
           <Link to="news">Actualités</Link>
         </div>

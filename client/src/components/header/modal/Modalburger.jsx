@@ -4,7 +4,6 @@ function Modalburger({ setModalBurger }) {
   return (
     <div className="modal-container animated">
       <nav className="nav-modal-container">
-        <p>Navigation</p>
         <ul className="ul-modal-container">
           <li className="li-modal-container">
             <Link
