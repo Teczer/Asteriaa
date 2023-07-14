@@ -1,3 +1,5 @@
+@import "../../../scss/media-queries";
+
 .simple-article {
   display: flex;
   gap: 10px;
@@ -23,6 +25,13 @@
       max-width: 300px !important;
       max-height: 300px !important;
       object-fit: cover;
+
+      @include xs {
+        min-width: 200px !important;
+        min-height: 200px !important;
+        max-width: 200px !important;
+        max-height: 200px !important;
+      }
     }
     .article-content-container {
       display: flex;
