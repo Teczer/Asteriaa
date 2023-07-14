@@ -1,0 +1,34 @@
+.tutorial-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  gap: 20px;
+  color: var(--lavender-blush);
+}
+
+.tutorial-btn {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: var(--purple-mountain-majesty);
+  color: var(--lavender-blush);
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  width: 200px;
+  height: 50px;
+  line-height: 1.5em;
+  border: none;
+  font-size: 14px;
+  padding: 0;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 3px 4px 40px rgba(255, 255, 255, 0.1),
+      -2px 1px 30px rgba(255, 255, 255, 0.1);
+  }
+}

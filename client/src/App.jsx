@@ -10,19 +10,23 @@ import Login from "./components/login/Login";
 import Signup from "./components/signup/Signup";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Footer from "./components/footer/Footer";
+import AsteriaTutorial from "./components/tutorial/asteriaTutorial";
 
 function App() {
   const location = useLocation();
   const isQuizzControllerScreen = location.pathname.includes("quizzcontroller");
   const isLoginScreen = location.pathname.includes("login");
   const isSignUpScreen = location.pathname.includes("signup");
+  const isAsteriaTutorialScreen = location.pathname.includes("tutorial");
   const { user } = useAuthContext();
   return (
     <>
-      {!isQuizzControllerScreen && !isLoginScreen && !isSignUpScreen && (
-        <Header />
-      )}
+      {!isQuizzControllerScreen &&
+        !isLoginScreen &&
+        !isSignUpScreen &&
+        !isAsteriaTutorialScreen && <Header />}
       <Routes>
+        <Route path="/tutorial" element={<AsteriaTutorial />} />
         <Route path="/" element={<Homepage />} />
         <Route
           path="/login"
@@ -40,9 +44,10 @@ function App() {
           element={<Quizzcontroller />}
         />
       </Routes>
-      {!isQuizzControllerScreen && !isLoginScreen && !isSignUpScreen && (
-        <Footer />
-      )}
+      {!isQuizzControllerScreen &&
+        !isLoginScreen &&
+        !isSignUpScreen &&
+        !isAsteriaTutorialScreen && <Footer />}
     </>
   );
 }

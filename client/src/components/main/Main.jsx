@@ -5,9 +5,22 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Main() {
   const { user } = useAuthContext();
+
+  // TUTORIAL REDIRECTION PHASE
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const completedTutorial = localStorage.getItem("completedTutorial");
+
+    if (!completedTutorial && !user) {
+      navigate("/tutorial");
+    }
+  }, [navigate, user]);
 
   const [userProgression, setUserProgression] = useState([]);
 
@@ -18,17 +31,6 @@ function Main() {
     setUserProgression(response.data);
     console.log("response.data", response.data);
   }
-
-  useEffect(() => {
-    // IF USER IS NOT CONNECTED
-    if (!user) {
-      // Set default values if the localStorage values are not present
-      localStorage.setItem("quizzSystemeSolaire", 1);
-      localStorage.setItem("quizzGalaxies", 1);
-      localStorage.setItem("quizzPhenomenesObservables", 1);
-      localStorage.setItem("quizzAstronautes", 1);
-    }
-  }, [user]);
 
   // IF USER IS NOT CONNECTED
   const progressionSystemeSolaireLocal = localStorage.getItem(
@@ -106,15 +108,6 @@ function Main() {
   useEffect(() => {
     async function fetchData() {
       await getUserProgression();
-
-      // IF USER IS NOT CONNECTED
-      if (!user) {
-        // Set default values if the localStorage values are not present
-        localStorage.setItem("quizzSystemeSolaire", 1);
-        localStorage.setItem("quizzGalaxies", 1);
-        localStorage.setItem("quizzPhenomenesObservables", 1);
-        localStorage.setItem("quizzAstronautes", 1);
-      }
     }
 
     fetchData();

@@ -3,6 +3,7 @@ import MainArticle from "./mainArticle/MainArticle";
 import SimpleArticle from "./simpleArticle/SimpleArticle";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import ArticleSkeletons from "../skeletons/ArticleSkeletons";
 
 const Article = ({ marginFix }) => {
   const [posts, setPosts] = useState([]);
@@ -36,8 +37,10 @@ const Article = ({ marginFix }) => {
                 />
               ))}
 
-          <div className="triple-article">
-            {/* rome-ignore lint/complexity/useOptionalChain: <explanation> */}
+          <div
+            className="triple-article"
+            style={{ display: posts.length === 0 ? "none" : "flex" }}
+          >
             {posts &&
               posts
                 .slice(1, 4)
@@ -51,6 +54,7 @@ const Article = ({ marginFix }) => {
                   />
                 ))}
           </div>
+          {posts.length === 0 && <ArticleSkeletons />}
         </div>
       </section>
     </>

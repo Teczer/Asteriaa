@@ -25,6 +25,7 @@ function QuizzResult({ CorrectAns }) {
   useEffect(() => {
     console.log(user);
     saveProgression();
+    localStorage.setItem(params.quizzType, Number(params.quizzProgression) + 1);
   }, []);
   return (
     <div className="quizzresult-container">
