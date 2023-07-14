@@ -18,7 +18,10 @@
     display: flex;
     gap: 10px;
     .simple-article-img {
-      width: 40%;
+      min-width: 300px !important;
+      min-height: 300px !important;
+      max-width: 300px !important;
+      max-height: 300px !important;
       object-fit: cover;
     }
     .article-content-container {

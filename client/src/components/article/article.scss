@@ -15,7 +15,7 @@
     width: 100vw;
     display: flex;
     justify-content: space-between;
-    padding: 40px 200px 140px 200px;
+    padding: 40px 200px 60px 200px;
     gap: 50px;
 
     &.--skeleton {
@@ -25,10 +25,11 @@
     .triple-article {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       gap: 20px;
       width: 50%;
+      height: 100%;
 
       .simple-article:last-child {
         margin: 0;
