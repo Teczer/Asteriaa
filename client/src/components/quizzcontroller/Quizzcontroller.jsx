@@ -58,13 +58,6 @@ function Quizzcontroller() {
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
-    // Fonction pour réinitialiser la position de défilement au montage du composant
-    const resetScrollPosition = () => {
-      window.scrollTo(0, 0);
-    };
-  });
-
-  useEffect(() => {
     console.log("currentQuestion1", currentQuestion1);
   });
 
