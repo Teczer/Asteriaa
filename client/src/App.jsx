@@ -1,16 +1,17 @@
 import Article from "./components/article/Article";
 import Header from "./components/header/Header";
 import Main from "./components/main/Main";
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
-import "./scss/app.scss";
+import Quizzcontroller from "./components/quizzcontroller/Quizzcontroller";
 import Notfound from "./components/notfound/Notfound";
 import Homepage from "./components/homepage/Homepage";
-import Quizzcontroller from "./components/quizzcontroller/Quizzcontroller";
 import Login from "./components/login/Login";
 import Signup from "./components/signup/Signup";
-import { useAuthContext } from "../hooks/useAuthContext";
 import Footer from "./components/footer/Footer";
 import AsteriaTutorial from "./components/tutorial/asteriaTutorial";
+import "./scss/app.scss";
+
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function App() {
   const location = useLocation();
