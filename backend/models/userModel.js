@@ -51,25 +51,29 @@ userSchema.statics.signup = async function (
 ) {
   // validation
   if (!(email || password)) {
-    throw Error("All fields must be filled");
+    throw Error("Tous les champs doivent être remplis");
   }
   if (!validator.isEmail(email)) {
-    throw Error("Email is not valid");
+    throw Error("L'adresse email n'est pas valide");
   }
   if (
     !validator.isStrongPassword(password, {
       minSymbols: 0,
-      minLengh: 8,
+      minLengh: 8, // Vous voudrez peut-être corriger la faute de frappe ici : cela devrait être "minLength" au lieu de "minLengh"
       minUppercase: 0,
     })
   ) {
-    throw Error("Password is too weak");
+    throw Error("Le mot de passe est trop faible");
   }
 
-  const exists = await this.findOne({ email });
+  const emailExists = await this.findOne({ email });
+  if (emailExists) {
+    throw Error("L'adresse email est déjà utilisée");
+  }
 
-  if (exists) {
-    throw Error("Email already in use");
+  const userNameExists = await this.findOne({ userName });
+  if (userNameExists) {
+    throw Error("Le nom d'utilisateur est déjà utilisé");
   }
 
   const salt = await bcrypt.genSalt(10);
@@ -93,19 +97,19 @@ userSchema.statics.signup = async function (
 // static login method
 userSchema.statics.login = async function (email, password) {
   if (!(email || password)) {
-    throw Error("All fields must be filled");
+    throw Error("Tous les champs doivent être remplis");
   }
 
   const user = await this.findOne({ email });
 
   if (!user) {
-    throw Error("Incorrect email");
+    throw Error("Adresse email incorrecte");
   }
 
   const match = await bcrypt.compare(password, user.password);
 
   if (!match) {
-    throw Error("Incorrect password");
+    throw Error("Mot de passe incorrect");
   }
 
   return user;
