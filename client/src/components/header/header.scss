@@ -201,6 +201,10 @@ header {
         padding: 16px 0;
         border-top: 2px solid var(--space-cadet);
 
+        &:first-child {
+          border-top: none;
+        }
+
         .modal-link {
           font-size: 1.8rem;
           line-height: 1.5;
@@ -324,7 +328,7 @@ header {
   align-items: center;
   width: 100%;
   background: #181836;
-  height: 60%;
+  height: 65%;
   border-top-right-radius: 27px;
   border-top-left-radius: 27px;
   padding: 10px 5px 0;
