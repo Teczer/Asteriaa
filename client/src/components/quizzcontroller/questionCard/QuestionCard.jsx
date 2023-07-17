@@ -56,7 +56,9 @@ function QuestionCard({
                 if (isCorrect) {
                   setCorrectAns((prevCorrectAns) => prevCorrectAns + 1);
                 }
-                setIsFlipping(true);
+                setTimeout(() => {
+                  setIsFlipping(true);
+                }, 700);
               }}
               key={index}
               disabled={!buttonsEnabled}
