@@ -42,6 +42,7 @@
 
     @include xs {
       justify-content: flex-start;
+      height: 90%;
     }
   }
 
@@ -114,7 +115,7 @@
   transition: all 1s ease;
 
   @include xs {
-    height: 90vh;
+    height: 100%;
   }
 }
 
@@ -142,7 +143,7 @@
 
   @include xs {
     width: 95vw;
-    height: 80vh;
+    height: 100%;
   }
 
   // @include xll {
