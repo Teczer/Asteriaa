@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useSignup } from "../../../hooks/useSignup";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import "./signup.scss";
+import image from "../login/launchlogo@3x 2.png";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -43,12 +44,13 @@ function Signup() {
   };
   return (
     <main className="login-screen">
+      <img className="asteria-login-logo" src={image} alt="Asterialogo" />
       <h1 className="sign-up-title">
         Inscrivez-vous chez <span className="asteria-name"> Asteria </span> !
       </h1>
-      <section className="loginform-container">
+      <section className="loginform-container --sign">
         <div id="login">
-          <form className="login-form" onSubmit={handleSubmit}>
+          <form className="login-form " onSubmit={handleSubmit}>
             <span className="fa fa-user" />
             <input
               autoFocus

@@ -45,10 +45,15 @@
     }
   }
   .loginform-container {
-    @include xs {
-      display: flex !important;
-      flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &.--sign {
+      margin-bottom: 70px;
     }
+
     #login {
       width: 280px;
 
