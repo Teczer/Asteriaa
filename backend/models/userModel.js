@@ -35,10 +35,6 @@ const userSchema = new Schema({
   quizzAstronautes: {
     type: Number,
   },
-  isEmailVerified: {
-    type: Boolean,
-    default: false, // Nouveaux utilisateurs n'ont pas encore vérifié leur e-mail
-  },
 });
 
 // static signup method
