@@ -3,9 +3,9 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
 import jsonServer from "json-server";
-
 import workoutRoutes from "./routes/workouts.js";
 import userRoutes from "./routes/user.js";
+import userVerificationRoutes from "./routes/userVerificationRoutes.js";
 import quizzRouter from "./routes/quizzRouter.js";
 
 dotenv.config({ path: "./.env" });
@@ -47,6 +47,7 @@ app.use((req, res, next) => {
 // routes
 app.use("/workouts", workoutRoutes);
 app.use("/user", userRoutes);
+app.use("/user", userVerificationRoutes);
 app.use("/quizz", quizzRouter);
 
 // connect to db

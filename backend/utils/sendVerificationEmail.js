@@ -13,7 +13,7 @@ const sendVerificationEmail = async (userEmail, verificationToken) => {
     from: "asteria.noreply@gmail.com", // Remplacez par votre adresse e-mail d'expéditeur
     to: userEmail,
     subject: "Vérification de votre adresse e-mail",
-    text: `Cliquez sur le lien suivant pour vérifier votre adresse e-mail : http://votre_site.com/verify?token=${verificationToken}`,
+    text: `Cliquez sur le lien suivant pour vérifier votre adresse e-mail : http://mehdiv.fr/verify?token=${verificationToken}`,
   };
 
   try {
