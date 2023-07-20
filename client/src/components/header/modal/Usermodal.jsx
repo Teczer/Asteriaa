@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useLogout } from "../../../../hooks/useLogout";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
-import { useState } from "react";
 
 function Usermodal({ setUserModal, setIsChangingProfilePicture }) {
   const { logout } = useLogout();
@@ -44,7 +43,11 @@ function Usermodal({ setUserModal, setIsChangingProfilePicture }) {
             <span className="usermail-modal">{user.email}</span>
           </div>
         </div>
-        <Link className="to-user-page" to="/">
+        <Link
+          className="to-user-page"
+          to="/settings/profile"
+          onClick={() => setUserModal(false)}
+        >
           Gérer votre compte Asteria
         </Link>
       </div>
