@@ -70,7 +70,7 @@ function PropertyController({
                 maxLength="16"
                 placeholder="Username"
                 type="text"
-                onChange={handleUsernameChange} // Handle input changes
+                onChange={handleUsernameChange}
                 value={userName}
                 required
               />

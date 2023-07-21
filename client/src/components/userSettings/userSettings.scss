@@ -113,18 +113,18 @@
 
   &.--validator {
     cursor: not-allowed;
-    position: absolute; /* Set the button position to absolute */
-    bottom: 20px; /* Position the button at the bottom */
-    right: 20px; /* Position the button at the right */
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
     background-color: rgba(151, 112, 162, 0.2);
     color: rgba(255, 255, 255, 0.2);
   }
 
   &.--allowed {
     cursor: pointer;
-    position: absolute; /* Set the button position to absolute */
-    bottom: 20px; /* Position the button at the bottom */
-    right: 20px; /* Position the button at the right */
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
     background-color: var(--purple-mountain-majesty);
     color: var(--lavender-blush);
 
