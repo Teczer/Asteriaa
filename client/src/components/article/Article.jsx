@@ -7,6 +7,7 @@ import ArticleSkeletons from "../skeletons/ArticleSkeletons";
 
 const Article = ({ marginFix }) => {
   const [posts, setPosts] = useState([]);
+
   useEffect(() => {
     axios
       .get("https://api.spaceflightnewsapi.net/v3/articles")
@@ -18,6 +19,7 @@ const Article = ({ marginFix }) => {
         console.log(err);
       });
   }, []);
+
   return (
     <>
       <section className="article-section" style={{ marginTop: marginFix }}>
