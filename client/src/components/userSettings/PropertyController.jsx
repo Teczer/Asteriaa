@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 
 function PropertyController({
@@ -7,6 +8,27 @@ function PropertyController({
 }) {
   const [userName, setUserName] = useState(user.userName);
   const [isChanchingUsername, setIsChanchingUsername] = useState(false);
+
+  async function resetProgression() {
+    const response = await axios.patch(
+      `http://146.59.150.192:5001/user/${user._id}`,
+      {
+        quizzSystemeSolaire: 1,
+        quizzGalaxies: 1,
+        quizzPhenomenesObservables: 1,
+        quizzAstronautes: 1,
+      }
+    );
+
+    const afterpatch = axios.get(`http://146.59.150.192:5001/user/${user._id}`);
+
+    console.log(afterpatch);
+    console.log("user", user);
+    console.log("response.data", response.data);
+
+    // Rafraîchir la page après le patch et le get
+    window.location.reload();
+  }
 
   // Fonction pour gérer les modifications dans l'entrée du pseudo
   const handleUsernameChange = (e) => {
@@ -59,6 +81,7 @@ function PropertyController({
               className={`property-button ${
                 isChanchingUsername ? "--allowed" : "--validator"
               }`}
+              onClick={resetUsername}
             >
               Enregistrer les modifications
             </button>
@@ -89,7 +112,7 @@ function PropertyController({
             <div className="property-button-input-label-wrapper">
               <button
                 className="property-button --dangerous"
-                onClick={() => setIsChangingProfilePicture(true)}
+                onClick={resetProgression}
               >
                 Rénistialliser votre progression
               </button>

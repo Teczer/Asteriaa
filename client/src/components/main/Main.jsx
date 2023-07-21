@@ -1,4 +1,3 @@
-import Article from "../article/Article";
 import CardQuizz from "./cardsQuizz/CardQuizz";
 import "./main.scss";
 import { Link } from "react-router-dom";
