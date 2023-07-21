@@ -89,7 +89,6 @@ function PropertyController({
             <div className="property-button-input-label-wrapper">
               <input
                 className="input-username --overide"
-                autoFocus
                 maxLength="16"
                 placeholder="Username"
                 type="text"
