@@ -67,13 +67,13 @@ function PropertyController({
             <label className="label-title-property">Votre progression</label>
             <div className="property-button-input-label-wrapper">
               <button
-                className="property-button"
+                className="property-button --dangerous"
                 onClick={() => setIsChangingProfilePicture(true)}
               >
                 Rénistialliser votre progression
               </button>
               <p className="property-label-description">
-                L’image ne doit pas dépasser 1GB et est soumis à un compressage.
+                Attention vous ne pourrez plus revenir en arrière !
               </p>
             </div>
           </div>

@@ -1,5 +1,5 @@
 .userSettings-main {
-  margin-top: 150px;
+  margin-top: 110px;
   width: 100vw;
   min-height: 100vh;
   padding-top: 3rem;
@@ -28,7 +28,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 30px;
-  width: 100%;
+  width: 85%;
   height: auto;
 }
 
@@ -100,6 +100,14 @@
 
   &:hover {
     background-color: var(--purple-mountain-majesty);
+  }
+
+  &.--dangerous {
+    background-color: rgb(150, 0, 0);
+
+    &:hover {
+      background-color: rgb(200, 0, 0);
+    }
   }
 }
 
