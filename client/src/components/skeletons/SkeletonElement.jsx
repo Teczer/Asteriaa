@@ -1,9 +1,9 @@
 import React from "react";
 import "./skeleton.scss";
 
-function SkeletonElement({ type }) {
+function SkeletonElement({ type, children }) {
   const classes = `skeleton ${type}`;
-  return <div className={classes}></div>;
+  return <div className={classes}>{children}</div>;
 }
 
 export default SkeletonElement;

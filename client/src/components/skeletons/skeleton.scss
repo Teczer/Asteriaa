@@ -25,3 +25,41 @@
   min-width: 200px;
   min-height: 180px;
 }
+.skeleton.circle-profile {
+  height: 110px;
+  width: 110px;
+  border-radius: 9999px;
+}
+.superposed {
+  background-color: #666 !important;
+}
+
+.property-container-skeleton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+  background-color: var(--lavender-blush) !important;
+  margin-bottom: 4rem !important;
+  border-radius: 0.4rem !important;
+  padding: 2rem !important;
+  width: 80% !important;
+  height: 136px;
+}
+
+.profile-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 150px;
+  gap: 50px;
+  border-bottom: 2px solid var(--space-cadet);
+  padding: 3rem 18rem;
+}

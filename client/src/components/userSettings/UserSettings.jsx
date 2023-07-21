@@ -2,18 +2,15 @@ import React from "react";
 import "./userSettings.scss";
 import PropertyController from "./PropertyController";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-import ArticleSkeletons from "../skeletons/ArticleSkeletons";
+import ProfileSettingsSkeletons from "../skeletons/ProfileSettingsSkeletons";
 
 function UserSettings() {
-  //   const { user } = useAuthContext();
-  const user = null;
+  const { user } = useAuthContext();
 
   if (!user) {
-    // Si l'utilisateur n'est pas disponible, vous pouvez afficher un message de chargement
-    // ou rediriger vers une autre page (par exemple, la page de connexion) ici.
-    return <ArticleSkeletons />;
+    // LOADER IF user is NULL, loading Skeleton...
+    return <ProfileSettingsSkeletons />;
   }
-
   console.log("userUSERSETTINGS", user);
 
   return (
