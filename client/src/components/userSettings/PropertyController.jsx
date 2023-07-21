@@ -6,6 +6,20 @@ function PropertyController({
   propertyControllerType,
 }) {
   const [userName, setUserName] = useState(user.userName);
+  const [isChanchingUsername, setIsChanchingUsername] = useState(false);
+
+  // Function to handle changes in the username input
+  const handleUsernameChange = (e) => {
+    setUserName(e.target.value);
+    // Check if the input value is different from the initial username value
+    setIsChanchingUsername(e.target.value !== user.userName);
+  };
+
+  // Function to reset the username input and isChanchingUsername state
+  const resetUsername = () => {
+    setUserName(user.userName);
+    setIsChanchingUsername(false);
+  };
 
   return (
     <>
@@ -41,6 +55,13 @@ function PropertyController({
       {propertyControllerType === "pseudo" && (
         <div className="property-controller">
           <div className="property-container">
+            <button
+              className={`property-button ${
+                isChanchingUsername ? "--allowed" : "--validator"
+              }`}
+            >
+              Enregistrer les modifications
+            </button>
             <label className="label-title-property">Pseudo Affiché</label>
             <div className="property-button-input-label-wrapper">
               <input
@@ -49,7 +70,7 @@ function PropertyController({
                 maxLength="16"
                 placeholder="Username"
                 type="text"
-                onChange={(e) => setUserName(e.target.value)}
+                onChange={handleUsernameChange} // Handle input changes
                 value={userName}
                 required
               />

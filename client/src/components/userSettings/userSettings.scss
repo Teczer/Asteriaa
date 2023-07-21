@@ -44,6 +44,7 @@
 }
 
 .property-container {
+  position: relative; /* Add relative positioning to the container */
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -107,6 +108,29 @@
 
     &:hover {
       background-color: rgb(200, 0, 0);
+    }
+  }
+
+  &.--validator {
+    cursor: not-allowed;
+    position: absolute; /* Set the button position to absolute */
+    bottom: 20px; /* Position the button at the bottom */
+    right: 20px; /* Position the button at the right */
+    background-color: rgba(151, 112, 162, 0.2);
+    color: rgba(255, 255, 255, 0.2);
+  }
+
+  &.--allowed {
+    cursor: pointer;
+    position: absolute; /* Set the button position to absolute */
+    bottom: 20px; /* Position the button at the bottom */
+    right: 20px; /* Position the button at the right */
+    background-color: var(--purple-mountain-majesty);
+    color: var(--lavender-blush);
+
+    &:hover {
+      box-shadow: 3px 4px 40px rgba(255, 255, 255, 0.1),
+        -2px 1px 30px rgba(255, 255, 255, 0.1);
     }
   }
 }

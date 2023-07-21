@@ -14,7 +14,6 @@ function UserSettings() {
     // LOADER IF user is NULL, loading Skeleton...
     return <ProfileSettingsSkeletons />;
   }
-  console.log("userUSERSETTINGS", user);
 
   return (
     <main className="userSettings-main">
