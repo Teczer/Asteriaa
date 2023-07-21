@@ -184,3 +184,47 @@
   font-weight: bold;
   font-size: 1.3rem;
 }
+
+// MODAL
+
+.backToHomeModal {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  z-index: 4;
+  top: 0;
+  right: 0;
+
+  .backtohome-title {
+    color: var(--lavender-blush);
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  input[type="submit"] {
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background-color: var(--purple-mountain-majesty);
+    color: var(--lavender-blush);
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    width: 200px;
+    height: 50px;
+    line-height: 1.5em;
+    border: none;
+    font-size: 14px;
+    padding: 0;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--space-cadet);
+    }
+  }
+}

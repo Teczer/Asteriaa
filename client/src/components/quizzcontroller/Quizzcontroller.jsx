@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import classNames from "classnames";
 import Stepper from "./stepper/Stepper";
 import NoScroll from "./NoScroll";
+import AlertModal from "../header/modal/AlertModal";
 
 function Quizzcontroller() {
   const [posts, setPosts] = useState([]);
@@ -66,17 +67,11 @@ function Quizzcontroller() {
       <div className="quizzcontroller">
         {/* MODAL CONTROLLER SECTION */}
         {modal && (
-          <div className="backToHomeModal">
-            <h3 className="backtohome-title">
-              Êtes vous sûr de vouloir retourner à l'accueil ?
-            </h3>
-            <a href="/">
-              <input type="submit" value="QUITTER" />
-            </a>
-            <div className="cancelBackToHome" onClick={() => setModal(false)}>
-              <input type="submit" value="ANNULER" />
-            </div>
-          </div>
+          <AlertModal
+            setModal={setModal}
+            submitValue="QUITTER"
+            modalMessage="retourner à l'accueil"
+          />
         )}
         {/* ICON BACK MENU */}
         <div className="question-stepper-wrapper">

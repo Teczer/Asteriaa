@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import AlertModal from "../header/modal/AlertModal";
 
 function PropertyController({
   user,
@@ -8,6 +9,7 @@ function PropertyController({
 }) {
   const [userName, setUserName] = useState(user.userName);
   const [isChanchingUsername, setIsChanchingUsername] = useState(false);
+  const [modal, setModal] = useState(false);
 
   async function resetProgression() {
     const response = await axios.patch(
@@ -20,14 +22,12 @@ function PropertyController({
       }
     );
 
+    console.log("response.data", response.data);
+
     const afterpatch = axios.get(`http://146.59.150.192:5001/user/${user._id}`);
 
     console.log(afterpatch);
     console.log("user", user);
-    console.log("response.data", response.data);
-
-    // Rafraîchir la page après le patch et le get
-    window.location.reload();
   }
 
   // Fonction pour gérer les modifications dans l'entrée du pseudo
@@ -112,15 +112,23 @@ function PropertyController({
             <div className="property-button-input-label-wrapper">
               <button
                 className="property-button --dangerous"
-                onClick={resetProgression}
+                onClick={() => setModal(true)}
               >
-                Rénistialliser votre progression
+                Réinitialiser votre progression
               </button>
               <p className="property-label-description">
                 Attention vous ne pourrez plus revenir en arrière !
               </p>
             </div>
           </div>
+          {modal && (
+            <AlertModal
+              submitFunction={resetProgression}
+              setModal={setModal}
+              submitValue="RÉINITIALISER"
+              modalMessage="réinitialiser votre progression"
+            />
+          )}
         </div>
       )}
     </>
