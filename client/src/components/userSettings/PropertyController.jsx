@@ -8,14 +8,14 @@ function PropertyController({
   const [userName, setUserName] = useState(user.userName);
   const [isChanchingUsername, setIsChanchingUsername] = useState(false);
 
-  // Function to handle changes in the username input
+  // Fonction pour gérer les modifications dans l'entrée du pseudo
   const handleUsernameChange = (e) => {
     setUserName(e.target.value);
-    // Check if the input value is different from the initial username value
+    // Vérifier si la valeur de l'entrée est différente de la valeur initiale du pseudo
     setIsChanchingUsername(e.target.value !== user.userName);
   };
 
-  // Function to reset the username input and isChanchingUsername state
+  // Fonction pour réinitialiser l'entrée du pseudo et l'état isChanchingUsername
   const resetUsername = () => {
     setUserName(user.userName);
     setIsChanchingUsername(false);
