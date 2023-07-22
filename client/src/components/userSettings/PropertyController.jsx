@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import AlertModal from "../header/modal/AlertModal";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 
 function PropertyController({
   user,
@@ -10,6 +11,7 @@ function PropertyController({
   const [userName, setUserName] = useState(user.userName);
   const [isChanchingUsername, setIsChanchingUsername] = useState(false);
   const [modal, setModal] = useState(false);
+  const { dispatch } = useAuthContext();
 
   async function resetProgression() {
     const response = await axios.patch(
@@ -30,25 +32,28 @@ function PropertyController({
     console.log("user", user);
   }
 
-  async function changeUsername(e) {
-    e.preventDefault();
+  // FONCTION POUR CHANGER D'USERNAME
 
-    if (!userName) return;
-
+  async function changeUsername() {
     const response = await axios.patch(
       `http://146.59.150.192:5001/user/${user._id}`,
-      {
-        userName: userName,
-      }
+      { userName: userName }
     );
 
-    const afterpatch = axios.get(`http://146.59.150.192:5001/user/${user._id}`);
+    const afterpatch = await axios.get(
+      `http://146.59.150.192:5001/user/${user._id}`
+    );
 
     dispatch({ type: "UPDATE_USER", payload: afterpatch.data });
 
     console.log("response.data", response.data);
     console.log(afterpatch);
     console.log("user", user);
+
+    // Fonction pour réinitialiser l'entrée du pseudo et l'état isChanchingUsername
+
+    setUserName(response.data.userName);
+    setIsChanchingUsername(false);
   }
 
   // Fonction pour gérer les modifications dans l'entrée du pseudo
@@ -96,7 +101,9 @@ function PropertyController({
               className={`property-button ${
                 isChanchingUsername ? "--allowed" : "--validator"
               }`}
-              onClick={changeUsername}
+              onClick={() => {
+                isChanchingUsername ? changeUsername() : console.log("error");
+              }}
             >
               Enregistrer les modifications
             </button>
