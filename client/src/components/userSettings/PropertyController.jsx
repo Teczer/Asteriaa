@@ -9,6 +9,8 @@ function PropertyController({
   propertyControllerType,
 }) {
   const [userName, setUserName] = useState(user.userName);
+  const [errorMsg, setErrorMsg] = useState(null);
+  console.log("errorMsg", errorMsg);
   const [isChanchingUsername, setIsChanchingUsername] = useState(false);
   const [modal, setModal] = useState(false);
   const { dispatch } = useAuthContext();
@@ -35,10 +37,19 @@ function PropertyController({
   // FONCTION POUR CHANGER D'USERNAME
 
   async function changeUsername() {
-    const response = await axios.patch(
-      `http://146.59.150.192:5001/user/${user._id}`,
-      { userName: userName }
-    );
+    try {
+      const response = await axios.patch(
+        `http://146.59.150.192:5001/user/${user._id}`,
+        { userName: userName }
+      );
+      setErrorMsg(null);
+    } catch (error) {
+      const { response } = error;
+      console.log(error);
+      setErrorMsg(response.data.error);
+
+      return;
+    }
 
     const afterpatch = await axios.get(
       `http://146.59.150.192:5001/user/${user._id}`
@@ -51,7 +62,6 @@ function PropertyController({
     console.log("user", user);
 
     // Fonction pour réinitialiser l'entrée du pseudo et l'état isChanchingUsername
-
     setUserName(response.data.userName);
     setIsChanchingUsername(false);
   }
@@ -96,17 +106,21 @@ function PropertyController({
       {/* PSEUDO */}
       {propertyControllerType === "pseudo" && (
         <div className="property-controller">
-          <div className="property-container">
+          <div
+            className="property-container"
+            style={{ height: "180px", alignItems: "flex-start" }}
+          >
             <button
               className={`property-button ${
                 isChanchingUsername ? "--allowed" : "--validator"
               }`}
               onClick={() => {
-                isChanchingUsername ? changeUsername() : console.log("error");
+                isChanchingUsername ? changeUsername() : null;
               }}
             >
               Enregistrer les modifications
             </button>
+            {errorMsg && <div className="property-catch-error">{errorMsg}</div>}
             <label className="label-title-property">Pseudo Affiché</label>
             <div className="property-button-input-label-wrapper">
               <input
@@ -118,10 +132,19 @@ function PropertyController({
                 value={userName}
                 required
               />
-              <p className="property-label-description">
+              <p
+                className="property-label-description"
+                style={{
+                  marginBottom: "20px",
+                }}
+              >
                 Vous pouvez mettre à jour votre pseudonyme.
               </p>
+              <div className="input-username --overide --block">
+                {user.email}
+              </div>
             </div>
+            <div className="property-button-input-label-wrapper"></div>
           </div>
         </div>
       )}
