@@ -84,16 +84,28 @@ export const signupUser = async (req, res) => {
 // update a user
 export const updateUser = async (req, res) => {
   const { id } = req.params;
+  const { userName } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "No such user" });
+  }
+
+  // Check if the new userName already exists in the database (excluding the current user)
+  const existingUser = await User.findOne({ userName, _id: { $ne: id } });
+  if (existingUser) {
+    return res
+      .status(400)
+      .json({
+        error: "Le nom d'utilisateur est déjà utilisé par un autre utilisateur",
+      });
   }
 
   const user = await User.findByIdAndUpdate(
     { _id: id },
     {
       ...req.body,
-    }
+    },
+    { new: true } // To get the updated user as the result
   );
 
   if (!user) {

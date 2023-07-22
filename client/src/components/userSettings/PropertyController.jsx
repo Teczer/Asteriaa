@@ -30,17 +30,32 @@ function PropertyController({
     console.log("user", user);
   }
 
+  async function changeUsername(e) {
+    e.preventDefault();
+
+    if (!userName) return;
+
+    const response = await axios.patch(
+      `http://146.59.150.192:5001/user/${user._id}`,
+      {
+        userName: userName,
+      }
+    );
+
+    const afterpatch = axios.get(`http://146.59.150.192:5001/user/${user._id}`);
+
+    dispatch({ type: "UPDATE_USER", payload: afterpatch.data });
+
+    console.log("response.data", response.data);
+    console.log(afterpatch);
+    console.log("user", user);
+  }
+
   // Fonction pour gérer les modifications dans l'entrée du pseudo
   const handleUsernameChange = (e) => {
     setUserName(e.target.value);
     // Vérifier si la valeur de l'entrée est différente de la valeur initiale du pseudo
     setIsChanchingUsername(e.target.value !== user.userName);
-  };
-
-  // Fonction pour réinitialiser l'entrée du pseudo et l'état isChanchingUsername
-  const resetUsername = () => {
-    setUserName(user.userName);
-    setIsChanchingUsername(false);
   };
 
   return (
@@ -81,7 +96,7 @@ function PropertyController({
               className={`property-button ${
                 isChanchingUsername ? "--allowed" : "--validator"
               }`}
-              onClick={resetUsername}
+              onClick={changeUsername}
             >
               Enregistrer les modifications
             </button>
