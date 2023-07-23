@@ -265,6 +265,12 @@
 
   &.--modal {
     border-color: rgba(255, 246, 252, 0.7);
+
+    &.--property-settings {
+      &:hover {
+        border-color: var(--carnation-pink);
+      }
+    }
   }
 }
 

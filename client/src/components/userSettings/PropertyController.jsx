@@ -31,6 +31,16 @@ function PropertyController({
 
     const afterpatch = axios.get(`http://146.59.150.192:5001/user/${user._id}`);
 
+    const updatedUserData = afterpatch.data;
+
+    // Utilisez la fonction updateUser du contexte pour mettre à jour les données dans le localStorage et dans le contexte.
+    updateUser(updatedUserData);
+
+    // dispatch({ type: "UPDATE_USER", payload: afterpatch.data });
+
+    console.log("afterpatchUSERNAME", afterpatch);
+    console.log("useFromChanger", user);
+
     console.log(afterpatch);
     console.log("user", user);
   }
@@ -96,7 +106,7 @@ function PropertyController({
               style={{ marginRight: "4rem" }}
             >
               <img
-                className="user-profile-picture --modal"
+                className="user-profile-picture --modal --property-settings"
                 src={user.profilePicture}
                 alt="user-profil-picture"
               />
@@ -109,7 +119,7 @@ function PropertyController({
                 Mettre à jour la photo de profil
               </button>
               <p className="property-label-description">
-                L’image ne doit pas dépasser 1GB et est soumis à un compressage.
+                L’image ne doit pas dépasser <b>5MB</b> et est soumis à un compressage.
               </p>
             </div>
           </div>
