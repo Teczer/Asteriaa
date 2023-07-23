@@ -1,3 +1,5 @@
+@import "../../scss/media-queries";
+
 .userSettings-main {
   margin-top: 110px;
   width: 100vw;
@@ -11,11 +13,22 @@
   align-items: flex-start;
   gap: 50px;
   border-bottom: 2px solid var(--space-cadet);
+
+  @include md {
+    padding: 0;
+    margin-top: 140px;
+    align-items: center;
+  }
 }
 
 .userSettings-header {
   width: 100%;
   border-bottom: 2px solid var(--cyber-grape);
+
+  @include md {
+    text-align: center;
+    width: 80%;
+  }
 }
 
 .userSettings-main-title {
@@ -30,6 +43,14 @@
   gap: 30px;
   width: 85%;
   height: auto;
+
+  @include xl {
+    width: 100%;
+  }
+
+  @include md {
+    align-items: center;
+  }
 }
 
 .property-controller {
@@ -37,6 +58,11 @@
   flex-direction: column;
   justify-content: center;
   gap: 20px;
+
+  @include md {
+    width: 100%;
+    align-items: center;
+  }
 }
 
 .property-title {
@@ -63,9 +89,26 @@
   border-bottom: 1px solid var(--purple-mountain-majesty) !important;
   border-left: 1px solid var(--purple-mountain-majesty) !important;
   border-radius: 0.4rem !important;
-  padding: 2rem !important;
+  padding: 2rem;
   width: 80% !important;
   height: 136px;
+
+  &.--pseudo-type {
+    height: 180px;
+    align-items: flex-start;
+    padding-bottom: 200px;
+
+    @include xl {
+      padding-bottom: 80px;
+    }
+  }
+
+  @include xl {
+    height: 100% !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    flex-direction: column !important;
+  }
 }
 
 .property-button-input-label-wrapper {
@@ -74,6 +117,18 @@
   justify-content: center;
   align-items: flex-start;
   gap: 10px;
+
+  &.--image-type {
+    margin-left: 4rem;
+  }
+  @include xl {
+    text-align: center;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 0 !important;
+  }
 }
 
 .property-button {
@@ -212,6 +267,10 @@
   color: var(--lavender-blush);
   font-weight: bold;
   font-size: 1.3rem;
+
+  @include xl {
+    margin: 0;
+  }
 }
 
 // MODAL

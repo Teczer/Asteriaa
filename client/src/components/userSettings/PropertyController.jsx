@@ -101,17 +101,14 @@ function PropertyController({
       {propertyControllerType === "image" && (
         <div className="property-controller">
           <div className="property-container">
-            <figure
-              className="figure-user-profile-picture --modal"
-              style={{ marginRight: "4rem" }}
-            >
+            <figure className="figure-user-profile-picture --modal">
               <img
                 className="user-profile-picture --modal --property-settings"
                 src={user.profilePicture}
                 alt="user-profil-picture"
               />
             </figure>
-            <div className="property-button-input-label-wrapper">
+            <div className="property-button-input-label-wrapper --image-type">
               <button
                 className="property-button"
                 onClick={() => setIsChangingProfilePicture(true)}
@@ -119,7 +116,8 @@ function PropertyController({
                 Mettre à jour la photo de profil
               </button>
               <p className="property-label-description">
-                L’image ne doit pas dépasser <b>5MB</b> et est soumis à un compressage.
+                L’image ne doit pas dépasser <b>5MB</b> et est soumis à un
+                compressage.
               </p>
             </div>
           </div>
@@ -128,10 +126,7 @@ function PropertyController({
       {/* PSEUDO */}
       {propertyControllerType === "pseudo" && (
         <div className="property-controller">
-          <div
-            className="property-container"
-            style={{ height: "180px", alignItems: "flex-start" }}
-          >
+          <div className="property-container --pseudo-type">
             <button
               className={`property-button ${
                 isChanchingUsername ? "--allowed" : "--validator"
