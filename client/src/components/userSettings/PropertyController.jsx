@@ -10,10 +10,11 @@ function PropertyController({
 }) {
   const [userName, setUserName] = useState(user.userName);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [goodResponse, setGoodResponse] = useState(false);
   console.log("errorMsg", errorMsg);
   const [isChanchingUsername, setIsChanchingUsername] = useState(false);
   const [modal, setModal] = useState(false);
-  const { dispatch } = useAuthContext();
+  const { dispatch, updateUser } = useAuthContext();
 
   async function resetProgression() {
     const response = await axios.patch(
@@ -42,28 +43,39 @@ function PropertyController({
         `http://146.59.150.192:5001/user/${user._id}`,
         { userName: userName }
       );
+
       setErrorMsg(null);
+
+      console.log("response", response);
+
+      const afterpatch = await axios.get(
+        `http://146.59.150.192:5001/user/${user._id}`
+      );
+
+      const updatedUserData = afterpatch.data;
+
+      // Utilisez la fonction updateUser du contexte pour mettre à jour les données dans le localStorage et dans le contexte.
+      updateUser(updatedUserData);
+
+      // dispatch({ type: "UPDATE_USER", payload: afterpatch.data });
+
+      console.log("afterpatchUSERNAME", afterpatch);
+      console.log("useFromChanger", user);
+
+      // Fonction pour réinitialiser l'entrée du pseudo et l'état isChanchingUsername
+      setUserName(afterpatch.data.userName);
+      setIsChanchingUsername(false);
+
+      if (response.status === 200) {
+        setGoodResponse(true);
+      }
     } catch (error) {
       const { response } = error;
-      console.log(error);
+
       setErrorMsg(response.data.error);
 
       return;
     }
-
-    const afterpatch = await axios.get(
-      `http://146.59.150.192:5001/user/${user._id}`
-    );
-
-    dispatch({ type: "UPDATE_USER", payload: afterpatch.data });
-
-    console.log("response.data", response.data);
-    console.log(afterpatch);
-    console.log("user", user);
-
-    // Fonction pour réinitialiser l'entrée du pseudo et l'état isChanchingUsername
-    setUserName(response.data.userName);
-    setIsChanchingUsername(false);
   }
 
   // Fonction pour gérer les modifications dans l'entrée du pseudo
@@ -113,12 +125,16 @@ function PropertyController({
             <button
               className={`property-button ${
                 isChanchingUsername ? "--allowed" : "--validator"
-              }`}
+              } ${goodResponse ? "--goodResponse" : ""}`}
               onClick={() => {
                 isChanchingUsername ? changeUsername() : null;
               }}
             >
-              Enregistrer les modifications
+              {goodResponse ? (
+                <i className="fa-solid fa-check" />
+              ) : (
+                "Enregistrer les modifications"
+              )}
             </button>
             {errorMsg && <div className="property-catch-error">{errorMsg}</div>}
             <label className="label-title-property">Pseudo Affiché</label>

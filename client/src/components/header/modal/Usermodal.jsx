@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
-import { useLogout } from "../../../../hooks/useLogout";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 
 function Usermodal({ setUserModal, setIsChangingProfilePicture }) {
-  const { logout } = useLogout();
-  const { user } = useAuthContext();
+  const { user, logoutUser } = useAuthContext();
 
-  const handleClick = () => {
-    logout();
+  const handleLogout = () => {
+    // Appel de la fonction 'logoutUser' pour se déconnecter
+    logoutUser();
+    // Faire tout autre traitement nécessaire après la déconnexion
+    // Par exemple, rediriger l'utilisateur vers la page de connexion, etc.
   };
 
   return (
@@ -52,7 +53,7 @@ function Usermodal({ setUserModal, setIsChangingProfilePicture }) {
         </Link>
       </div>
       <Link to="/login">
-        <input type="submit" value="SE DÉCONNECTER" onClick={handleClick} />
+        <input type="submit" value="SE DÉCONNECTER" onClick={handleLogout} />
       </Link>
     </div>
   );

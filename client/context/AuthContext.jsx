@@ -3,8 +3,6 @@ import { createContext, useReducer, useEffect } from "react";
 export const AuthContext = createContext();
 
 export const authReducer = (state, action) => {
-  console.log("action", action);
-  console.log("state", state);
   switch (action.type) {
     case "LOGIN":
       return { user: action.payload };
@@ -17,6 +15,7 @@ export const authReducer = (state, action) => {
   }
 };
 
+// AuthContextProvider
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
     user: null,
@@ -30,10 +29,24 @@ export const AuthContextProvider = ({ children }) => {
     }
   }, []);
 
+  const updateUser = (userData) => {
+    localStorage.setItem("user", JSON.stringify(userData));
+    dispatch({ type: "UPDATE_USER", payload: userData });
+  };
+
+  const logoutUser = () => {
+    // Pour se déconnecter, vous pouvez simplement effacer les données utilisateur du 'localStorage'
+    localStorage.removeItem("user");
+    // Ensuite, utilisez le dispatch pour mettre à jour le contexte avec 'user: null'
+    dispatch({ type: "LOGOUT" });
+  };
+
   console.log("AuthContext state:", state);
 
   return (
-    <AuthContext.Provider value={{ ...state, dispatch }}>
+    <AuthContext.Provider
+      value={{ ...state, dispatch, updateUser, logoutUser }}
+    >
       {children}
     </AuthContext.Provider>
   );
