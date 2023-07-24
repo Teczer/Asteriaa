@@ -17,7 +17,7 @@ function VerifyEmail() {
     const verifyEmail = async () => {
       try {
         const response = await axios.get(
-          `http://146.59.150.192:5001/user/verify-email?token=${token}`
+          `http://146.59.150.192:5001/user/verify/verify-email?token=${token}`
         );
         setMessage(response.data.message); // Stocke le message de vérification dans l'état du composant
         setLoading(false); // Met fin au chargement une fois la réponse reçue
