@@ -1,6 +1,8 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import User from "../models/userModel.js";
+import sendVerificationEmail from "../utils/sendVerificationEmail.js";
 
 dotenv.config({ path: "../.env" });
 
