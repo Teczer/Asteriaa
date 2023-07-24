@@ -51,16 +51,19 @@ router.post("/send-verification-email", async (req, res) => {
         .json({ error: "L'adresse e-mail ne correspond pas à l'utilisateur" });
     }
 
+    // Convertir l'objet ObjectId en chaîne de caractères
+    const userIdString = userId.toString();
+
     // Générer un jeton de vérification avec une clé secrète
     const verificationToken = jwt.sign(
-      { userId: user._id },
+      { userId: userIdString }, // Utiliser la chaîne de caractères pour l'ID de l'utilisateur
       process.env.JWT_SECRET,
       {
         expiresIn: "1h", // Durée de validité du token
       }
     );
 
-    console.log("userFROMSending", user._id);
+    console.log("userFROMSending", userIdString);
 
     // Enregistrez le jeton dans la base de données pour vérification ultérieure
     user.verificationToken = verificationToken;
