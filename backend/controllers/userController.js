@@ -61,6 +61,10 @@ export const signupUser = async (req, res) => {
       quizzAstronautes
     );
 
+    // Set isEmailVerified to false and verificationToken to undefined for new users
+    user.isEmailVerified = false;
+    user.verificationToken = undefined;
+
     // create a token
     const token = createToken(user._id);
 
@@ -93,11 +97,9 @@ export const updateUser = async (req, res) => {
   // Check if the new userName already exists in the database (excluding the current user)
   const existingUser = await User.findOne({ userName, _id: { $ne: id } });
   if (existingUser) {
-    return res
-      .status(400)
-      .json({
-        error: "Le nom d'utilisateur est déjà utilisé par un autre utilisateur",
-      });
+    return res.status(400).json({
+      error: "Le nom d'utilisateur est déjà utilisé par un autre utilisateur",
+    });
   }
 
   const user = await User.findByIdAndUpdate(
