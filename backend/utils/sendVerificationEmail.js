@@ -5,7 +5,7 @@ const sendVerificationEmail = async (userEmail, verificationToken) => {
     service: "Gmail", // Remplacez par le service de messagerie que vous souhaitez utiliser
     auth: {
       user: "asteria.noreply@gmail.com", // Remplacez par votre adresse e-mail d'expéditeur
-      pass: "asteriamail", // Remplacez par le mot de passe de votre adresse e-mail
+      pass: "pbjshcxceavqxgzu", // Remplacez par le mot de passe de votre adresse e-mail
     },
   });
 
