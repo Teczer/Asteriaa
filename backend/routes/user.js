@@ -88,33 +88,33 @@ router.post("/send-verification-email", async (req, res) => {
 });
 
 // Route pour traiter la vérification de l'e-mail
-router.get("/verify-email", async (req, res) => {
+router.get("verify/verify-email", async (req, res) => {
   console.log("salut");
   const { token } = req.query;
   console.log("token", token);
-  // try {
-  //   // Vérifiez le token avec la clé secrète utilisée pour le générer
-  //   const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-  //   console.log("decodedToken", decodedToken);
+  try {
+    // Vérifiez le token avec la clé secrète utilisée pour le générer
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("decodedToken", decodedToken);
 
-  //   const user = await User.findOne({ _id: decodedToken.userId });
-  //   if (!user) {
-  //     return res
-  //       .status(404)
-  //       .json({ error: "Jeton de vérification invalide ou expiré" });
-  //   }
-  //   console.log("user", user);
+    const user = await User.findOne({ _id: decodedToken.userId });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ error: "Jeton de vérification invalide ou expiré" });
+    }
+    console.log("user", user);
 
-  //   // Marquez l'e-mail de l'utilisateur comme vérifié
-  //   user.isEmailVerified = true;
-  //   user.verificationToken = undefined; // Effacez le jeton de vérification
-  //   await user.save();
+    // Marquez l'e-mail de l'utilisateur comme vérifié
+    user.isEmailVerified = true;
+    user.verificationToken = undefined; // Effacez le jeton de vérification
+    await user.save();
 
-  //   res.status(200).json({ message: "E-mail vérifié avec succès !" });
-  // } catch (error) {
-  //   console.error("Erreur lors de la vérification de l'e-mail : ", error);
-  //   res.status(500).json({
-  //     error: "Une erreur est survenue lors de la vérification de l'e-mail",
-  //   });
-  // }
+    res.status(200).json({ message: "E-mail vérifié avec succès !" });
+  } catch (error) {
+    console.error("Erreur lors de la vérification de l'e-mail : ", error);
+    res.status(500).json({
+      error: "Une erreur est survenue lors de la vérification de l'e-mail",
+    });
+  }
 });
