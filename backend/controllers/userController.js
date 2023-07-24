@@ -34,6 +34,9 @@ export const loginUser = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+// SIGNUP USER
+
 // signup user
 export const signupUser = async (req, res) => {
   const {
@@ -49,6 +52,7 @@ export const signupUser = async (req, res) => {
   } = req.body;
 
   try {
+    // Create the user using the signup method
     const user = await User.signup(
       email,
       password,
@@ -64,6 +68,9 @@ export const signupUser = async (req, res) => {
     // Set isEmailVerified to false and verificationToken to undefined for new users
     user.isEmailVerified = false;
     user.verificationToken = undefined;
+
+    // Save the changes to the user document
+    await user.save();
 
     // create a token
     const token = createToken(user._id);
@@ -85,7 +92,8 @@ export const signupUser = async (req, res) => {
   }
 };
 
-// update a user
+// UPDATE A USER
+
 export const updateUser = async (req, res) => {
   const { id } = req.params;
   const { userName } = req.body;
@@ -118,6 +126,7 @@ export const updateUser = async (req, res) => {
 };
 
 // get a single workout
+
 export const getUser = async (req, res) => {
   const { id } = req.params;
 
