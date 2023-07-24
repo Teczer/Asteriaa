@@ -52,9 +52,15 @@ router.post("/send-verification-email", async (req, res) => {
     }
 
     // Générer un jeton de vérification avec une clé secrète
-    const verificationToken = jwt.sign({ userId }, process.env.JWT_SECRET, {
-      expiresIn: "1h", // Durée de validité du token
-    });
+    const verificationToken = jwt.sign(
+      { userId: user._id },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h", // Durée de validité du token
+      }
+    );
+
+    console.log("userFROMSending", user);
 
     // Enregistrez le jeton dans la base de données pour vérification ultérieure
     user.verificationToken = verificationToken;
@@ -93,6 +99,7 @@ router.get("/verify-email", async (req, res) => {
         .json({ error: "Jeton de vérification invalide ou expiré" });
     }
 
+    console.log("userFROMVerification", user);
     // Marquez l'e-mail de l'utilisateur comme vérifié
     user.isEmailVerified = true;
     user.verificationToken = undefined; // Effacez le jeton de vérification
