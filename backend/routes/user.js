@@ -90,10 +90,11 @@ router.post("/send-verification-email", async (req, res) => {
 // Route pour traiter la vérification de l'e-mail
 router.get("/verify-email", async (req, res) => {
   const { token } = req.query;
-
+  console.log("token", token);
   try {
     // Vérifiez le token avec la clé secrète utilisée pour le générer
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("decodedToken", decodedToken);
 
     const user = await User.findOne({ _id: decodedToken.userId });
     if (!user) {
@@ -101,6 +102,7 @@ router.get("/verify-email", async (req, res) => {
         .status(404)
         .json({ error: "Jeton de vérification invalide ou expiré" });
     }
+    console.log("user", user);
 
     // Marquez l'e-mail de l'utilisateur comme vérifié
     user.isEmailVerified = true;

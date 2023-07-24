@@ -43,9 +43,6 @@ const userSchema = new Schema({
   verificationToken: {
     type: String,
   },
-  verificationTokenExpiresAt: {
-    type: Date,
-  },
 });
 
 // static signup method
@@ -90,15 +87,6 @@ userSchema.statics.signup = async function (
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
 
-  // Générer un jeton de vérification avec une clé secrète
-  const verificationToken = jwt.sign(
-    { userId: user._id },
-    process.env.JWT_SECRET,
-    {
-      expiresIn: "1h", // Durée de validité du token (vous pouvez ajuster cela selon vos besoins)
-    }
-  );
-
   const user = await this.create({
     email,
     password: hash,
@@ -109,7 +97,6 @@ userSchema.statics.signup = async function (
     quizzGalaxies,
     quizzPhenomenesObservables,
     quizzAstronautes,
-    verificationToken, // Enregistrez le jeton de vérification dans la base de données
   });
 
   return user;
