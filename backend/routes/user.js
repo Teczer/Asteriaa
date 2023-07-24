@@ -60,7 +60,7 @@ router.post("/send-verification-email", async (req, res) => {
       }
     );
 
-    console.log("userFROMSending", user);
+    console.log("userFROMSending", user._id);
 
     // Enregistrez le jeton dans la base de données pour vérification ultérieure
     user.verificationToken = verificationToken;
