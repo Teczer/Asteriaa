@@ -88,7 +88,7 @@ router.post("/send-verification-email", async (req, res) => {
 });
 
 // Route pour traiter la vérification de l'e-mail
-router.get("verify/verify-email", async (req, res) => {
+router.get("/verify/verify-email", async (req, res) => {
   console.log("salut");
   const { token } = req.query;
   console.log("token", token);
