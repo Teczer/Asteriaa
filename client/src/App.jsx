@@ -21,12 +21,14 @@ function App() {
   const isLoginScreen = location.pathname.includes("login");
   const isSignUpScreen = location.pathname.includes("signup");
   const isAsteriaTutorialScreen = location.pathname.includes("tutorial");
+  const isVerifyingScreen = location.pathname.includes("verify");
   const { user } = useAuthContext();
   return (
     <>
       {!isQuizzControllerScreen &&
         !isLoginScreen &&
         !isSignUpScreen &&
+        !isVerifyingScreen &&
         !isAsteriaTutorialScreen && <Header />}
       <Routes>
         <Route path="/tutorial" element={<AsteriaTutorial />} />
@@ -52,6 +54,7 @@ function App() {
       {!isQuizzControllerScreen &&
         !isLoginScreen &&
         !isSignUpScreen &&
+        !isVerifyingScreen &&
         !isAsteriaTutorialScreen && <Footer />}
     </>
   );

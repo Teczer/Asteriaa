@@ -1,16 +1,12 @@
 @import "../../scss/media-queries";
 
 .verify-email-container {
-  margin-top: 110px;
   width: 100vw;
-  min-height: 100vh;
-  padding-top: 3rem;
-  padding-left: 18rem;
-  padding-right: 18rem;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   gap: 50px;
   border-bottom: 2px solid var(--space-cadet);
 }
@@ -19,9 +15,22 @@
   color: var(--lavender-blush);
 }
 
-.verify-email-error {
-  color: red;
+.verify-email {
+  &.--error {
+    color: red;
+  }
+  &.--success {
+    color: var(--carnation-pink);
+  }
 }
-.verify-email-success {
-  color: var(--carnation-pink);
+
+i {
+  &.--error {
+    font-size: 80px !important  ;
+    color: red;
+  }
+  &.--sucess {
+    font-size: 80px !important;
+    color: var(--carnation-pink);
+  }
 }
