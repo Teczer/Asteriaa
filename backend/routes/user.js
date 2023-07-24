@@ -103,6 +103,8 @@ router.get("/verify-email", async (req, res) => {
     // Marquez l'e-mail de l'utilisateur comme vérifié
     user.isEmailVerified = true;
     user.verificationToken = undefined; // Effacez le jeton de vérification
+
+    // Enregistrez les modifications dans la base de données
     await user.save();
 
     res.status(200).json({ message: "E-mail vérifié avec succès !" });

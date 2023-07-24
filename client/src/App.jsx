@@ -13,6 +13,7 @@ import "./scss/app.scss";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import UserSettings from "./components/userSettings/UserSettings";
+import VerifyEmail from "./components/verifyEmail/VerifyEmail";
 
 function App() {
   const location = useLocation();
@@ -38,6 +39,7 @@ function App() {
           path="/signup"
           element={!user ? <Signup /> : <Navigate to="/" />}
         />
+        <Route path="/verify" element={<VerifyEmail />} />
         <Route path="*" element={<Notfound />} />
         <Route path="/quizz" element={<Main />} />
         <Route path="/news" element={<Article />} />
