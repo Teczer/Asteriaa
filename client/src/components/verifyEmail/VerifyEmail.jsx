@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./verifyEmail.scss";
+import { useSignup } from "../../../hooks/useSignup";
 
 function VerifyEmail() {
+  const { getUserInfo } = useSignup();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get("token");
@@ -23,6 +25,17 @@ function VerifyEmail() {
         setSucess(true);
         setMessage(response.data.message); // Stocke le message de vérification dans l'état du composant
         setLoading(false); // Met fin au chargement une fois la réponse reçue
+
+        // Vérifier l'état isEmailVerified dans la base de données
+        const userInfo = await getUserInfo(response.data.userId);
+        console.log("userInfo", userInfo);
+        if (userInfo && userInfo.isEmailVerified) {
+          console.log("ilestvérifié");
+          // L'e-mail est vérifié, effectuer la redirection vers la page d'accueil après 3 secondes
+          setTimeout(() => {
+            navigate("/");
+          }, 3000);
+        }
       } catch (error) {
         setSucess(false);
         setMessage("Une erreur est survenue lors de la vérification d'e-mail");
@@ -31,26 +44,7 @@ function VerifyEmail() {
     };
 
     verifyEmail();
-  }, [token]);
-
-  // Vérifier si l'e-mail a déjà été vérifié avec succès
-  const isEmailVerified = localStorage.getItem("isEmailVerified") === "true";
-
-  // Rediriger vers la page d'accueil si l'e-mail est vérifié avec succès
-  useEffect(() => {
-    if (isEmailVerified) {
-      setTimeout(() => {
-        navigate("/");
-      }, 3000);
-    }
-  }, [isEmailVerified, navigate]);
-
-  // Mettre à jour le localStorage lorsque l'e-mail est vérifié avec succès
-  useEffect(() => {
-    if (sucess) {
-      localStorage.setItem("isEmailVerified", "true");
-    }
-  }, [sucess]);
+  }, [token, navigate]);
 
   return (
     <div className="verify-email-container">

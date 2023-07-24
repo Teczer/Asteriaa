@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useSignup } from "../../../hooks/useSignup";
 import { useAuthContext } from "../../../hooks/useAuthContext";
@@ -9,38 +8,19 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
-  const { signup, error, isLoading } = useSignup();
+  const { signup, error, isLoading, sendVerificationEmail } = useSignup();
   const { user } = useAuthContext();
-
-  async function toSetDb() {
-    const response = await axios.post(
-      "http://localhost:5001/workouts",
-      {
-        isAdmin: false,
-        userName: userName,
-        profilePicture:
-          "https://static-cdn.jtvnw.net/user-default-pictures-uv/ead5c8b2-a4c9-4724-b1dd-9f00b46cbd3d-profile_image-70x70.png",
-        quizzSystemeSolaire: 1,
-        quizzGalaxies: 1,
-        quizzPhenomenesObservables: 1,
-        quizzAstronautes: 1,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
-    console.log(response.data);
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     await signup(email, password, userName);
     console.log(email, password, userName);
-    await console.log("joriszs", user);
-    toSetDb();
+    console.log("joriszs", user);
+
+    if (user) {
+      sendVerificationEmail(user.email, user._id);
+    }
   };
   return (
     <main className="login-screen">

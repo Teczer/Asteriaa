@@ -4,8 +4,25 @@ import { useAuthContext } from "./useAuthContext";
 
 export const useSignup = () => {
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const { dispatch } = useAuthContext();
+
+  const sendVerificationEmail = async (email, userId) => {
+    try {
+      await axios.post(
+        "http://146.59.150.192:5001/user/send-verification-email",
+        { email, userId },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    } catch (error) {
+      console.error(
+        "Erreur lors de l'envoi de l'e-mail de vérification : ",
+        error
+      );
+    }
+  };
 
   const signup = async (email, password, userName) => {
     setIsLoading(true);
@@ -33,8 +50,10 @@ export const useSignup = () => {
       localStorage.setItem("user", JSON.stringify(data));
       // update the auth context
       dispatch({ type: "LOGIN", payload: data });
-
       setIsLoading(false);
+      localStorage.setItem("isVerifiedAccount", false);
+      // Envoi de l'e-mail de vérification
+      sendVerificationEmail(email, data._id);
     } catch (error) {
       const { response } = error;
       console.log(error);
@@ -42,5 +61,22 @@ export const useSignup = () => {
       setError(response.data.error);
     }
   };
-  return { signup, isLoading, error };
+
+  const getUserInfo = async (userId) => {
+    try {
+      console.log("userIdFromgetuserInfo", userId);
+      const { data } = await axios.get(
+        `http://146.59.150.192:5001/user/${userId}`
+      );
+      return data; // Renvoie les informations de l'utilisateur
+    } catch (error) {
+      console.error(
+        "Erreur lors de la récupération des informations de l'utilisateur : ",
+        error
+      );
+      return null;
+    }
+  };
+
+  return { signup, isLoading, error, sendVerificationEmail, getUserInfo };
 };

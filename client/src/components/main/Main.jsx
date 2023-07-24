@@ -16,6 +16,7 @@ function Main() {
   useEffect(() => {
     const completedTutorial = localStorage.getItem("completedTutorial");
 
+    console.log("userFromContext", user);
     if (!completedTutorial && !user) {
       navigate("/tutorial");
     }
