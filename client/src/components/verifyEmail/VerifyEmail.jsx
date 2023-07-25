@@ -68,6 +68,8 @@ function VerifyEmail() {
             updateUser(updatedUserData);
           }
 
+          localStorage.setItem("completedTutorial", true);
+
           // Décrémentation de la valeur de timerRedirection toutes les secondes
           if (timerRedirection > 0) {
             setInterval(() => {
