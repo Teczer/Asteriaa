@@ -76,7 +76,6 @@ function VerifyEmail() {
           }
 
           // L'e-mail est vérifié, effectuer la redirection vers la page d'accueil après 3 secondes
-          console.log("ilestvérifié");
           setTimeout(() => {
             navigate("/");
           }, 3000);
