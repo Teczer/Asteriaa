@@ -62,12 +62,20 @@ function ChangePictureModal({ setIsChangingProfilePicture }) {
   }, [changingPicture]);
 
   return (
-    <div className="modal-changepicture-container">
-      <div className="selector-profile-picture-container">
+    <div
+      className="modal-changepicture-container"
+      onClick={() => setIsChangingProfilePicture(false)}
+    >
+      <div
+        className="selector-profile-picture-container"
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
         <div className="closebtn-img-wrapper">
           <button
             className="close-user-modal-btn --change-picture"
-            onClick={() => setIsChangingProfilePicture(false)}
+            onClick={(e) => setIsChangingProfilePicture(false)}
           >
             <i className="fa-solid fa-circle-xmark"></i>
           </button>

@@ -1,23 +1,24 @@
 import { useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "./useAuthContext";
+import { useNavigate } from "react-router-dom";
 
 export const useSignup = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { dispatch } = useAuthContext();
-
-  // test push
+  const navigate = useNavigate();
 
   const sendVerificationEmail = async (email, userId) => {
     try {
-      await axios.post(
+      const { data } = await axios.post(
         "http://146.59.150.192:5001/user/send-verification-email",
         { email, userId },
         {
           headers: { "Content-Type": "application/json" },
         }
       );
+      console.log("data", data);
     } catch (error) {
       console.error(
         "Erreur lors de l'envoi de l'e-mail de vérification : ",
@@ -56,6 +57,7 @@ export const useSignup = () => {
       localStorage.setItem("isVerifiedAccount", false);
       // Envoi de l'e-mail de vérification
       sendVerificationEmail(email, data._id);
+      navigate("/verify?type=verifying");
     } catch (error) {
       const { response } = error;
       console.log(error);

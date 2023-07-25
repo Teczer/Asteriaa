@@ -14,7 +14,7 @@ function PropertyController({
   console.log("errorMsg", errorMsg);
   const [isChanchingUsername, setIsChanchingUsername] = useState(false);
   const [modal, setModal] = useState(false);
-  const { dispatch, updateUser } = useAuthContext();
+  const { updateUser } = useAuthContext();
 
   async function resetProgression() {
     const response = await axios.patch(

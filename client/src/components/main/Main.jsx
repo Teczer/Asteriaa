@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 function Main() {
   const { user } = useAuthContext();
+  console.log("user", user);
 
   // TUTORIAL REDIRECTION PHASE
 
@@ -15,10 +16,16 @@ function Main() {
 
   useEffect(() => {
     const completedTutorial = localStorage.getItem("completedTutorial");
+    const isVerifiedAccount = localStorage.getItem("isVerifiedAccount");
+    console.log("completedTutorial", completedTutorial);
+    console.log("isVerifiedAccount", isVerifiedAccount);
 
-    console.log("userFromContext", user);
     if (!completedTutorial && !user) {
       navigate("/tutorial");
+    }
+
+    if (user?.isEmailVerified === false) {
+      navigate("/verify?type=verifying");
     }
   }, [navigate, user]);
 
