@@ -15,21 +15,25 @@ function Main() {
 
   useEffect(() => {
     console.log("userFROMNAVIGATE", user);
+    if (user) {
+      if (user?.isEmailVerified === false) {
+        navigate("/verify?type=verifying");
+      }
+      return;
+    }
     const completedTutorial = localStorage.getItem("completedTutorial");
-    console.log("completedTutorial", completedTutorial);
+    console.log("completedTutorialNAVIGATE", completedTutorial);
 
     if (!completedTutorial && !user) {
       navigate("/tutorial");
-    }
-
-    if (user?.isEmailVerified === false) {
-      navigate("/verify?type=verifying");
     }
   }, [navigate, user]);
 
   const [userProgression, setUserProgression] = useState([]);
 
   async function getUserProgression() {
+    if (!user) return;
+
     const response = await axios.get(
       `http://146.59.150.192:5001/user/${user._id}`
     );
