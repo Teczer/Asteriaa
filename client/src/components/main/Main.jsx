@@ -16,15 +16,17 @@ function Main() {
   useEffect(() => {
     console.log("userFROMNAVIGATE", user);
     if (user) {
-      if (user?.isEmailVerified === false) {
+      if (user.isEmailVerified === false) {
         navigate("/verify?type=verifying");
       }
       return;
     }
+    // SI Y A PAS DE USER
+
     const completedTutorial = localStorage.getItem("completedTutorial");
     console.log("completedTutorialNAVIGATE", completedTutorial);
 
-    if (!completedTutorial && !user) {
+    if (!completedTutorial) {
       navigate("/tutorial");
     }
   }, [navigate, user]);

@@ -132,7 +132,7 @@ function VerifyEmail() {
           <button
             className="verify-email-resend-button"
             onClick={() => {
-              sendVerificationEmail(user.email, userId);
+              sendVerificationEmail(user.email, user._id);
             }}
           >
             Renvoyer
