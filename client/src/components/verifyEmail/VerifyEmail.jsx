@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./verifyEmail.scss";
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import getUserIdFromToken from "./getUserIdFromToken";
 
 function VerifyEmail() {
   const searchParams = new URLSearchParams(location.search);
@@ -54,17 +55,22 @@ function VerifyEmail() {
           setSucess(true);
           setMessage(response.data.message);
 
-          // Effectuez une autre requête pour récupérer les nouvelles données utilisateur
-          const afterpatch = await axios.get(
-            `http://146.59.150.192:5001/user/${user?._id}`
-          );
-          const updatedUserData = afterpatch.data;
+          // Récupérer le userId depuis le token
+          const userId = getUserIdFromToken(token);
+          console.log("userIdFROMVERIFY", userId);
+          if (userId) {
+            // Effectuer la requête pour récupérer les nouvelles données utilisateur
+            const afterpatch = await axios.get(
+              `http://146.59.150.192:5001/user/${userId}`
+            );
+            const updatedUserData = afterpatch.data;
 
-          // Mettez à jour le contexte avec les nouvelles données utilisateur
-          updateUser(updatedUserData);
+            // Mettre à jour le contexte avec les nouvelles données utilisateur
+            updateUser(updatedUserData);
+          }
 
-          console.log("ilestvérifié");
           // L'e-mail est vérifié, effectuer la redirection vers la page d'accueil après 3 secondes
+          console.log("ilestvérifié");
           setTimeout(() => {
             navigate("/");
           }, 3000);
