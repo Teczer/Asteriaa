@@ -17,6 +17,8 @@ function VerifyEmail() {
   const navigate = useNavigate();
   const { user, updateUser } = useAuthContext();
   console.log("user", user);
+  const [timerRedirection, setTimerRedirection] = useState(3);
+  const userId = getUserIdFromToken(token);
 
   const sendVerificationEmail = async (email, userId) => {
     try {
@@ -55,9 +57,6 @@ function VerifyEmail() {
           setSucess(true);
           setMessage(response.data.message);
 
-          // Récupérer le userId depuis le token
-          const userId = getUserIdFromToken(token);
-          console.log("userIdFROMVERIFY", userId);
           if (userId) {
             // Effectuer la requête pour récupérer les nouvelles données utilisateur
             const afterpatch = await axios.get(
@@ -67,6 +66,13 @@ function VerifyEmail() {
 
             // Mettre à jour le contexte avec les nouvelles données utilisateur
             updateUser(updatedUserData);
+          }
+
+          // Décrémentation de la valeur de timerRedirection toutes les secondes
+          if (timerRedirection > 0) {
+            setInterval(() => {
+              setTimerRedirection(timerRedirection - 1);
+            }, 1000);
           }
 
           // L'e-mail est vérifié, effectuer la redirection vers la page d'accueil après 3 secondes
@@ -86,13 +92,12 @@ function VerifyEmail() {
 
       verifyEmail();
     }
-  }, [token, navigate, updateUser, user?._id]);
+  }, [token, navigate, updateUser, timerRedirection]);
 
   return (
     <div className="verify-email-container">
       {token && !type ? (
         <>
-          <h2 className="verify-email-title">Vérification d'e-mail</h2>
           {loading ? (
             <p className="verify-email-title">Chargement...</p>
           ) : (
@@ -106,6 +111,11 @@ function VerifyEmail() {
               <h3 className={`verify-email --${sucess ? "success" : "error"}`}>
                 {message || "Erreur : Impossible de vérifier l'e-mail"}
               </h3>
+              {sucess && (
+                <span className="verify-redirection-timer">
+                  Redirection dans {timerRedirection} ...
+                </span>
+              )}
             </>
           )}
         </>
@@ -123,7 +133,7 @@ function VerifyEmail() {
           <button
             className="verify-email-resend-button"
             onClick={() => {
-              sendVerificationEmail(user.email, user._id);
+              sendVerificationEmail(user.email, userId);
             }}
           >
             Renvoyer
