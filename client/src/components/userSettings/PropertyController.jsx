@@ -2,19 +2,29 @@ import axios from "axios";
 import { useState } from "react";
 import AlertModal from "../header/modal/AlertModal";
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import DeleteUserModal from "./DeleteUserModal";
+import { useNavigate } from "react-router-dom";
 
 function PropertyController({
   user,
   setIsChangingProfilePicture,
   propertyControllerType,
 }) {
+  // USERNAME
   const [userName, setUserName] = useState(user.userName);
+  const [isChanchingUsername, setIsChanchingUsername] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
   const [goodResponse, setGoodResponse] = useState(false);
-  console.log("errorMsg", errorMsg);
-  const [isChanchingUsername, setIsChanchingUsername] = useState(false);
+  // PASSWORD
+  const [deleteUserModal, setDeleteUserModal] = useState(false);
+  const [password, setPassword] = useState("");
+  const [isTypingPassword, setIsTypingPassword] = useState(false);
+  const [errorPasswordMsg, setErrorPasswordMsg] = useState(null);
+  const [goodDeleteUserResponse, setGoodDeleteUserResponse] = useState(false);
+
   const [modal, setModal] = useState(false);
-  const { updateUser } = useAuthContext();
+  const { updateUser, logoutUser } = useAuthContext();
+  const navigate = useNavigate();
 
   async function resetProgression() {
     const response = await axios.patch(
@@ -88,11 +98,55 @@ function PropertyController({
     }
   }
 
+  // FONCTION POUR SUPPRIMER L'UTILISATEUR
+
+  async function deleteUser() {
+    try {
+      const response = await axios.post(
+        `http://146.59.150.192:5001/user/delete/${user._id}`,
+        { password: password }
+      );
+
+      console.log("response", response);
+
+      setErrorPasswordMsg(null);
+
+      if (response.status === 200) {
+        setGoodDeleteUserResponse(true);
+      }
+
+      setIsTypingPassword(false);
+
+      setTimeout(() => {
+        // Appel de la fonction 'logoutUser' pour se déconnecter/vider l'app
+        logoutUser();
+        // Navigation vers login
+        navigate("/login");
+      }, 1500);
+    } catch (error) {
+      const { response } = error;
+
+      setErrorPasswordMsg(response.data.error);
+
+      return;
+    }
+  }
+
   // Fonction pour gérer les modifications dans l'entrée du pseudo
   const handleUsernameChange = (e) => {
     setUserName(e.target.value);
     // Vérifier si la valeur de l'entrée est différente de la valeur initiale du pseudo
     setIsChanchingUsername(e.target.value !== user.userName);
+  };
+
+  // Fonction pour gérer les modifications dans l'entrée du pseudo
+  const handleTypingPassword = (e) => {
+    setPassword(e.target.value);
+    setIsTypingPassword(true);
+
+    if (e.target.value === "") {
+      setIsTypingPassword(false);
+    }
   };
 
   return (
@@ -175,17 +229,37 @@ function PropertyController({
           <div className="property-container">
             <label className="label-title-property">Votre progression</label>
             <div className="property-button-input-label-wrapper">
-              <button
-                className="property-button --dangerous"
-                onClick={() => setModal(true)}
-              >
-                Réinitialiser votre progression
-              </button>
+              <div className="property-button-row-wrapper">
+                <button
+                  className="property-button --dangerous"
+                  onClick={() => setModal(true)}
+                >
+                  Réinitialiser votre progression
+                </button>
+                <button
+                  className="property-button --dangerous"
+                  onClick={() => setDeleteUserModal(true)}
+                >
+                  Supprimer votre compte
+                </button>
+              </div>
               <p className="property-label-description">
                 Attention vous ne pourrez plus revenir en arrière !
               </p>
             </div>
           </div>
+          {deleteUserModal && (
+            <DeleteUserModal
+              setDeleteUserModal={setDeleteUserModal}
+              password={password}
+              handleTypingPassword={handleTypingPassword}
+              user={user}
+              isTypingPassword={isTypingPassword}
+              goodDeleteUserResponse={goodDeleteUserResponse}
+              errorPasswordMsg={errorPasswordMsg}
+              deleteUser={deleteUser}
+            />
+          )}
           {modal && (
             <AlertModal
               submitFunction={resetProgression}

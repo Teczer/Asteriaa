@@ -154,6 +154,57 @@
   padding: 0 2rem;
   cursor: pointer;
 
+  // DELETE MODAL
+
+  &.--delete-modal {
+    width: 100%;
+  }
+  &.--delete-modal-validator {
+    cursor: not-allowed;
+
+    background-color: rgba(151, 112, 162, 0.2);
+    color: rgba(255, 255, 255, 0.4);
+
+    &:hover {
+      background-color: rgba(151, 112, 162, 0.2);
+    }
+
+    &.--goodResponse {
+      background-color: #00db84;
+      color: var(--oxford-blue);
+      box-shadow: none;
+      min-width: 150px;
+
+      &:hover {
+        background-color: #5cffbe;
+      }
+    }
+  }
+
+  &.--delete-modal-allowed {
+    cursor: pointer;
+    background-color: var(--purple-mountain-majesty);
+    color: var(--lavender-blush);
+
+    &:hover {
+      box-shadow: 3px 4px 40px rgba(255, 255, 255, 0.1),
+        -2px 1px 30px rgba(255, 255, 255, 0.1);
+    }
+
+    &.--goodResponse {
+      background-color: #00db84;
+      color: var(--oxford-blue);
+      box-shadow: none;
+      min-width: 150px;
+
+      &:hover {
+        background-color: #5cffbe;
+      }
+    }
+  }
+
+  // REST
+
   &:hover {
     background-color: var(--purple-mountain-majesty);
   }
@@ -172,7 +223,7 @@
     bottom: 20px;
     right: 20px;
     background-color: rgba(151, 112, 162, 0.2);
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(5, 5, 5, 0.2);
 
     &.--goodResponse {
       background-color: #00db84;
@@ -325,8 +376,103 @@
   position: absolute;
   bottom: 60px;
   right: 20px;
+
+  &.--delete-user-modal {
+    position: static;
+  }
 }
 
 .figure-property-settings {
   border-color: red !important;
+}
+
+.property-button-row-wrapper {
+  display: flex;
+  gap: 50px;
+}
+
+// DELETE USER MODAL
+
+.delete-user-modal-container {
+  overflow: auto !important;
+  border-radius: 0.4rem;
+  width: 50rem;
+  animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1
+    normal none running;
+  display: flex;
+  padding: 3rem;
+  flex-direction: column;
+  background-color: var(--space-cadet);
+  gap: 1rem;
+}
+
+// LOGO + TITLE
+
+.delete-modal-title-logo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: -10px;
+}
+.delete-modal-logo {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+.delete-modal-title {
+  color: var(--lavender-blush);
+  font-weight: 600;
+  font-size: 1.8rem;
+  line-height: 1.5rem;
+}
+
+// PHOTO DE PROFIL + PSEUDO
+
+.delete-modal-profilpicture-username {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+.delete-modal-username {
+  color: var(--lavender-blush);
+  font-size: 1.3rem;
+}
+
+// ALERT DELETE
+
+.delete-modal-alert-info {
+  width: 100%;
+  color: var(--lavender-blush);
+  font-size: 1.25rem;
+  line-height: 1.5;
+  text-align: start;
+}
+
+// LABEL + INPUT + FORGOT PASSWORD
+
+.delete-modal-label-input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.delete-modal-label {
+  color: var(--lavender-blush);
+  font-weight: 700;
+  flex-grow: 1;
+  min-height: 2rem;
+  font-size: 1.3rem;
+}
+.delete-modal-forgot-password {
+  color: var(--carnation-pink);
+  font-size: 1.2rem;
+
+  &:hover {
+    color: var(--orchid-crayola);
+    text-decoration: underline;
+  }
 }
