@@ -2,23 +2,29 @@ import axios from "axios";
 import { useState } from "react";
 import AlertModal from "../header/modal/AlertModal";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-import { Link } from "react-router-dom";
+import DeleteUserModal from "./DeleteUserModal";
+import { useNavigate } from "react-router-dom";
 
 function PropertyController({
   user,
   setIsChangingProfilePicture,
   propertyControllerType,
 }) {
+  // USERNAME
   const [userName, setUserName] = useState(user.userName);
+  const [isChanchingUsername, setIsChanchingUsername] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
   const [goodResponse, setGoodResponse] = useState(false);
-  console.log("errorMsg", errorMsg);
-  const [isChanchingUsername, setIsChanchingUsername] = useState(false);
-  const [isTypingPassword, setIsTypingPassword] = useState(false);
+  // PASSWORD
+  const [deleteUserModal, setDeleteUserModal] = useState(false);
   const [password, setPassword] = useState("");
+  const [isTypingPassword, setIsTypingPassword] = useState(false);
+  const [errorPasswordMsg, setErrorPasswordMsg] = useState(null);
+  const [goodDeleteUserResponse, setGoodDeleteUserResponse] = useState(false);
+
   const [modal, setModal] = useState(false);
-  const [deleteUserModal, setDeleteUserModal] = useState(true);
-  const { updateUser } = useAuthContext();
+  const { updateUser, logoutUser } = useAuthContext();
+  const navigate = useNavigate();
 
   async function resetProgression() {
     const response = await axios.patch(
@@ -87,6 +93,40 @@ function PropertyController({
       const { response } = error;
 
       setErrorMsg(response.data.error);
+
+      return;
+    }
+  }
+
+  // FONCTION POUR SUPPRIMER L'UTILISATEUR
+
+  async function deleteUser() {
+    try {
+      const response = await axios.post(
+        `http://146.59.150.192:5001/user/delete/${user._id}`,
+        { password: password }
+      );
+
+      console.log("response", response);
+
+      setErrorPasswordMsg(null);
+
+      if (response.status === 200) {
+        setGoodDeleteUserResponse(true);
+      }
+
+      setIsTypingPassword(false);
+
+      setTimeout(() => {
+        // Appel de la fonction 'logoutUser' pour se déconnecter/vider l'app
+        logoutUser();
+        // Navigation vers login
+        navigate("/login");
+      }, 1500);
+    } catch (error) {
+      const { response } = error;
+
+      setErrorPasswordMsg(response.data.error);
 
       return;
     }
@@ -209,76 +249,16 @@ function PropertyController({
             </div>
           </div>
           {deleteUserModal && (
-            <div
-              className="backToHomeModal"
-              onClick={() => setDeleteUserModal(false)}
-            >
-              <div
-                className="delete-user-modal-container"
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                <div className="delete-modal-title-logo">
-                  <img
-                    className="delete-modal-logo"
-                    src="https://res.cloudinary.com/dw3mwclgk/image/upload/v1670528238/asteriaLogo_af3kfh.svg"
-                    alt="Asteria"
-                  />
-                  <h4 className="delete-modal-title">
-                    Confirmez votre mot de passe
-                  </h4>
-                </div>
-                <div className="delete-modal-profilpicture-username">
-                  <figure className="figure-user-profile-picture --delete-user">
-                    <img
-                      className="user-profile-picture --modal --property-settings"
-                      src={user.profilePicture}
-                      alt="user-profil-picture"
-                    />
-                  </figure>
-                  <strong className="delete-modal-username">
-                    {user.userName}
-                  </strong>
-                </div>
-                <p className="delete-modal-alert-info">
-                  Pour votre sécurité, veuillez entrer votre mot de passe pour
-                  continuer.
-                </p>
-                <div className="delete-modal-label-input">
-                  <label className="delete-modal-label">Mot de passe</label>
-                  <input
-                    className="input-username --overide"
-                    maxLength="16"
-                    required
-                    type="password"
-                    value={password}
-                    onChange={handleTypingPassword}
-                  />
-                </div>
-                <Link className="delete-modal-forgot-password" to="/">
-                  <span>Mot de passe oublié ?</span>
-                </Link>
-                <div className="delete-modal-button-wrapper">
-                  <button
-                    className={`property-button --delete-modal ${
-                      isTypingPassword
-                        ? "--delete-modal-allowed"
-                        : "--delete-modal-validator"
-                    } ${goodResponse ? "--goodResponse" : ""}`}
-                    onClick={() => {
-                      isTypingPassword ? changeUsername() : null;
-                    }}
-                  >
-                    {goodResponse ? (
-                      <i className="fa-solid fa-check" />
-                    ) : (
-                      "Vérifier"
-                    )}
-                  </button>
-                </div>
-              </div>
-            </div>
+            <DeleteUserModal
+              setDeleteUserModal={setDeleteUserModal}
+              password={password}
+              handleTypingPassword={handleTypingPassword}
+              user={user}
+              isTypingPassword={isTypingPassword}
+              goodDeleteUserResponse={goodDeleteUserResponse}
+              errorPasswordMsg={errorPasswordMsg}
+              deleteUser={deleteUser}
+            />
           )}
           {modal && (
             <AlertModal

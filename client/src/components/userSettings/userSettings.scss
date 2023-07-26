@@ -376,6 +376,10 @@
   position: absolute;
   bottom: 60px;
   right: 20px;
+
+  &.--delete-user-modal {
+    position: static;
+  }
 }
 
 .figure-property-settings {
