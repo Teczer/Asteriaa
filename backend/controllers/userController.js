@@ -163,13 +163,11 @@ export const deleteUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "Utilisateur non trouvé" });
     }
-     
-    console.log('userA', user);
     // Vérifiez si le mot de passe fourni correspond au mot de passe de l'utilisateur
     const isPasswordValid = await bcrypt.compare(password, user.password);
     console.log('bcryptPass', isPasswordValid);
     if (!isPasswordValid) {
-      return res.status(401).json({ error: "Mot de passe incorrect" });
+      return res.status(401).json({ error: "Ce mot de passe était incorrect. Veuillez réessayer." });
     }
 
     // Supprimer l'utilisateur de la base de données
