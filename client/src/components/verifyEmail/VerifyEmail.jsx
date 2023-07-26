@@ -70,13 +70,6 @@ function VerifyEmail() {
 
           localStorage.setItem("completedTutorial", true);
 
-          // Décrémentation de la valeur de timerRedirection toutes les secondes
-          if (timerRedirection > 0) {
-            setInterval(() => {
-              setTimerRedirection(timerRedirection - 1);
-            }, 1000);
-          }
-
           // L'e-mail est vérifié, effectuer la redirection vers la page d'accueil après 3 secondes
           setTimeout(() => {
             navigate("/");
@@ -94,6 +87,18 @@ function VerifyEmail() {
       verifyEmail();
     }
   }, [token, navigate, updateUser, timerRedirection]);
+
+  useEffect(() => {
+    // Vérifie si sucess = true pour éviter d'incrémenter même si la vérification n'a pas abouti
+    if (sucess) {
+      // Décrémentation de la valeur de timerRedirection toutes les secondes
+      if (timerRedirection > 0) {
+        setInterval(() => {
+          setTimerRedirection(timerRedirection - 1);
+        }, 1000);
+      }
+    }
+  }, [sucess, timerRedirection]);
 
   return (
     <div className="verify-email-container">

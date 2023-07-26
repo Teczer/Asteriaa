@@ -12,6 +12,7 @@ function Main() {
   // TUTORIAL REDIRECTION PHASE
 
   const navigate = useNavigate();
+  const [userProgression, setUserProgression] = useState([]);
 
   useEffect(() => {
     console.log("userFROMNAVIGATE", user);
@@ -32,8 +33,6 @@ function Main() {
       navigate("/tutorial");
     }
   }, [navigate, user, userProgression]);
-
-  const [userProgression, setUserProgression] = useState([]);
 
   async function getUserProgression() {
     if (!user) return;
