@@ -435,6 +435,7 @@
 }
 .delete-modal-username {
   color: var(--lavender-blush);
+  font-size: 1.3rem;
 }
 
 // ALERT DELETE
@@ -460,6 +461,7 @@
   font-weight: 700;
   flex-grow: 1;
   min-height: 2rem;
+  font-size: 1.3rem;
 }
 .delete-modal-forgot-password {
   color: var(--carnation-pink);
@@ -470,5 +472,3 @@
     text-decoration: underline;
   }
 }
-
-// BOUTON

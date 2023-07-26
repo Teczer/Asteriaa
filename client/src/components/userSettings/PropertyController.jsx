@@ -273,7 +273,7 @@ function PropertyController({
                     {goodResponse ? (
                       <i className="fa-solid fa-check" />
                     ) : (
-                      "Enregistrer les modifications"
+                      "Vérifier"
                     )}
                   </button>
                 </div>
