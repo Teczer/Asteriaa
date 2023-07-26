@@ -3,6 +3,7 @@ import { useSignup } from "../../../hooks/useSignup";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import "./signup.scss";
 import image from "../login/launchlogo@3x 2.png";
+import { Link } from "react-router-dom";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -71,10 +72,13 @@ function Signup() {
         </div>
         <div className="notmember-container">
           <p>
-            Déjà Membre ? <a href="/login">Connexion</a>{" "}
+            Déjà Membre ? <Link to="/login">Connexion</Link>{" "}
             <span className="fa fa-arrow-right" />
           </p>
         </div>
+        <Link className="invited-mode-link" to="/">
+          Mode invité
+        </Link>
       </section>
     </main>
   );

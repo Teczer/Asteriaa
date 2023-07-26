@@ -68,10 +68,13 @@ function Login() {
           </div>
           <div className="notmember-container">
             <p>
-              Pas membre ? <a href="/signup">Inscription</a>{" "}
+              Pas membre ? <Link to="/signup">Inscription</Link>{" "}
               <span className="fa fa-arrow-right" />
             </p>
           </div>
+          <Link className="invited-mode-link" to="/">
+            Mode invité
+          </Link>
         </section>
       </div>
     </main>

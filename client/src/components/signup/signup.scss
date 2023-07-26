@@ -179,3 +179,21 @@
     }
   }
 }
+
+.invited-mode-link {
+  margin-top: 20px;
+  color: var(--lavender-blush);
+  font-size: 13px;
+  width: 100% !important;
+  text-align: center;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+    color: var(--carnation-pink);
+  }
+}
+
+.fa-arrow-right {
+  color: var(--lavender-blush);
+}

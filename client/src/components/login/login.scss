@@ -14,16 +14,12 @@
   }
 
   .asteria-login-logo {
-    width: 500px;
+    width: 300px;
     height: auto;
     object-fit: cover;
 
-    @include md {
-      width: 400px;
-    }
-
     @include xs {
-      width: 300px;
+      width: 200px;
     }
   }
 

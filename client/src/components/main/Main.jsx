@@ -7,7 +7,7 @@ import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 
 function Main() {
-  const { user } = useAuthContext();
+  const { user, updateUser } = useAuthContext();
 
   // TUTORIAL REDIRECTION PHASE
 
@@ -16,8 +16,10 @@ function Main() {
   useEffect(() => {
     console.log("userFROMNAVIGATE", user);
     if (user) {
-      if (user.isEmailVerified === false) {
-        navigate("/verify?type=verifying");
+      if (userProgression.length > 0) {
+        if (user.isEmailVerified === false) {
+          navigate("/verify?type=verifying");
+        }
       }
       return;
     }
@@ -29,7 +31,7 @@ function Main() {
     if (!completedTutorial) {
       navigate("/tutorial");
     }
-  }, [navigate, user]);
+  }, [navigate, user, userProgression]);
 
   const [userProgression, setUserProgression] = useState([]);
 
@@ -123,6 +125,13 @@ function Main() {
 
     fetchData();
   }, [user]);
+
+  useEffect(() => {
+    // Mettre à jour les données de l'utilisateur lorsque userProgression est mis à jour
+    if (userProgression.length > 0) {
+      updateUser(userProgression);
+    }
+  }, [userProgression]);
 
   return (
     <>
