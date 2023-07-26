@@ -242,6 +242,12 @@
     cursor: default;
   }
 
+  &.--delete-user {
+    width: 4rem;
+    height: 4rem;
+    cursor: default;
+  }
+
   &.--change-picture {
     width: 25rem;
     height: 25rem;
