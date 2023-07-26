@@ -86,7 +86,7 @@ function VerifyEmail() {
 
       verifyEmail();
     }
-  }, [token, navigate, updateUser, timerRedirection]);
+  }, [token, navigate, updateUser]);
 
   useEffect(() => {
     // Vérifie si sucess = true pour éviter d'incrémenter même si la vérification n'a pas abouti
