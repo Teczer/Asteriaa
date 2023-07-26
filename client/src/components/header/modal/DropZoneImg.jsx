@@ -2,15 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 import { convertToBase64 } from "../../../../helpers";
-import ImageCompressor from "image-compressor";
 import axios from "axios";
-
-const thumbsContainer = {
-  display: "flex",
-  flexDirection: "row",
-  flexWrap: "wrap",
-  marginTop: 16,
-};
 
 const thumb = {
   display: "inline-flex",
@@ -24,10 +16,7 @@ const thumb = {
   boxSizing: "border-box",
 };
 
-const test = {
-  //   width: 200,
-  //   height: 200,
-};
+const test = {};
 
 const focusedStyle = {
   borderColor: "#2196f3",
@@ -59,7 +48,7 @@ const img = {
 function Previews({ setChangingPicture, handleFileUpload, handleSubmit }) {
   const [files, setFiles] = useState([]);
   const { user } = useAuthContext();
-  const { dispatch } = useAuthContext();
+  const { updateUser } = useAuthContext();
 
   async function compressImage(file, options) {
     return new Promise((resolve, reject) => {
@@ -126,16 +115,11 @@ function Previews({ setChangingPicture, handleFileUpload, handleSubmit }) {
         );
 
         try {
-          const responses = await Promise.all(compressedFiles);
           const afterpatch = await axios.get(
             `http://146.59.150.192:5001/user/${user._id}`
           );
 
-          dispatch({ type: "UPDATE_USER", payload: afterpatch.data });
-
-          console.log("afterpatch", afterpatch);
-          console.log("user", user);
-          console.log("responses", responses);
+          updateUser(afterpatch.data);
         } catch (error) {
           console.log(error);
         }
@@ -155,14 +139,11 @@ function Previews({ setChangingPicture, handleFileUpload, handleSubmit }) {
   const [dimensions, setDimensions] = useState(null);
 
   const onImgLoad = ({ target: { naturalHeight, naturalWidth } }) => {
-    // console.log("je suis le height", e.target.naturalHeight);
-    // console.log("je suis le width", e.target.naturalWidth);
     setDimensions({
       height: naturalHeight,
       width: naturalWidth,
     });
   };
-  // console.log("je suis les dimensions", dimensions);
   const thumbs = files.map((file) => (
     <div
       style={{
