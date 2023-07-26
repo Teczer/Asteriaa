@@ -143,6 +143,7 @@ function PropertyController({
   const handleTypingPassword = (e) => {
     setPassword(e.target.value);
     setIsTypingPassword(true);
+    setErrorPasswordMsg(null);
 
     if (e.target.value === "") {
       setIsTypingPassword(false);
