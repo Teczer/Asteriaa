@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-
+import bcrypt from "bcrypt";
 import User from "../models/userModel.js";
 
 const createToken = (_id) => {
@@ -151,6 +151,9 @@ export const deleteUser = async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
 
+	console.log('STARTid', id);
+	console.log('STARTpass', password);
+
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "ID d'utilisateur invalide" });
   }
@@ -160,9 +163,11 @@ export const deleteUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "Utilisateur non trouvé" });
     }
-
+     
+    console.log('userA', user);
     // Vérifiez si le mot de passe fourni correspond au mot de passe de l'utilisateur
-    const isPasswordValid = await user.comparePassword(password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log('bcryptPass', isPasswordValid);
     if (!isPasswordValid) {
       return res.status(401).json({ error: "Mot de passe incorrect" });
     }
