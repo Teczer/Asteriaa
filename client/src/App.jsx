@@ -22,6 +22,7 @@ function App() {
   const isSignUpScreen = location.pathname.includes("signup");
   const isAsteriaTutorialScreen = location.pathname.includes("tutorial");
   const isVerifyingScreen = location.pathname.includes("verify");
+
   const { user } = useAuthContext();
   return (
     <>

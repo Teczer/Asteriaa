@@ -187,8 +187,7 @@
     color: var(--lavender-blush);
 
     &:hover {
-      box-shadow: 3px 4px 40px rgba(255, 255, 255, 0.1),
-        -2px 1px 30px rgba(255, 255, 255, 0.1);
+      background-color: var(--cyber-grape);
     }
 
     &.--goodResponse {
@@ -223,7 +222,7 @@
     bottom: 20px;
     right: 20px;
     background-color: rgba(151, 112, 162, 0.2);
-    color: rgba(5, 5, 5, 0.2);
+    color: rgba(255, 255, 255, 0.3);
 
     &.--goodResponse {
       background-color: #00db84;
@@ -379,7 +378,27 @@
 
   &.--delete-user-modal {
     position: static;
+    background-color: var(--space-cadet) !important;
+    border-radius: 0.6rem !important;
+    display: flex !important;
+    padding: 1rem 2rem 1rem 1rem !important;
+    width: 100% !important;
+    border: 1px solid #e91916;
+    border-left: 0.4rem solid #e91916;
+    gap: 10px;
   }
+}
+
+.fa-circle-minus {
+  font-size: 30px;
+}
+
+.error-link-wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: var(--lavender-blush);
+  font-size: 1.3rem;
 }
 
 .figure-property-settings {
@@ -396,13 +415,14 @@
 .delete-user-modal-container {
   overflow: auto !important;
   border-radius: 0.4rem;
-  width: 50rem;
+  width: 55rem;
   animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1
     normal none running;
   display: flex;
-  padding: 3rem;
+  padding: 4rem;
+  padding-top: 0rem;
   flex-direction: column;
-  background-color: var(--space-cadet);
+  background-color: var(--oxford-blue);
   gap: 1rem;
 }
 

@@ -19,6 +19,12 @@ function DeleteUserModal({
           e.stopPropagation();
         }}
       >
+        <button
+          className="close-user-modal-btn --delete-user-modal"
+          onClick={() => setDeleteUserModal(false)}
+        >
+          <i className="fa-solid fa-circle-xmark"></i>
+        </button>
         <div className="delete-modal-title-logo">
           <img
             className="delete-modal-logo"
@@ -43,7 +49,13 @@ function DeleteUserModal({
         </p>
         {errorPasswordMsg && (
           <div className="property-catch-error --delete-user-modal">
-            {errorPasswordMsg}
+            <i class="fa-solid fa-circle-minus" />
+            <div className="error-link-wrap">
+              <strong>{errorPasswordMsg}</strong>
+              <Link className="delete-modal-forgot-password" to="/">
+                <span>Mot de passe oublié ?</span>
+              </Link>
+            </div>
           </div>
         )}
         <div className="delete-modal-label-input">

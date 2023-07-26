@@ -322,6 +322,13 @@
   top: 0px;
   right: 6px;
 
+  &.--delete-user-modal {
+    position: relative !important;
+    top: 0px;
+    right: -40px;
+    align-self: flex-end;
+  }
+
   &:hover {
     border-color: var(--carnation-pink);
     color: var(--carnation-pink);

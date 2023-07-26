@@ -17,10 +17,8 @@ function Main() {
   useEffect(() => {
     console.log("userFROMNAVIGATE", user);
     if (user) {
-      if (userProgression.length > 0) {
-        if (user.isEmailVerified === false) {
-          navigate("/verify?type=verifying");
-        }
+      if (user.isEmailVerified === false) {
+        navigate("/verify?type=verifying");
       }
       return;
     }

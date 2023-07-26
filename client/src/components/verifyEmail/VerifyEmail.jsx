@@ -100,6 +100,20 @@ function VerifyEmail() {
     }
   }, [sucess, timerRedirection]);
 
+  // Fonction pour censurer l'adresse e-mail
+  const censorEmail = (email) => {
+    // Sépare l'adresse e-mail en deux parties : la partie avant "@" et la partie après "@"
+    const [username, domain] = email.split("@");
+
+    // Censure la partie du nom d'utilisateur sauf le premier et le dernier caractère
+    const censoredUsername = `${username.charAt(0)}${"*".repeat(
+      username.length - 2
+    )}${username.charAt(username.length - 1)}`;
+
+    // Reconstitue l'adresse e-mail censurée
+    return `${censoredUsername}@${domain}`;
+  };
+
   return (
     <div className="verify-email-container">
       {token && !type ? (
@@ -133,8 +147,8 @@ function VerifyEmail() {
           <h2 className="verify-email-title">Vérification d'e-mail</h2>
           <p className="verify-email-info">
             Presque terminé ! Nous avons envoyé un e-mail de vérification à{" "}
-            <b>{user.email}</b> , Vous devez vérifier votre adresse e-mail pour
-            vous connecter à <b>Asteria</b> avec celle-ci.
+            <b>{censorEmail(user.email)}</b> , Vous devez vérifier votre adresse
+            e-mail pour vous connecter à <b>Asteria</b> avec celle-ci.
           </p>
           <button
             className="verify-email-resend-button"
