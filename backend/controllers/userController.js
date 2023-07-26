@@ -144,3 +144,36 @@ export const getUser = async (req, res) => {
 
   res.status(200).json(user);
 };
+
+// DELETE AN EXISTING USER
+
+export const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "ID d'utilisateur invalide" });
+  }
+
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ error: "Utilisateur non trouvé" });
+    }
+
+    // Vérifiez si le mot de passe fourni correspond au mot de passe de l'utilisateur
+    const isPasswordValid = await user.comparePassword(password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: "Mot de passe incorrect" });
+    }
+
+    // Supprimer l'utilisateur de la base de données
+    await User.findByIdAndRemove(id);
+
+    res.status(200).json({ message: "Utilisateur supprimé avec succès" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Erreur lors de la suppression de l'utilisateur" });
+  }
+};

@@ -13,6 +13,7 @@ import {
   loginUser,
   updateUser,
   getUser,
+  deleteUser,
 } from "../controllers/userController.js";
 
 const router = express.Router();
@@ -22,6 +23,10 @@ router.post("/login", loginUser);
 
 // signup route
 router.post("/signup", signupUser);
+
+// delete user
+
+router.post("/delete/:id", deleteUser);
 
 // UPDATE a single user
 
