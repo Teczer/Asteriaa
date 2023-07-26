@@ -14,6 +14,7 @@ function PropertyController({
   console.log("errorMsg", errorMsg);
   const [isChanchingUsername, setIsChanchingUsername] = useState(false);
   const [modal, setModal] = useState(false);
+  const [deleteUserModal, setDeleteUserModal] = useState(true);
   const { updateUser } = useAuthContext();
 
   async function resetProgression() {
@@ -175,17 +176,66 @@ function PropertyController({
           <div className="property-container">
             <label className="label-title-property">Votre progression</label>
             <div className="property-button-input-label-wrapper">
-              <button
-                className="property-button --dangerous"
-                onClick={() => setModal(true)}
-              >
-                Réinitialiser votre progression
-              </button>
+              <div className="property-button-row-wrapper">
+                <button
+                  className="property-button --dangerous"
+                  onClick={() => setModal(true)}
+                >
+                  Réinitialiser votre progression
+                </button>
+                <button
+                  className="property-button --dangerous"
+                  onClick={() => setDeleteUserModal(true)}
+                >
+                  Supprimer votre compte
+                </button>
+              </div>
               <p className="property-label-description">
                 Attention vous ne pourrez plus revenir en arrière !
               </p>
             </div>
           </div>
+          {deleteUserModal && (
+            <div
+              className="backToHomeModal"
+              onClick={() => setDeleteUserModal(false)}
+            >
+              <div
+                className="delete-user-modal-container"
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
+                <div className="user-label-delete">
+                  Supprimer {user.userName} / {user.email}
+                </div>
+                <div className="big-user-picture-info-delete">
+                  <figure className="figure-user-profile-picture --modal">
+                    <img
+                      className="user-profile-picture --modal --property-settings"
+                      src={user.profilePicture}
+                      alt="user-profil-picture"
+                    />
+                  </figure>
+                  <span>{user.userName}</span>
+                  <span>{user.email}</span>
+                </div>
+                <div className="user-label-delete">
+                  <p>To confirm, type "Votremotdepasse" in the box below</p>
+                  <input
+                    className="input-username --overide"
+                    maxLength="16"
+                    placeholder="mot de passe"
+                    type="password"
+                    required
+                  />
+                  <button className="property-button --dangerous">
+                    Supprimer votre compte
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
           {modal && (
             <AlertModal
               submitFunction={resetProgression}

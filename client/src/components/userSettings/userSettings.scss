@@ -330,3 +330,21 @@
 .figure-property-settings {
   border-color: red !important;
 }
+
+.property-button-row-wrapper {
+  display: flex;
+  gap: 50px;
+}
+
+// DELETE USER MODAL
+
+.delete-user-modal-container {
+  animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1
+    normal none running;
+
+  width: 480px;
+  height: 250px;
+  background-color: var(--space-cadet);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 173, 220, 0.6);
+}
