@@ -45,7 +45,7 @@ function UserSettings() {
         />
         <h3 className="property-title">Pseudo</h3>
         <PropertyController propertyControllerType="pseudo" user={user} />
-        <h3 className="property-title">Progression</h3>
+        <h3 className="property-title">Vos données</h3>
         <PropertyController propertyControllerType="progress" user={user} />
       </section>
     </main>

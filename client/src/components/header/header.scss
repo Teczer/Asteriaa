@@ -472,6 +472,7 @@
   top: 0;
   right: 0;
   padding: 0 55px;
+  backdrop-filter: blur(10px);
 
   @include xs {
     padding: 0 25px;

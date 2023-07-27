@@ -226,8 +226,8 @@ function PropertyController({
       )}
       {/* PROGRESSION */}
       {propertyControllerType === "progress" && (
-        <div className="property-controller">
-          <div className="property-container">
+        <div className="property-controller --progress">
+          <div className="property-container --progressup">
             <label className="label-title-property">Votre progression</label>
             <div className="property-button-input-label-wrapper">
               <div className="property-button-row-wrapper">
@@ -237,6 +237,16 @@ function PropertyController({
                 >
                   Réinitialiser votre progression
                 </button>
+              </div>
+              <p className="property-label-description">
+                Attention vous ne pourrez plus revenir en arrière !
+              </p>
+            </div>
+          </div>
+          <div className="property-container --progressdown">
+            <label className="label-title-property">Votre Compte</label>
+            <div className="property-button-input-label-wrapper">
+              <div className="property-button-row-wrapper">
                 <button
                   className="property-button --dangerous"
                   onClick={() => setDeleteUserModal(true)}

@@ -59,6 +59,10 @@
   justify-content: center;
   gap: 20px;
 
+  &.--progress {
+    gap: 0px;
+  }
+
   @include md {
     width: 100%;
     align-items: center;
@@ -92,6 +96,17 @@
   padding: 2rem;
   width: 80% !important;
   height: 136px;
+
+  &.--progressup {
+    margin-bottom: 0 !important;
+    border-bottom: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+  }
+  &.--progressdown {
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+  }
 
   &.--pseudo-type {
     height: 180px;
@@ -209,10 +224,10 @@
   }
 
   &.--dangerous {
-    background-color: rgb(150, 0, 0);
+    background-color: #d30c7b;
 
     &:hover {
-      background-color: rgb(200, 0, 0);
+      background-color: #6a0b40;
     }
   }
 
@@ -317,9 +332,14 @@
   color: var(--lavender-blush);
   font-weight: bold;
   font-size: 1.3rem;
+  width: 125px;
 
   @include xl {
     margin: 0;
+  }
+
+  @include xs {
+    text-align: center;
   }
 }
 
@@ -343,6 +363,7 @@
     color: var(--lavender-blush);
     margin-bottom: 30px;
     text-align: center;
+    width: 90%;
   }
 
   input[type="submit"] {
