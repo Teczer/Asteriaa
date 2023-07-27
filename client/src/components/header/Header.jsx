@@ -174,12 +174,12 @@ const Header = () => {
               </p>
             </div>
             <div className="modal-user-notconnected-buttons">
-              <button className="modal-user-notconnected-inscription">
+              <Link to="signup" className="modal-user-notconnected-inscription">
                 Inscription
-              </button>
-              <button className="modal-user-notconnected-connexion">
+              </Link>
+              <Link to="login" className="modal-user-notconnected-connexion">
                 Connexion
-              </button>
+              </Link>
             </div>
           </div>
         </div>

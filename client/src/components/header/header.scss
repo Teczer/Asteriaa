@@ -198,12 +198,13 @@
   }
 
   &.--layoutuser {
-    height: 50vh;
+    margin-top: 30px;
+    height: 40vh;
     padding-left: 10%;
     padding-right: 10%;
 
     @include xs {
-      height: 60vh;
+      height: 42vh;
       padding-left: 9%;
       padding-right: 9%;
     }
@@ -643,6 +644,9 @@ input[type="text"] {
 }
 
 .modal-user-notconnected-inscription {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -658,9 +662,6 @@ input[type="text"] {
   cursor: pointer;
 
   &.--desktop {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 118px;
     height: 40px;
   }
@@ -671,6 +672,9 @@ input[type="text"] {
 }
 
 .modal-user-notconnected-connexion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -687,9 +691,6 @@ input[type="text"] {
   border: 1px solid var(--cyber-grape);
 
   &.--desktop {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 118px;
     height: 40px;
   }
