@@ -337,6 +337,7 @@
   z-index: 4;
   top: 0;
   right: 0;
+  backdrop-filter: blur(10px);
 
   .backtohome-title {
     color: var(--lavender-blush);
@@ -424,6 +425,14 @@
   flex-direction: column;
   background-color: var(--oxford-blue);
   gap: 1rem;
+
+  @include sm {
+    width: 35rem;
+  }
+
+  @include xs {
+    width: 30rem;
+  }
 }
 
 // LOGO + TITLE
