@@ -56,14 +56,28 @@ const Header = () => {
             ></path>
           </svg>
         )}
-        <button className="menu-burger">
-          {modalBurger && (
-            <i
-              className="fa-solid fa-xmark"
-              onClick={() => setModalBurger(false)}
-            />
-          )}
-        </button>
+        {modalBurger && (
+          <svg
+            role="img"
+            aria-hidden="true"
+            viewBox="0 0 22 16"
+            xmlns="http://www.w3.org/2000/svg"
+            class=""
+            version="1.1"
+            className="burger-svg"
+            fill="#FFFFFF"
+            width="40"
+            height="40"
+            onClick={() => setModalBurger(false)}
+          >
+            <path
+              d="M17.6,1.5L17,0.9c-0.4-0.4-1-0.4-1.3,0L9,7.5L1.9,0.4c-0.1-0.1-0.2-0.1-0.3,0L0.9,1c-0.4,0.4-0.4,1,0,1.3L7.5,9l-7.1,7.1
+          c-0.1,0.1-0.1,0.2,0,0.3L1,17c0.4,0.4,1,0.4,1.3,0L9,10.4l7.1,7.1c0.1,0.1,0.2,0.1,0.3,0l0.6-0.6c0.4-0.4,0.4-1,0-1.3L10.5,9
+          l7.1-7.1C17.7,1.8,17.7,1.6,17.6,1.5z"
+              fill="#FFFFFF"
+            ></path>
+          </svg>
+        )}
         <a
           className={`logo-container ${user ? "--userconnected" : ""}`}
           href="/"
@@ -92,18 +106,17 @@ const Header = () => {
         </div>
         {user && (
           <>
-            {!modalBurger && (
-              <figure
-                className="figure-user-profile-picture"
-                onClick={() => setUserModal(true)}
-              >
-                <img
-                  className="user-profile-picture"
-                  src={user.profilePicture}
-                  alt="user-profil-picture"
-                />
-              </figure>
-            )}
+            <figure
+              className="figure-user-profile-picture"
+              onClick={() => setUserModal(true)}
+              style={{ visibility: modalBurger ? "hidden" : "visible" }}
+            >
+              <img
+                className="user-profile-picture"
+                src={user.profilePicture}
+                alt="user-profil-picture"
+              />
+            </figure>
 
             {userModal && (
               <Usermodal
