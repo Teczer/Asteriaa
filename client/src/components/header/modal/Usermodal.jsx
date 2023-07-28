@@ -52,8 +52,12 @@ function Usermodal({ setUserModal, setIsChangingProfilePicture }) {
           Gérer votre compte Asteria
         </Link>
       </div>
-      <Link to="/login">
-        <input type="submit" value="SE DÉCONNECTER" onClick={handleLogout} />
+      <Link
+        onClick={handleLogout}
+        to="login"
+        className="modal-user-notconnected-inscription --usermodal"
+      >
+        Se deconnecter
       </Link>
     </div>
   );

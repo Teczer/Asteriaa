@@ -20,7 +20,7 @@ const Header = () => {
   }, [user]);
   return (
     <>
-      <header className="header-asteria">
+      <header className={`header-asteria ${user ? "--userconnected" : ""}`}>
         {isChangingProfilePicture && (
           <ChangePictureModal
             setIsChangingProfilePicture={setIsChangingProfilePicture}
@@ -64,7 +64,10 @@ const Header = () => {
             />
           )}
         </button>
-        <a className="logo-container" href="/">
+        <a
+          className={`logo-container ${user ? "--userconnected" : ""}`}
+          href="/"
+        >
           <img
             className="header-logo"
             src="https://res.cloudinary.com/dw3mwclgk/image/upload/v1670528238/asteriaLogo_af3kfh.svg"
@@ -88,24 +91,27 @@ const Header = () => {
           </Link>
         </div>
         {user && (
-          <div className="logout-wrapper">
-            <figure
-              className="figure-user-profile-picture"
-              onClick={() => setUserModal(true)}
-            >
-              <img
-                className="user-profile-picture"
-                src={user.profilePicture}
-                alt="user-profil-picture"
-              />
-            </figure>
+          <>
+            {!modalBurger && (
+              <figure
+                className="figure-user-profile-picture"
+                onClick={() => setUserModal(true)}
+              >
+                <img
+                  className="user-profile-picture"
+                  src={user.profilePicture}
+                  alt="user-profil-picture"
+                />
+              </figure>
+            )}
+
             {userModal && (
               <Usermodal
                 setUserModal={setUserModal}
                 setIsChangingProfilePicture={setIsChangingProfilePicture}
               />
             )}
-          </div>
+          </>
         )}
 
         {!user && (

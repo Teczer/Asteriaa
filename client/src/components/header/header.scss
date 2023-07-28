@@ -14,6 +14,10 @@
   right: 0;
   padding-left: 180px;
 
+  &.--userconnected {
+    padding-left: 0px;
+  }
+
   @include md {
     padding-left: 0 !important;
   }
@@ -24,6 +28,11 @@
     gap: 1rem;
     position: relative;
     right: 10%;
+
+    &.--userconnected {
+      position: static;
+      right: initial;
+    }
 
     .header-logo {
       width: 80px;
@@ -660,6 +669,10 @@ input[type="text"] {
   font-size: 14px;
   padding: 0;
   cursor: pointer;
+
+  &.--usermodal {
+    padding: 5px 10px;
+  }
 
   &.--desktop {
     width: 118px;
