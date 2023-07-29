@@ -7,11 +7,13 @@ import QuizzResult from "./quizzResult/QuizzResult";
 import { useParams } from "react-router-dom";
 import classNames from "classnames";
 import Stepper from "./stepper/Stepper";
-import NoScroll from "./NoScroll";
 import AlertModal from "../header/modal/AlertModal";
 
 function Quizzcontroller() {
   const [posts, setPosts] = useState([]);
+
+  // ANTI-CHEAT for Asteria Users
+
   console.log("posts", posts);
   const params = useParams();
 

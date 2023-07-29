@@ -7,7 +7,7 @@ import Homepage from "./components/homepage/Homepage";
 import Login from "./components/login/Login";
 import Signup from "./components/signup/Signup";
 import Footer from "./components/footer/Footer";
-import AsteriaTutorial from "./components/tutorial/asteriaTutorial";
+import AsteriaTutorial from "./components/tutorial/AsteriaTutorial";
 import "./scss/app.scss";
 
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
