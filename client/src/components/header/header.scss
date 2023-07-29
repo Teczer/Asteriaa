@@ -703,6 +703,11 @@ input[type="text"] {
   cursor: pointer;
   border: 1px solid var(--cyber-grape);
 
+  &.--result {
+    padding: 0px 20px;
+    text-align: center;
+  }
+
   &.--desktop {
     width: 118px;
     height: 40px;

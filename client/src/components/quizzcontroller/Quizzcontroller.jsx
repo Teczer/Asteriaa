@@ -63,64 +63,67 @@ function Quizzcontroller() {
   });
 
   return (
-      <div className="quizzcontroller">
-        {/* MODAL CONTROLLER SECTION */}
-        {modal && (
-          <AlertModal
-            setModal={setModal}
-            submitValue="QUITTER"
-            modalMessage="retourner à l'accueil"
-          />
-        )}
-        {/* ICON BACK MENU */}
-        <div className="question-stepper-wrapper">
-          <div className="stepper-leave-container">
+    <div className="quizzcontroller">
+      {/* MODAL CONTROLLER SECTION */}
+      {modal && (
+        <AlertModal
+          setModal={setModal}
+          submitValue="QUITTER"
+          modalMessage="retourner à l'accueil"
+        />
+      )}
+      {/* ICON BACK MENU */}
+      <div
+        className={`question-stepper-wrapper ${showResult ? "--result" : ""}`}
+      >
+        <div className="stepper-leave-container">
+          {!showResult && (
             <div className="back-icon-container">
               <i
                 className="fa-solid fa-circle-chevron-left"
                 onClick={() => setModal(true)}
               />
             </div>
-            {/* QUIZZ CONTROLLER SECTION */}
-            <Stepper currentQuestion1={currentQuestion1} />
-          </div>
-          {showResult ? (
-            <QuizzResult CorrectAns={CorrectAns} />
-          ) : (
-            <>
-              {posts.map((post, index) => (
-                <React.Fragment key={index}>
-                  {index >= currentQuestion && index < currentQuestion1 && (
-                    <div className="main-zoubli">
-                      <div
-                        className={classNames(
-                          "zoubli",
-                          isFlipping && "rotate-card"
-                        )}
-                      >
-                        <QuestionCard
-                          post={post}
-                          currentQuestionNumber={index + 1}
-                          CorrectAns={CorrectAns}
-                          setCorrectAns={setCorrectAns}
-                          setIsFlipping={setIsFlipping}
-                        />
-                        {index >= currentQuestion &&
-                          index < currentQuestion1 && (
-                            <QuestionAnswerCard
-                              post={post}
-                              handleNextQuestion={handleNextQuestion}
-                            />
-                          )}
-                      </div>
-                    </div>
-                  )}
-                </React.Fragment>
-              ))}
-            </>
           )}
+          {/* QUIZZ CONTROLLER SECTION */}
+          <Stepper currentQuestion1={currentQuestion1} />
         </div>
+        {showResult ? (
+          <QuizzResult CorrectAns={CorrectAns} />
+        ) : (
+          <>
+            {posts.map((post, index) => (
+              <React.Fragment key={index}>
+                {index >= currentQuestion && index < currentQuestion1 && (
+                  <div className="main-zoubli">
+                    <div
+                      className={classNames(
+                        "zoubli",
+                        isFlipping && "rotate-card"
+                      )}
+                    >
+                      <QuestionCard
+                        post={post}
+                        currentQuestionNumber={index + 1}
+                        CorrectAns={CorrectAns}
+                        setCorrectAns={setCorrectAns}
+                        setIsFlipping={setIsFlipping}
+                      />
+                      {index >= currentQuestion && index < currentQuestion1 && (
+                        <QuestionAnswerCard
+                          post={post}
+                          handleNextQuestion={handleNextQuestion}
+                        />
+                      )}
+                    </div>
+                  </div>
+                )}
+              </React.Fragment>
+            ))}
+          </>
+        )}
       </div>
+    </div>
   );
 }
 

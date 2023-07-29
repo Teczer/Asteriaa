@@ -46,6 +46,27 @@
     width: auto;
     padding: 0px 20px;
 
+    &.--result {
+      width: 30%;
+
+      @include xl {
+        width: 40%;
+      }
+
+      @include md {
+        width: 55%;
+      }
+      @include sm {
+        width: 70%;
+      }
+      @include xs {
+        gap: 40px !important;
+        width: 85%;
+        justify-content: center;
+        height: 90%;
+      }
+    }
+
     @include xs {
       justify-content: flex-start;
       height: 90%;

@@ -4,7 +4,7 @@ import "./asteriaTutorial.scss";
 function AsteriaTutorial() {
   return (
     <div className="tutorial-container">
-      <h1 style={{ textAlign: "center" }}>
+      <h1 className="building-content-alert" style={{ textAlign: "center" }}>
         &#9888; TUTORIEL EN PHASE DE CONSTRUCTION &#9888;
       </h1>
       <button
