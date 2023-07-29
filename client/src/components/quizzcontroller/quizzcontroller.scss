@@ -1,6 +1,10 @@
 @import "../../scss/media-queries";
 
 .quizzcontroller {
+  position: fixed;
+  top: 0;
+  right: 0;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,7 +43,7 @@
     justify-content: center;
     gap: 40px;
     height: 100%;
-    width: 100%;
+    width: auto;
     padding: 0px 20px;
 
     @include xs {
@@ -120,8 +124,8 @@
   transition: all 1s ease;
 
   @include xs {
-    height: 85%;
-    width: 85%;
+    width: 90%;
+    margin-top: 10px;
   }
 }
 
