@@ -9,6 +9,10 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  @include xs {
+    width: 80%;
+  }
 }
 
 .bar-step-container {

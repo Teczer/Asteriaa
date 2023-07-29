@@ -63,7 +63,6 @@ function Quizzcontroller() {
   });
 
   return (
-    <NoScroll>
       <div className="quizzcontroller">
         {/* MODAL CONTROLLER SECTION */}
         {modal && (
@@ -122,7 +121,6 @@ function Quizzcontroller() {
           )}
         </div>
       </div>
-    </NoScroll>
   );
 }
 

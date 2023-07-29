@@ -14,7 +14,7 @@
 
   @include xs {
     justify-content: flex-start !important;
-    padding-top: 10px;
+    padding-top: 20px;
   }
 
   .back-icon-container {
@@ -39,6 +39,8 @@
     justify-content: center;
     gap: 40px;
     height: 100%;
+    width: 100%;
+    padding: 0px 20px;
 
     @include xs {
       justify-content: flex-start;
@@ -118,7 +120,8 @@
   transition: all 1s ease;
 
   @include xs {
-    height: 100%;
+    height: 85%;
+    width: 85%;
   }
 }
 
@@ -147,6 +150,9 @@
   @include xs {
     width: 95vw;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   // @include xll {
