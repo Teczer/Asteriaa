@@ -4,10 +4,11 @@ import axios from "axios";
 import QuestionCard from "./questionCard/QuestionCard";
 import QuestionAnswerCard from "./questionAnswerCard/QuestionAnswerCard";
 import QuizzResult from "./quizzResult/QuizzResult";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import classNames from "classnames";
 import Stepper from "./stepper/Stepper";
 import AlertModal from "../header/modal/AlertModal";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 
 function Quizzcontroller() {
   const [posts, setPosts] = useState([]);
@@ -63,6 +64,21 @@ function Quizzcontroller() {
   useEffect(() => {
     console.log("currentQuestion1", currentQuestion1);
   });
+
+  // ANTI-CHEAT for Asteria Users
+
+  const navigate = useNavigate();
+  const { user } = useAuthContext();
+  console.log("userFromQuizz", user);
+  console.log("params", params);
+
+  useEffect(() => {
+    if (!user) return;
+
+    if (user[params.quizzType] < params.quizzProgression) {
+      navigate("/filou");
+    }
+  }, [user]);
 
   return (
     <div className="quizzcontroller">
