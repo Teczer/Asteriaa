@@ -14,6 +14,7 @@ import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import UserSettings from "./components/userSettings/UserSettings";
 import VerifyEmail from "./components/verifyEmail/VerifyEmail";
+import Collection from "./components/collections/Collection";
 
 function App() {
   const location = useLocation();
@@ -46,6 +47,7 @@ function App() {
         <Route path="*" element={<Notfound />} />
         <Route path="/quizz" element={<Main />} />
         <Route path="/news" element={<Article />} />
+        <Route path="/collection" element={<Collection />} />
         <Route path="/settings/profile" element={<UserSettings />} />
         <Route
           path="/quizzcontroller/:quizzType/:quizzProgression"

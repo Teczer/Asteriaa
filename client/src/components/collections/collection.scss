@@ -1,0 +1,24 @@
+.category-title-cards-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+}
+
+.title-category-collection {
+  color: var(--lavender-blush);
+  font-size: 28px;
+  font-weight: 700;
+  font-family: var(--font-family-fjalla);
+}
+
+.cards-wrapper {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  border-top: 2px solid var(--space-cadet);
+  padding-top: 40px;
+}

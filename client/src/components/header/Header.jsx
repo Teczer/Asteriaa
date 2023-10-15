@@ -103,6 +103,9 @@ const Header = () => {
           <Link className="link-nav-wrapper" to="news">
             Actualités
           </Link>
+          <Link className="link-nav-wrapper" to="collection">
+            Collection
+          </Link>
         </div>
         {user && (
           <>
