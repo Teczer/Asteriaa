@@ -81,19 +81,20 @@ export default function Collection() {
   return (
     <main className="main-content">
       <div className="category-title-cards-container">
-        {collections &&
-          collections.map((collection, index) => (
-            <>
-              <h3 className="title-category-collection">
-                {collection.collectionName}
-              </h3>
-              <div className="cards-wrapper">
-                <article>
-                  <img src={collection.cardFrontImage} alt="" />
+        {collections.map((collection, index) => (
+          <div key={index} className="collection-card">
+            <h3 className="title-category-collection">
+              {collection.collectionName}
+            </h3>
+            <div className="cards-wrapper">
+              {collection.cardTitle.map((title, cardIndex) => (
+                <article key={cardIndex} className="card">
+                  <img src={collection.cardFrontImage[cardIndex]} alt={title} />
                 </article>
-              </div>
-            </>
-          ))}
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </main>
   );
