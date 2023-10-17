@@ -29,19 +29,36 @@ export default function ActualCardViewFront({ actualCardView }) {
 
       {/* Arrière de la carte */}
       <div className="actualCardView-box" onClick={handleClick}>
+        <p className="actualcardview-title-back">{actualCardView.cardTitle}</p>
         <img
-          className="actualCardView-image"
+          className="actualCardView-back-image"
           src={actualCardView.cardBackImage}
           alt={actualCardView.cardTitle}
         />
-        <p className="actualcardview-title">{actualCardView.cardTitle}</p>
-        <div className="actualCardView-cardNumber">
-          {actualCardView.cardNumber}
+        <div className="actualCardView-facticon-box">
+          <div className="actualCardView-funfact-wrapper">
+            <div className="actualCardView-funfact-box">
+              <p>{actualCardView.cardFunFactIcon1}</p>
+              <p>{actualCardView.cardFunFactName1}</p>
+              <p>{actualCardView.cardFunFact1}</p>
+            </div>
+            <div className="actualCardView-funfact-box">
+              <p>{actualCardView.cardFunFactIcon2}</p>
+              <p>{actualCardView.cardFunFactName2}</p>
+              <p>{actualCardView.cardFunFact2}</p>
+            </div>
+            <div className="actualCardView-funfact-box">
+              <p>{actualCardView.cardFunFactIcon3}</p>
+              <p>{actualCardView.cardFunFactName3}</p>
+              <p>{actualCardView.cardFunFact3}</p>
+            </div>
+          </div>
         </div>
-        <p className="actualcardview-collection-label">Collection</p>
-        <p className="actualcardview-collectionName">
-          {actualCardView.collectionName}
-        </p>
+        <div className="actualCardView-description">
+          <p className="actualCardView-description-paragraph">
+            {actualCardView.cardDescription}
+          </p>
+        </div>
       </div>
     </ReactCardFlip>
   );

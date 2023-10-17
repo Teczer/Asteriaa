@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./collection.scss";
 import ActualCardViewFront from "./ActualCardViewFront";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 
 export default function Collection() {
   let collections = [
@@ -81,6 +82,10 @@ export default function Collection() {
     },
   ];
 
+  const { user } = useAuthContext();
+
+  console.log("userAA", user);
+
   const [actualCardView, setActualCardView] = useState(null);
 
   const handleCardClick = (collection, cardIndex) => {
@@ -109,11 +114,17 @@ export default function Collection() {
     <main className="main-content">
       <div className="category-title-cards-container">
         {actualCardView ? (
-          <div className="actualCardView-layout">
-            <button onClick={() => setActualCardView(null)}>
-              <i className="fa-solid fa-circle-chevron-left" />
-            </button>
-            <ActualCardViewFront actualCardView={actualCardView} />
+          <div
+            className="actualCardView-layout"
+            onClick={() => setActualCardView(null)}
+          >
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              <ActualCardViewFront actualCardView={actualCardView} />
+            </div>
           </div>
         ) : (
           collections.map((collection, index) => (
@@ -131,6 +142,7 @@ export default function Collection() {
                     <img
                       src={collection.cardFrontImage[cardIndex]}
                       alt={title}
+                      style={{ borderRadius: 20 }}
                     />
                   </article>
                 ))}
