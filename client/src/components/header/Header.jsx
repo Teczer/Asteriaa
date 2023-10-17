@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./header.scss";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Usermodal from "./modal/Usermodal";
 import Modalburger from "./modal/Modalburger";
 import ChangePictureModal from "./modal/ChangePictureModal";
@@ -15,9 +15,8 @@ const Header = () => {
 
   const { user } = useAuthContext();
 
-  useEffect(() => {
-    console.log("userFROMHEADER", user);
-  }, [user]);
+  console.log("userFROMHEADER", user);
+
   return (
     <>
       <header className={`header-asteria ${user ? "--userconnected" : ""}`}>
@@ -173,8 +172,6 @@ const Header = () => {
                   fill="#FFFFFF"
                 ></path>
                 <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
                   d="M18.2582 7.88763C18.2582 11.8956 15.0091 15.1446 11.0012 15.1446C6.99321 15.1446 3.74414 11.8956 3.74414 7.88763C3.74414 3.87969 6.99321 0.630615 11.0012 0.630615C15.0091 0.630615 18.2582 3.87969 18.2582 7.88763ZM5.47734 7.88508C5.47734 10.9358 7.95046 13.4089 11.0012 13.4089C14.052 13.4089 16.5251 10.9358 16.5251 7.88508C16.5251 4.83433 14.052 2.36121 11.0012 2.36121C7.95046 2.36121 5.47734 4.83433 5.47734 7.88508Z"
                   fill="#FFFFFF"
                 ></path>
