@@ -144,6 +144,10 @@
   text-transform: uppercase;
   font-weight: 300;
   opacity: 0.8;
+
+  @include xs {
+    font-size: 27px;
+  }
 }
 
 .actualcardview-title-back {
@@ -164,6 +168,10 @@
   letter-spacing: 14px;
   text-transform: uppercase;
   font-weight: 300;
+
+  @include sm {
+    font-size: 27px;
+  }
 }
 
 .actualcardview-collectionName {
@@ -172,11 +180,16 @@
   width: 600px;
   text-align: center;
   color: var(--lavender-blush);
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: 8px;
   text-transform: uppercase;
   font-weight: 700;
   bottom: 100px;
+
+  @include sm {
+    width: 400px;
+    font-size: 16px;
+  }
 }
 .actualcardview-collection-label {
   position: absolute;
@@ -215,11 +228,12 @@
   width: 100%;
   height: 18%;
   background-color: var(--oxford-blue);
+  padding-top: 10px;
 
   @include xs {
-    padding: 0px;
     padding-right: 5px;
     padding-left: 5px;
+    padding-top: 5px;
   }
 }
 
@@ -234,16 +248,18 @@
   width: 230px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: center;
   text-align: center;
-  gap: 15px;
+  gap: 10px;
 
   @include sm {
-    gap: 10px;
+    justify-content: space-around;
+    gap: 5px;
   }
 
   @include xs {
+    justify-content: space-around;
     gap: 5px;
   }
 }
