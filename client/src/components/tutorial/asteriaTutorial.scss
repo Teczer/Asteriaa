@@ -1,3 +1,5 @@
+@import "../../scss/media-queries";
+
 .tutorial-container {
   width: 100vw;
   height: 100vh;
@@ -11,10 +13,12 @@
 }
 
 .tutorial-btn {
+  position: absolute;
+  bottom: 10%;
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
-  background-color: var(--purple-mountain-majesty);
+  background-color: var(--cyber-grape);
   color: var(--lavender-blush);
   font-weight: 700;
   margin-bottom: 10px;
@@ -28,12 +32,76 @@
   cursor: pointer;
 
   &:hover {
-    box-shadow: 3px 4px 40px rgba(255, 255, 255, 0.1),
-      -2px 1px 30px rgba(255, 255, 255, 0.1);
+    background-color: var(--space-cadet);
   }
 }
 
 .building-content-alert {
   color: var(--lavender-blush);
+  text-align: center;
+}
+
+.tutorial-content {
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tutorial-navigation {
+  font-size: 40px !important;
+  width: 85%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 140px;
+}
+
+.arrow-step-tutorial {
+  &:hover {
+    cursor: pointer;
+    color: var(--carnation-pink);
+  }
+
+  &.--disabled {
+    cursor: not-allowed;
+    color: rgba(199, 199, 199, 0.562);
+  }
+}
+
+.asteria-tutorial-logo {
+  position: absolute;
+  top: 20%;
+  width: 300px;
+
+  &.snappi {
+    right: 25%;
+
+    @include xll {
+      right: 30%;
+    }
+
+    @include xl {
+      right: 15%;
+    }
+
+    @include md {
+      right: 10%;
+    }
+
+    @include sm {
+      width: 200px;
+      object-fit: cover;
+      top: 20% !important;
+      right: 0%;
+    }
+  }
+}
+
+.tutorial-paragraph {
+  position: absolute;
+  bottom: 35%;
+  padding: 20px;
   text-align: center;
 }

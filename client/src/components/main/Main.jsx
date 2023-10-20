@@ -133,10 +133,7 @@ function Main() {
   return (
     <>
       <main className="main-content">
-        <h1>
-          <i className="fa-solid fa-chevron-left" /> Quizz Espace{" "}
-          <i className="fa-solid fa-chevron-right" />
-        </h1>
+        <h1>Quizz Espace</h1>
         <ul className="cards-container">
           {mescouilles &&
             mescouilles.map((value, index) => (
