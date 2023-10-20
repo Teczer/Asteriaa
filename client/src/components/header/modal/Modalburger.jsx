@@ -32,6 +32,15 @@ function Modalburger({ setModalBurger }) {
               <span>Actualités</span>
             </Link>
           </li>
+          <li className="li-modal-container">
+            <Link
+              to="collection"
+              className="modal-link"
+              onClick={() => setModalBurger(false)}
+            >
+              <span>Collection</span>
+            </Link>
+          </li>
         </ul>
       </nav>
     </div>

@@ -78,8 +78,7 @@
   right: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9);
-  backdrop-filter: blur(7px);
+  background-color: rgba(0, 0, 0, 0.95);
 }
 
 .actualCardView-box {
@@ -234,6 +233,14 @@
   align-items: center;
   text-align: center;
   gap: 15px;
+
+  @include sm {
+    gap: 10px;
+  }
+
+  @include xs {
+    gap: 5px;
+  }
 }
 
 .actualCardView-funfact-icon {
