@@ -1,9 +1,16 @@
+@import "../../scss/media-queries";
+
 .category-title-cards-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 40px;
   width: 100%;
+
+  @include xl {
+    width: 100%;
+    overflow-x: scroll;
+  }
 }
 
 .title-category-collection {
@@ -19,7 +26,7 @@
   gap: 50px;
   align-items: center;
   justify-content: space-between;
-  width: 80%;
+  width: 100%;
   border-top: 2px solid var(--space-cadet);
   padding-top: 40px;
 }
