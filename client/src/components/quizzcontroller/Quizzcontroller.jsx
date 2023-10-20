@@ -15,7 +15,7 @@ function Quizzcontroller() {
 
   // ANTI-CHEAT for Asteria Users
 
-  console.log("posts", posts);
+  // console.log("posts", posts);
   const params = useParams();
 
   async function getSqlQuizz(params) {
@@ -62,15 +62,15 @@ function Quizzcontroller() {
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
-    console.log("currentQuestion1", currentQuestion1);
+    // console.log("currentQuestion1", currentQuestion1);
   });
 
   // ANTI-CHEAT for Asteria Users
 
   const navigate = useNavigate();
   const { user } = useAuthContext();
-  console.log("userFromQuizz", user);
-  console.log("params", params);
+  // console.log("userFromQuizz", user);
+  // console.log("params", params);
 
   useEffect(() => {
     if (!user) return;

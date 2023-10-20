@@ -6,7 +6,7 @@ import { useAuthContext } from "../../../../hooks/useAuthContext";
 
 function QuizzResult({ CorrectAns }) {
   const params = useParams();
-  const { user } = useAuthContext();
+  const { user, updateUser } = useAuthContext();
 
   async function saveProgression() {
     const response = await axios.patch(
@@ -14,12 +14,16 @@ function QuizzResult({ CorrectAns }) {
       { [params.quizzType]: Number(params.quizzProgression) + 1 }
     );
 
-    const afterpatch = axios.get(`http://146.59.150.192:5001/user/${user._id}`);
+    try {
+      const afterpatch = await axios.get(
+        `http://146.59.150.192:5001/user/${user._id}`
+      );
 
-    console.log(afterpatch);
-
-    console.log("user", user);
-    console.log("response.data", response.data);
+      updateUser(afterpatch.data);
+      console.log("afterpatch", afterpatch);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {

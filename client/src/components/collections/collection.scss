@@ -3,7 +3,7 @@
 .collection-card {
   @include xl {
     width: 100vw;
-    overflow-x: scroll;
+    overflow-x: auto;
   }
 }
 
@@ -27,7 +27,7 @@
 
   @include xl {
     position: relative;
-    left: 10%;
+    left: 5%;
     top: 12%;
     margin: 0;
     width: 80%;
@@ -39,32 +39,37 @@
   display: flex;
   gap: 50px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100vw;
   padding: 20px;
+  padding-left: 10%;
 
   @include xl {
-    justify-content: space-around;
-    width: 160vw;
-    gap: 0px;
+    justify-content: flex-start;
+    width: auto;
+    gap: 50px;
+    padding-left: 50px;
   }
 
   @include md {
-    justify-content: space-around;
-    width: 200vw;
-    gap: 0px;
+    justify-content: flex-start;
+    width: auto;
+    gap: 40px;
+    padding-left: 40px;
   }
 
   @include sm {
-    justify-content: space-around;
-    width: 300vw;
-    gap: 0px;
+    justify-content: flex-start;
+    width: auto;
+    gap: 30px;
+    padding-left: 35px;
   }
 
   @include xs {
-    justify-content: space-around;
-    width: 400vw;
-    gap: 0px;
+    justify-content: flex-start;
+    width: auto;
+    gap: 30px;
+    padding-left: 20px;
   }
 }
 
@@ -131,7 +136,7 @@
 .actualcardview-title {
   position: absolute;
   margin-top: 5vh;
-  width: 600px;
+  width: 500px;
   text-align: center;
   color: var(--lavender-blush);
   font-size: 30px;
