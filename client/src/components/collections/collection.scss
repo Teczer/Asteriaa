@@ -44,7 +44,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 600px;
+  width: 500px;
   height: 800px;
   border-radius: 20px;
   border: 1px solid var(--lavender-blush);
@@ -153,7 +153,7 @@
 .actualCardView-facticon-box {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 5px;
   width: 100%;
   height: 18%;
   background-color: var(--oxford-blue);
@@ -170,10 +170,25 @@
   width: 230px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
-  gap: 10px;
+  gap: 15px;
+}
+
+.actualCardView-funfact-icon {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.actualCardView-funfact-name {
+  font-weight: bold;
+}
+
+.actualCardView-funfact {
+  font-weight: 300;
+  opacity: 0.8;
+  font-size: 14px;
 }
 
 .actualCardView-description {
@@ -189,4 +204,5 @@
 
 .actualCardView-description-paragraph {
   height: 100%;
+  opacity: 0.8;
 }

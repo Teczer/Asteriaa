@@ -43,24 +43,18 @@
 
   .nav-menu {
     display: flex;
-    gap: 2rem;
+    gap: 50px;
 
     a {
       color: var(--lavender-blush);
       text-decoration: none;
-      min-width: 80px;
-      max-width: 140px;
-      text-align: center;
+      text-align: start;
 
       &:hover {
         color: var(--carnation-pink);
         text-shadow: 3px 3px 40px #ff99cc, -2px 1px 30px #ff99cc;
       }
     }
-  }
-
-  .link-nav-wrapper {
-    width: 90px;
   }
 
   .menu-burger {
