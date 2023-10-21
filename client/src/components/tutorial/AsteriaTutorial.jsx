@@ -27,12 +27,12 @@ function AsteriaTutorial() {
         return (
           <div className="tutorial-content">
             <img
-              className="asteria-tutorial-logo"
+              className="asteria-tutorial-logo asteria"
               src={image}
               alt="Asterialogo"
               style={{ top: "30%" }}
             />
-            <p className="tutorial-paragraph">
+            <p className="tutorial-paragraph snappi">
               Bienvenue sur Asteria ! Ici, le but est d’en apprendre plus sur
               l’Univers, ce monde <b>lointain et mystérieux</b> qui nous
               entoure...
@@ -43,11 +43,11 @@ function AsteriaTutorial() {
         return (
           <div className="tutorial-content">
             <img
-              className="asteria-tutorial-logo"
+              className="asteria-tutorial-logo question"
               src={cardimage}
               alt="Asterialogo"
             />
-            <p className="tutorial-paragraph">
+            <p className="tutorial-paragraph snappi">
               <b>Répond</b> à des questions et améliore tes connaissances...
             </p>
           </div>
@@ -56,12 +56,12 @@ function AsteriaTutorial() {
         return (
           <div className="tutorial-content">
             <img
-              className="asteria-tutorial-logo"
+              className="asteria-tutorial-logo collection"
               src={collectionimage}
               alt="Asterialogo"
               style={{ top: "10%" }}
             />
-            <p className="tutorial-paragraph">
+            <p className="tutorial-paragraph snappi">
               ...et <b>remporte</b> de magnifiques cartes à collectionner !
             </p>
           </div>
@@ -70,7 +70,7 @@ function AsteriaTutorial() {
         return (
           <div className="tutorial-content">
             <img
-              className="asteria-tutorial-logo"
+              className="asteria-tutorial-logo soucoupe"
               src={snappi}
               alt="Asterialogo"
               style={{ top: "30%" }}
@@ -81,8 +81,8 @@ function AsteriaTutorial() {
               alt="Asterialogo"
               style={{ top: "20%" }}
             />
-            <p className="tutorial-paragraph">
-              Prépare-toi à explorer l'infini avec Astéria !
+            <p className="tutorial-paragraph snappi">
+              Prépare-toi à explorer l'infini avec <b>Asteria</b> !
             </p>
           </div>
         );
