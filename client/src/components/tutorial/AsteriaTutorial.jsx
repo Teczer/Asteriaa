@@ -10,9 +10,8 @@ function AsteriaTutorial() {
   const [step, setStep] = useState(1);
 
   const handleNextStep = () => {
-    if (step < 4) {
-      setStep(step + 1);
-    }
+    if (step >= 4) return;
+    setStep(step + 1);
   };
 
   const handlePrevStep = () => {

@@ -62,3 +62,44 @@
 .total-correct-ans-quizz {
   color: var(--lavender-blush);
 }
+
+.test {
+  position: relative;
+  top: 0;
+  left: -300%; /* Commence à l'extérieur de l'écran à gauche */
+  transition: left 1s ease-in-out; /* Animation pour le déplacement latéral */
+  overflow: hidden; /* Cache le contenu qui dépasse */
+}
+
+.test.active {
+  left: 0; /* Placez la div "test" au milieu de l'écran */
+}
+
+article.shesh {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 274px;
+  height: 472px;
+  border-radius: 20px;
+  border: 1px solid var(--lavender-blush);
+  box-shadow: 0px 0px 10px var(--lavender-blush);
+  transition: transform 1s ease-in-out; /* Animation pour la transformation */
+  transform: translateX(100%); /* Commence en dehors de l'écran à droite */
+}
+
+article.shesh img.sheesh {
+  width: 272px;
+  height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 20px 20px;
+  border-top-right-radius: 20px 20px;
+  transform: translateZ(
+    -1px
+  ); /* Applique une transformation 3D légère pour donner l'effet de profondeur */
+}
+
+article.shesh.transformed {
+  transform: translateX(0); /* Déplacez la carte vers le centre */
+}

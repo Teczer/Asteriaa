@@ -1,13 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import "./quizzresult.scss";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
+import { useCollection } from "../../../../hooks/useCollection";
+import ActualCardViewFront from "../../collections/ActualCardViewFront";
 
 function QuizzResult({ CorrectAns }) {
   const params = useParams();
   const { user, updateUser } = useAuthContext();
+  const collections = useCollection();
+  const [actualCardView, setActualCardView] = useState(null);
 
+  const currentCollection = collections.find(
+    (collection) => params.quizzType === collection.slug
+  );
   async function saveProgression() {
     const response = await axios.patch(
       `http://146.59.150.192:5001/user/${user._id}`,
@@ -26,36 +33,102 @@ function QuizzResult({ CorrectAns }) {
     }
   }
 
+  const handleCardClick = (collection, cardIndex) => {
+    const selectedCard = {
+      collectionName: collection.collectionName,
+      cardTitle: collection.cardTitle[cardIndex],
+      cardNumber: collection.cardNumber[cardIndex],
+      cardFrontImage: collection.cardFrontImage[cardIndex],
+      cardBackImage: collection.cardBackImage[cardIndex],
+      cardFunFactIcon1: collection.cardFunFactIcon1[cardIndex],
+      cardFunFactIcon2: collection.cardFunFactIcon2[cardIndex],
+      cardFunFactIcon3: collection.cardFunFactIcon3[cardIndex],
+      cardFunFactName1: collection.cardFunFactName1[cardIndex],
+      cardFunFactName2: collection.cardFunFactName2[cardIndex],
+      cardFunFactName3: collection.cardFunFactName3[cardIndex],
+      cardFunFact1: collection.cardFunFact1[cardIndex],
+      cardFunFact2: collection.cardFunFact2[cardIndex],
+      cardFunFact3: collection.cardFunFact3[cardIndex],
+      cardDescription: collection.cardDescription[cardIndex],
+    };
+    console.log("selectedCard", selectedCard);
+    setActualCardView(selectedCard);
+  };
+
+  // useEffect(() => {
+  //   console.log(user);
+  //   saveProgression();
+  //   localStorage.setItem(params.quizzType, Number(params.quizzProgression) + 1);
+  // }, []);
+
+  const [testVisible, setTestVisible] = useState(false);
+
   useEffect(() => {
-    console.log(user);
-    saveProgression();
-    localStorage.setItem(params.quizzType, Number(params.quizzProgression) + 1);
+    // Lors du chargement de la page, déplacez la div test vers le milieu
+    setTestVisible(true);
   }, []);
+
+  const [cardTransformed, setCardTransformed] = useState(false);
+
+  useEffect(() => {
+    // Au chargement de la page, appliquez la transformation 3D
+    setCardTransformed(true);
+  }, []);
+
+  console.log("collections", collections);
   return (
     <>
-      <h1 className="total-correct-ans-quizz">{CorrectAns} / 3</h1>
-      {/* <article>
-        <img
-          src="https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677915/images-quizz/PhenomenesObservable/nebuleuse4_3x_hhw3yd.jpg"
-          alt="nebuleuse-end"
-        />
-      </article> */}
-      <h2 className="building-content-alert">
-        &#9888; COLLECTION CARD EN PHASE DE CONSTRUCTION &#9888;
-      </h2>
-      <div className="modal-user-notconnected-buttons">
-        <a
-          className="modal-user-notconnected-inscription"
-          href={`/quizzcontroller/${params.quizzType}/${
-            Number(params.quizzProgression) + 1
-          }`}
+      {actualCardView ? (
+        <div
+          className="actualCardView-layout"
+          onClick={() => setActualCardView(null)}
         >
-          Niveau suivant
-        </a>
-        <Link className="modal-user-notconnected-connexion --result" to="/">
-          Retourner à l'accueil
-        </Link>
-      </div>
+          <ActualCardViewFront actualCardView={actualCardView} />
+        </div>
+      ) : (
+        <>
+          <div className={`test ${testVisible ? "active" : ""}`}>
+            <h1 className="total-correct-ans-quizz">{CorrectAns} / 3</h1>
+          </div>
+          <article
+            className={`shesh ${cardTransformed ? "transformed" : ""}`}
+            onClick={() =>
+              handleCardClick(
+                currentCollection,
+                Number(params.quizzProgression)
+              )
+            }
+          >
+            <img
+              className="sheesh"
+              src={
+                currentCollection.cardFrontImage[
+                  Number(params.quizzProgression)
+                ]
+              }
+              alt="nebuleuse-end"
+            />
+          </article>
+          <div className={`test ${testVisible ? "active" : ""}`}>
+            <div className="modal-user-notconnected-buttons">
+              <a
+                className="modal-user-notconnected-inscription"
+                href={`/quizzcontroller/${params.quizzType}/${Number(
+                  params.quizzProgression
+                )}`}
+              >
+                Niveau suivant
+              </a>
+              <Link
+                className="modal-user-notconnected-connexion --result"
+                to="/"
+              >
+                Retourner à l'accueil
+              </Link>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }
