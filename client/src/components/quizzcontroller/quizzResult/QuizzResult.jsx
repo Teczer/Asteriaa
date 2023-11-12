@@ -55,11 +55,11 @@ function QuizzResult({ CorrectAns }) {
     setActualCardView(selectedCard);
   };
 
-  // useEffect(() => {
-  //   console.log(user);
-  //   saveProgression();
-  //   localStorage.setItem(params.quizzType, Number(params.quizzProgression) + 1);
-  // }, []);
+  useEffect(() => {
+    console.log(user);
+    saveProgression();
+    localStorage.setItem(params.quizzType, Number(params.quizzProgression) + 1);
+  }, []);
 
   const [testVisible, setTestVisible] = useState(false);
 
@@ -68,14 +68,9 @@ function QuizzResult({ CorrectAns }) {
     setTestVisible(true);
   }, []);
 
-  const [cardTransformed, setCardTransformed] = useState(false);
+  console.log("currentCollection");
 
-  useEffect(() => {
-    // Au chargement de la page, appliquez la transformation 3D
-    setCardTransformed(true);
-  }, []);
-
-  console.log("collections", collections);
+  console.log("a", [Number(params.quizzProgression)]);
   return (
     <>
       {actualCardView ? (
@@ -88,8 +83,14 @@ function QuizzResult({ CorrectAns }) {
       ) : (
         <>
           <div className={`test ${testVisible ? "active" : ""}`}>
-            <h1 className="total-correct-ans-quizz">{CorrectAns} / 3</h1>
+            <h1 className="total-correct-ans-quizz">
+              Bonnes réponses : {CorrectAns} / 3
+            </h1>
           </div>
+          <p style={{ color: "white" }}>
+            Félicitations vous avez gagné la carte{" "}
+            {currentCollection.cardTitle[Number(params.quizzProgression)]}
+          </p>
           <article
             className="card"
             onClick={() =>

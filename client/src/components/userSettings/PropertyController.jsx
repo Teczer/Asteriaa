@@ -37,21 +37,20 @@ function PropertyController({
       }
     );
 
-    console.log("response.data", response.data);
+    console.log("response.dataRESET", response.data);
 
-    const afterpatch = axios.get(`http://146.59.150.192:5001/user/${user._id}`);
+    const afterpatch = await axios.get(
+      `http://146.59.150.192:5001/user/${user._id}`
+    );
 
     const updatedUserData = afterpatch.data;
 
     // Utilisez la fonction updateUser du contexte pour mettre à jour les données dans le localStorage et dans le contexte.
     updateUser(updatedUserData);
 
-    // dispatch({ type: "UPDATE_USER", payload: afterpatch.data });
-
-    console.log("afterpatchUSERNAME", afterpatch);
+    console.log("afterpatch", afterpatch);
     console.log("useFromChanger", user);
 
-    console.log(afterpatch);
     console.log("user", user);
   }
 
