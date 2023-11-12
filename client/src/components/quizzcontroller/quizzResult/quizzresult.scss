@@ -84,7 +84,6 @@ article.shesh {
   height: 472px;
   border-radius: 20px;
   border: 1px solid var(--lavender-blush);
-  box-shadow: 0px 0px 10px var(--lavender-blush);
   transition: transform 1s ease-in-out; /* Animation pour la transformation */
   transform: translateX(100%); /* Commence en dehors de l'écran à droite */
 }

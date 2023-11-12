@@ -91,7 +91,7 @@ function QuizzResult({ CorrectAns }) {
             <h1 className="total-correct-ans-quizz">{CorrectAns} / 3</h1>
           </div>
           <article
-            className={`shesh ${cardTransformed ? "transformed" : ""}`}
+            className="card"
             onClick={() =>
               handleCardClick(
                 currentCollection,
@@ -100,13 +100,12 @@ function QuizzResult({ CorrectAns }) {
             }
           >
             <img
-              className="sheesh"
               src={
                 currentCollection.cardFrontImage[
                   Number(params.quizzProgression)
                 ]
               }
-              alt="nebuleuse-end"
+              alt="collection-img"
             />
           </article>
           <div className={`test ${testVisible ? "active" : ""}`}>

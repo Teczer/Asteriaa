@@ -37,7 +37,7 @@ function Quizzcontroller() {
   }, []);
 
   const [CorrectAns, setCorrectAns] = useState(0);
-  const [showResult, setShowResult] = useState(true);
+  const [showResult, setShowResult] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [currentQuestion1, setCurrentQuestion2] = useState(1);
 

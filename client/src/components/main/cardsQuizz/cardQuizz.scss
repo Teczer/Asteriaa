@@ -6,16 +6,13 @@ article {
   width: 274px;
   height: 472px;
   border-radius: 20px;
-  border: 1px solid var(--lavender-blush);
-  box-shadow: 0px 0px 10px var(--lavender-blush);
+  border: 2px solid var(--lavender-blush);
 
   &:hover {
-    border: 1px solid var(--orchid-crayola);
-    box-shadow: 0px 0px 10px var(--orchid-crayola);
+    border: 2px solid var(--orchid-crayola);
 
     .depliage {
       border-top: 1px solid var(--orchid-crayola);
-      box-shadow: 0px 0px 10px var(--orchid-crayola);
     }
   }
 
@@ -41,7 +38,6 @@ article {
     // width: 273px;
     height: 60px;
     border-top: 1px solid var(--lavender-blush);
-    box-shadow: 0px 0px 10px var(--lavender-blush);
 
     p {
       color: var(--lavender-blush);

@@ -93,10 +93,9 @@
   justify-content: flex-start;
   align-items: center;
   width: 500px;
-  height: 800px;
+  height: 90vh;
   border-radius: 20px;
-  border: 1px solid var(--lavender-blush);
-  box-shadow: 0px 0px 10px var(--lavender-blush);
+  border: 2px solid var(--lavender-blush);
 
   @include sm {
     width: 400px;
@@ -109,8 +108,7 @@
   }
 
   &:hover {
-    border: 1px solid var(--orchid-crayola);
-    box-shadow: 0px 0px 10px var(--orchid-crayola);
+    border: 2px solid var(--orchid-crayola);
   }
 }
 
