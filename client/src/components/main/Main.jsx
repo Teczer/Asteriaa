@@ -15,7 +15,6 @@ function Main() {
   const [userProgression, setUserProgression] = useState([]);
 
   useEffect(() => {
-    console.log("userFROMNAVIGATE", user);
     if (user) {
       if (user.isEmailVerified === false) {
         navigate("/verify?type=verifying");
@@ -39,7 +38,6 @@ function Main() {
       `http://146.59.150.192:5001/user/${user._id}`
     );
     setUserProgression(response.data);
-    console.log("response.data", response.data);
   }
 
   // IF USER IS NOT CONNECTED
@@ -51,8 +49,6 @@ function Main() {
     "quizzPhenomenesObservables"
   );
   const progressionAstronautesLocal = localStorage.getItem("quizzAstronautes");
-
-  console.log("userProgression", userProgression);
 
   let mescouilles = [
     {

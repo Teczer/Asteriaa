@@ -29,7 +29,6 @@ export default function Collection() {
     setActualCardView(selectedCard);
   };
 
-  console.log("actualCardView", actualCardView);
   return (
     <main className="main-content">
       <div className="category-title-cards-container">

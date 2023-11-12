@@ -69,8 +69,6 @@ function Quizzcontroller() {
 
   const navigate = useNavigate();
   const { user } = useAuthContext();
-  // console.log("userFromQuizz", user);
-  // console.log("params", params);
 
   useEffect(() => {
     if (!user) return;

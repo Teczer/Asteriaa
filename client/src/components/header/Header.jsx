@@ -15,8 +15,6 @@ const Header = () => {
 
   const { user } = useAuthContext();
 
-  console.log("userFROMHEADER", user);
-
   return (
     <>
       <header className={`header-asteria ${user ? "--userconnected" : ""}`}>
