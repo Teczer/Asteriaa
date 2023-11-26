@@ -15,8 +15,8 @@ function Main() {
     if (!user) return;
 
     try {
-      const response = await getUser(user._id);
-      setUserProgression(response);
+      const userResponse = await getUser(user._id);
+      setUserProgression(userResponse);
     } catch (error) {
       console.error(
         "Erreur lors de la récupération des informations de l'utilisateur : ",

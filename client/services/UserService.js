@@ -92,3 +92,29 @@ export const updateUser = async (userId, data) => {
     throw error; // Propagez l'erreur pour la gérer au niveau supérieur si nécessaire
   }
 };
+
+export const deleteUserNeedPassword = async (userId, password) => {
+  try {
+    // Effectuez la requête POST pour supprimer l'utilisateur avec un mot de passe
+    const response = await axios.post(`${apiURL}/user/delete/${userId}`, {
+      password,
+    });
+
+    return response; // Vous pouvez également renvoyer d'autres données en fonction de l'API
+  } catch (error) {
+    console.error("Erreur lors de la suppression de l'utilisateur : ", error);
+    throw error; // Propagez l'erreur pour la gérer au niveau supérieur si nécessaire
+  }
+};
+
+// export const verifyEmailToken = async (token) => {
+//   try {
+//     const response = await axios.get(
+//       `${apiURL}/user/verify/verify-email?token=${token}`
+//     );
+//     return response.data; // Retourne les données de la réponse
+//   } catch (error) {
+//     console.error("Erreur lors de la vérification de l'e-mail : ", error);
+//     throw error; // Propage l'erreur pour la gérer au niveau supérieur si nécessaire
+//   }
+// };

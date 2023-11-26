@@ -4,6 +4,10 @@ import AlertModal from "../header/modal/AlertModal";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import DeleteUserModal from "./DeleteUserModal";
 import { useNavigate } from "react-router-dom";
+import {
+  deleteUserNeedPassword,
+  updateUser,
+} from "../../../services/UserService";
 
 function PropertyController({
   user,
@@ -27,73 +31,39 @@ function PropertyController({
   const navigate = useNavigate();
 
   async function resetProgression() {
-    const response = await axios.patch(
-      `http://146.59.150.192:5001/user/${user._id}`,
-      {
+    try {
+      // Utilisez la fonction updateUser pour mettre à jour l'utilisateur
+      const updatedUser = await updateUser(user._id, {
         quizzSystemeSolaire: 1,
         quizzGalaxies: 1,
         quizzPhenomenesObservables: 1,
         quizzAstronautes: 1,
-      }
-    );
+      });
 
-    console.log("response.dataRESET", response.data);
-
-    const afterpatch = await axios.get(
-      `http://146.59.150.192:5001/user/${user._id}`
-    );
-
-    const updatedUserData = afterpatch.data;
-
-    // Utilisez la fonction updateUserContext du contexte pour mettre à jour les données dans le localStorage et dans le contexte.
-    updateUserContext(updatedUserData);
-
-    console.log("afterpatch", afterpatch);
-    console.log("useFromChanger", user);
-
-    console.log("user", user);
+      // Mettez à jour le contexte avec les nouvelles données utilisateur
+      updateUserContext(updatedUser);
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour de l'utilisateur : ", error);
+    }
   }
 
   // FONCTION POUR CHANGER D'USERNAME
 
   async function changeUsername() {
     try {
-      const response = await axios.patch(
-        `http://146.59.150.192:5001/user/${user._id}`,
-        { userName: userName }
-      );
+      // Utilisez la fonction updateUser pour mettre à jour l'utilisateur
+      const updatedUser = await updateUser(user._id, { userName: userName });
 
-      setErrorMsg(null);
-
-      console.log("response", response);
-
-      const afterpatch = await axios.get(
-        `http://146.59.150.192:5001/user/${user._id}`
-      );
-
-      const updatedUserData = afterpatch.data;
-
-      // Utilisez la fonction updateUserContext du contexte pour mettre à jour les données dans le localStorage et dans le contexte.
-      updateUserContext(updatedUserData);
-
-      // dispatch({ type: "UPDATE_USER", payload: afterpatch.data });
-
-      console.log("afterpatchUSERNAME", afterpatch);
-      console.log("useFromChanger", user);
+      // Mettez à jour le contexte avec les nouvelles données utilisateur
+      updateUserContext(updatedUser);
 
       // Fonction pour réinitialiser l'entrée du pseudo et l'état isChanchingUsername
-      setUserName(afterpatch.data.userName);
+      setUserName(updatedUser.userName);
       setIsChanchingUsername(false);
-
-      if (response.status === 200) {
-        setGoodResponse(true);
-      }
+      setGoodResponse(true);
     } catch (error) {
-      const { response } = error;
-
-      setErrorMsg(response.data.error);
-
-      return;
+      console.error("Erreur lors de la mise à jour de l'utilisateur : ", error);
+      setErrorMsg(error.response.data.error);
     }
   }
 
@@ -101,26 +71,24 @@ function PropertyController({
 
   async function deleteUser() {
     try {
-      const response = await axios.post(
-        `http://146.59.150.192:5001/user/delete/${user._id}`,
-        { password: password }
-      );
-
-      console.log("response", response);
-
+      const response = await deleteUserNeedPassword(user._id, password);
       setErrorPasswordMsg(null);
-
       if (response.status === 200) {
         setGoodDeleteUserResponse(true);
       }
-
       setIsTypingPassword(false);
-
-      setTimeout(() => {
-        // Appel de la fonction 'logoutUser' pour se déconnecter/vider l'app
-        logoutUser();
-        // Navigation vers login
-        navigate("/login");
+      setTimeout(async () => {
+        try {
+          // Appel de la fonction 'logoutUser' pour se déconnecter/vider l'app
+          logoutUser();
+          // Navigation vers login
+          navigate("/login");
+        } catch (updateError) {
+          console.error(
+            "Erreur lors de la suppression de l'utilisateur : ",
+            updateError
+          );
+        }
       }, 1500);
     } catch (error) {
       const { response } = error;
