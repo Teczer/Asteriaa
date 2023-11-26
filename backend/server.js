@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
 import jsonServer from "json-server";
-import workoutRoutes from "./routes/workouts.js";
 import userRoutes from "./routes/user.js";
 import quizzRouter from "./routes/quizzRouter.js";
 
@@ -44,7 +43,6 @@ app.use((req, res, next) => {
 });
 
 // routes
-app.use("/workouts", workoutRoutes);
 app.use("/user", userRoutes);
 app.use("/quizz", quizzRouter);
 

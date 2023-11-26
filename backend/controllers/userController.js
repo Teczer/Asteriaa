@@ -127,7 +127,7 @@ export const updateUser = async (req, res) => {
   res.status(200).json(user);
 };
 
-// get a single workout
+// GET A SINGLE USER
 
 export const getUser = async (req, res) => {
   const { id } = req.params;
@@ -151,8 +151,8 @@ export const deleteUser = async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
 
-	console.log('STARTid', id);
-	console.log('STARTpass', password);
+  console.log("STARTid", id);
+  console.log("STARTpass", password);
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "ID d'utilisateur invalide" });
@@ -165,9 +165,11 @@ export const deleteUser = async (req, res) => {
     }
     // Vérifiez si le mot de passe fourni correspond au mot de passe de l'utilisateur
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    console.log('bcryptPass', isPasswordValid);
+    console.log("bcryptPass", isPasswordValid);
     if (!isPasswordValid) {
-      return res.status(401).json({ error: "Ce mot de passe était incorrect. Veuillez réessayer." });
+      return res.status(401).json({
+        error: "Ce mot de passe était incorrect. Veuillez réessayer.",
+      });
     }
 
     // Supprimer l'utilisateur de la base de données
