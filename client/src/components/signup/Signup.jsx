@@ -4,12 +4,13 @@ import { useAuthContext } from "../../../hooks/useAuthContext";
 import "./signup.scss";
 import image from "../login/launchlogo@3x 2.png";
 import { Link } from "react-router-dom";
+import { sendVerificationEmail } from "../../../services/UserService";
 
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
-  const { signup, error, isLoading, sendVerificationEmail } = useSignup();
+  const { signup, error, isLoading } = useSignup();
   const { user } = useAuthContext();
 
   const handleSubmit = async (e) => {

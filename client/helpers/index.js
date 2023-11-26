@@ -85,3 +85,24 @@ async function compressImage(file, options) {
     };
   });
 }
+
+export const handleCardClick = (collection, cardIndex) => {
+  const selectedCard = {
+    collectionName: collection.collectionName,
+    cardTitle: collection.cardTitle[cardIndex],
+    cardNumber: collection.cardNumber[cardIndex],
+    cardFrontImage: collection.cardFrontImage[cardIndex],
+    cardBackImage: collection.cardBackImage[cardIndex],
+    cardFunFactIcon1: collection.cardFunFactIcon1[cardIndex],
+    cardFunFactIcon2: collection.cardFunFactIcon2[cardIndex],
+    cardFunFactIcon3: collection.cardFunFactIcon3[cardIndex],
+    cardFunFactName1: collection.cardFunFactName1[cardIndex],
+    cardFunFactName2: collection.cardFunFactName2[cardIndex],
+    cardFunFactName3: collection.cardFunFactName3[cardIndex],
+    cardFunFact1: collection.cardFunFact1[cardIndex],
+    cardFunFact2: collection.cardFunFact2[cardIndex],
+    cardFunFact3: collection.cardFunFact3[cardIndex],
+    cardDescription: collection.cardDescription[cardIndex],
+  };
+  setActualCardView(selectedCard);
+};

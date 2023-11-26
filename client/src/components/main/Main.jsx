@@ -2,17 +2,38 @@ import CardQuizz from "./cardsQuizz/CardQuizz";
 import "./main.scss";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import { getUser } from "../../../services/UserService";
 
 function Main() {
-  const { user, updateUser } = useAuthContext();
-
-  // TUTORIAL REDIRECTION PHASE
-
+  const { user, updateUserContext } = useAuthContext();
   const navigate = useNavigate();
   const [userProgression, setUserProgression] = useState([]);
+
+  async function getUserProgression() {
+    if (!user) return;
+
+    try {
+      const response = await getUser(user._id);
+      setUserProgression(response);
+    } catch (error) {
+      console.error(
+        "Erreur lors de la récupération des informations de l'utilisateur : ",
+        error
+      );
+    }
+  }
+
+  useEffect(() => {
+    async function fetchData() {
+      await getUserProgression();
+    }
+
+    fetchData();
+  }, [user]);
+
+  // TUTORIAL REDIRECTION PHASE
 
   useEffect(() => {
     if (user) {
@@ -30,15 +51,6 @@ function Main() {
       navigate("/tutorial");
     }
   }, [navigate, user, userProgression]);
-
-  async function getUserProgression() {
-    if (!user) return;
-
-    const response = await axios.get(
-      `http://146.59.150.192:5001/user/${user._id}`
-    );
-    setUserProgression(response.data);
-  }
 
   // IF USER IS NOT CONNECTED
   const progressionSystemeSolaireLocal = localStorage.getItem(
@@ -112,17 +124,9 @@ function Main() {
   ];
 
   useEffect(() => {
-    async function fetchData() {
-      await getUserProgression();
-    }
-
-    fetchData();
-  }, [user]);
-
-  useEffect(() => {
     // Mettre à jour les données de l'utilisateur lorsque userProgression est mis à jour
     if (userProgression.length > 0) {
-      updateUser(userProgression);
+      updateUserContext(userProgression);
     }
   }, [userProgression]);
 

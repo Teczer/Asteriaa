@@ -2,32 +2,32 @@ import { useEffect, useState } from "react";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 import Previews from "./DropZoneImg";
 import axios from "axios";
+import { updateUser } from "../../../../services/UserService";
 
 function ChangePictureModal({ setIsChangingProfilePicture }) {
-  const { user } = useAuthContext();
+  const { user, updateUserContext } = useAuthContext();
   const [changingPicture, setChangingPicture] = useState("");
   const [isUsingUrl, setIsUsingUrl] = useState(false);
-  const { dispatch } = useAuthContext();
 
   async function changeUserProfilePicture(e) {
     e.preventDefault();
 
     if (!changingPicture) return;
 
-    const response = await axios.patch(
-      `http://146.59.150.192:5001/user/${user._id}`,
-      { profilePicture: changingPicture }
-    );
+    try {
+      // Utilisez la fonction updateUser pour mettre à jour l'utilisateur
+      const updatedUser = await updateUser(user._id, {
+        profilePicture: changingPicture,
+      });
 
-    const afterpatch = await axios.get(
-      `http://146.59.150.192:5001/user/${user._id}`
-    );
-
-    dispatch({ type: "UPDATE_USER", payload: afterpatch.data });
-
-    console.log("afterpatch", afterpatch);
-    console.log("user", user);
-    console.log("response.data", response.data);
+      // Mettez à jour le contexte avec les nouvelles données utilisateur
+      updateUserContext(updatedUser);
+    } catch (error) {
+      console.error(
+        "Erreur lors de la mise à jour de l'image de l'utilisateur : ",
+        error
+      );
+    }
   }
 
   // DROPZONE
@@ -45,7 +45,6 @@ function ChangePictureModal({ setIsChangingProfilePicture }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     createPost(postImage);
-    console.log("Uploaded");
   };
 
   const handleFileUpload = async (e) => {

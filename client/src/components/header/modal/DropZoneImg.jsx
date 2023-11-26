@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 import { convertToBase64 } from "../../../../helpers";
-import axios from "axios";
+import { updateUser } from "../../../../services/UserService";
 
 const thumb = {
   display: "inline-flex",
@@ -45,10 +45,10 @@ const img = {
   objectFit: "cover",
 };
 
-function Previews({ setChangingPicture, handleFileUpload, handleSubmit }) {
+function Previews() {
   const [files, setFiles] = useState([]);
   const { user } = useAuthContext();
-  const { updateUser } = useAuthContext();
+  const { updateUserContext } = useAuthContext();
 
   async function compressImage(file, options) {
     return new Promise((resolve, reject) => {
@@ -108,21 +108,22 @@ function Previews({ setChangingPicture, handleFileUpload, handleSubmit }) {
 
             const base64 = await convertToBase64(compressedFile);
 
-            return axios.patch(`http://146.59.150.192:5001/user/${user._id}`, {
-              profilePicture: base64,
-            });
+            try {
+              // Utilisez la fonction updateUser pour mettre à jour l'utilisateur
+              const updatedUser = await updateUser(user._id, {
+                profilePicture: base64,
+              });
+
+              // Mettez à jour le contexte avec les nouvelles données utilisateur
+              updateUserContext(updatedUser);
+            } catch (error) {
+              console.error(
+                "Erreur lors de la mise à jour de l'image de l'utilisateur : ",
+                error
+              );
+            }
           })
         );
-
-        try {
-          const afterpatch = await axios.get(
-            `http://146.59.150.192:5001/user/${user._id}`
-          );
-
-          updateUser(afterpatch.data);
-        } catch (error) {
-          console.log(error);
-        }
       },
     });
 

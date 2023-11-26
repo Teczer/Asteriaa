@@ -1,35 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
 import "./quizzresult.scss";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 import { useCollection } from "../../../../hooks/useCollection";
 import ActualCardViewFront from "../../collections/ActualCardViewFront";
+import { updateUser } from "../../../../services/UserService";
 
 function QuizzResult({ CorrectAns }) {
   const params = useParams();
-  const { user, updateUser } = useAuthContext();
+  const { user, updateUserContext } = useAuthContext();
   const collections = useCollection();
   const [actualCardView, setActualCardView] = useState(null);
 
   const currentCollection = collections.find(
     (collection) => params.quizzType === collection.slug
   );
+
   async function saveProgression() {
-    const response = await axios.patch(
-      `http://146.59.150.192:5001/user/${user._id}`,
-      { [params.quizzType]: Number(params.quizzProgression) + 1 }
-    );
-
     try {
-      const afterpatch = await axios.get(
-        `http://146.59.150.192:5001/user/${user._id}`
-      );
+      // Utilisez la fonction updateUser pour mettre à jour l'utilisateur
+      const updatedUser = await updateUser(user._id, {
+        [params.quizzType]: Number(params.quizzProgression) + 1,
+      });
 
-      updateUser(afterpatch.data);
-      console.log("afterpatch", afterpatch);
+      // Mettez à jour le contexte avec les nouvelles données utilisateur
+      updateUserContext(updatedUser);
     } catch (error) {
-      console.log(error);
+      console.error(
+        "Erreur lors de la mise à jour de la progression du quizz : ",
+        error
+      );
     }
   }
 
@@ -51,12 +51,10 @@ function QuizzResult({ CorrectAns }) {
       cardFunFact3: collection.cardFunFact3[cardIndex],
       cardDescription: collection.cardDescription[cardIndex],
     };
-    console.log("selectedCard", selectedCard);
     setActualCardView(selectedCard);
   };
 
   useEffect(() => {
-    console.log(user);
     saveProgression();
     localStorage.setItem(params.quizzType, Number(params.quizzProgression) + 1);
   }, []);
@@ -68,9 +66,6 @@ function QuizzResult({ CorrectAns }) {
     setTestVisible(true);
   }, []);
 
-  console.log("currentCollection");
-
-  console.log("a", [Number(params.quizzProgression)]);
   return (
     <>
       {actualCardView ? (

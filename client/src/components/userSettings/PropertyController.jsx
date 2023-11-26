@@ -23,7 +23,7 @@ function PropertyController({
   const [goodDeleteUserResponse, setGoodDeleteUserResponse] = useState(false);
 
   const [modal, setModal] = useState(false);
-  const { updateUser, logoutUser } = useAuthContext();
+  const { updateUserContext, logoutUser } = useAuthContext();
   const navigate = useNavigate();
 
   async function resetProgression() {
@@ -45,8 +45,8 @@ function PropertyController({
 
     const updatedUserData = afterpatch.data;
 
-    // Utilisez la fonction updateUser du contexte pour mettre à jour les données dans le localStorage et dans le contexte.
-    updateUser(updatedUserData);
+    // Utilisez la fonction updateUserContext du contexte pour mettre à jour les données dans le localStorage et dans le contexte.
+    updateUserContext(updatedUserData);
 
     console.log("afterpatch", afterpatch);
     console.log("useFromChanger", user);
@@ -73,8 +73,8 @@ function PropertyController({
 
       const updatedUserData = afterpatch.data;
 
-      // Utilisez la fonction updateUser du contexte pour mettre à jour les données dans le localStorage et dans le contexte.
-      updateUser(updatedUserData);
+      // Utilisez la fonction updateUserContext du contexte pour mettre à jour les données dans le localStorage et dans le contexte.
+      updateUserContext(updatedUserData);
 
       // dispatch({ type: "UPDATE_USER", payload: afterpatch.data });
 

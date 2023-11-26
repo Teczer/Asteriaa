@@ -29,7 +29,7 @@ export const AuthContextProvider = ({ children }) => {
     }
   }, []);
 
-  const updateUser = (userData) => {
+  const updateUserContext = (userData) => {
     localStorage.setItem("user", JSON.stringify(userData));
     dispatch({ type: "UPDATE_USER", payload: userData });
   };
@@ -45,7 +45,7 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ ...state, dispatch, updateUser, logoutUser }}
+      value={{ ...state, dispatch, updateUserContext, logoutUser }}
     >
       {children}
     </AuthContext.Provider>

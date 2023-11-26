@@ -15,7 +15,7 @@ function VerifyEmail() {
   const [sucess, setSucess] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const { user, updateUser } = useAuthContext();
+  const { user, updateUserContext } = useAuthContext();
   console.log("user", user);
   const [timerRedirection, setTimerRedirection] = useState(3);
   const userId = getUserIdFromToken(token);
@@ -65,7 +65,7 @@ function VerifyEmail() {
             const updatedUserData = afterpatch.data;
 
             // Mettre à jour le contexte avec les nouvelles données utilisateur
-            updateUser(updatedUserData);
+            updateUserContext(updatedUserData);
           }
 
           localStorage.setItem("completedTutorial", true);
@@ -86,7 +86,7 @@ function VerifyEmail() {
 
       verifyEmail();
     }
-  }, [token, navigate, updateUser]);
+  }, [token, navigate, updateUserContext]);
 
   useEffect(() => {
     // Vérifie si sucess = true pour éviter d'incrémenter même si la vérification n'a pas abouti
