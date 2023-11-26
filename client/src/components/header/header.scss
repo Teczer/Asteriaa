@@ -351,13 +351,27 @@
   cursor: pointer;
   width: 40px;
   height: 40px;
-  border-radius: 27px;
+  border-top-right-radius: 27px;
   color: white;
   border: 1px solid #c4c7c5;
   background: #181836;
   position: absolute;
   top: 0px;
-  right: 6px;
+  right: 0px;
+  border-left: none;
+
+  &.--no-admin {
+    border: 1px solid #c4c7c5;
+    right: 6px;
+    border-radius: 999px;
+  }
+
+  &.--admin-settings {
+    right: 40px;
+    border-top-right-radius: 0px;
+    border-right: none;
+    border-left: 1px solid #c4c7c5;
+  }
 
   &.--delete-user-modal {
     position: relative !important;

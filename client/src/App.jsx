@@ -15,6 +15,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import UserSettings from "./components/userSettings/UserSettings";
 import VerifyEmail from "./components/verifyEmail/VerifyEmail";
 import Collection from "./components/collections/Collection";
+import AdminPage from "./components/admin/AdminPage";
 
 function App() {
   const location = useLocation();
@@ -49,6 +50,7 @@ function App() {
         <Route path="/news" element={<Article />} />
         <Route path="/collection" element={<Collection />} />
         <Route path="/settings/profile" element={<UserSettings />} />
+        <Route path="/admin" element={<AdminPage />} />
         <Route
           path="/quizzcontroller/:quizzType/:quizzProgression"
           element={<Quizzcontroller />}

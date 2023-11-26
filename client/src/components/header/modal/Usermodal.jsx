@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 
 function Usermodal({ setUserModal, setIsChangingProfilePicture }) {
   const { user, logoutUser } = useAuthContext();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     // Appel de la fonction 'logoutUser' pour se déconnecter
@@ -11,15 +12,30 @@ function Usermodal({ setUserModal, setIsChangingProfilePicture }) {
     // Par exemple, rediriger l'utilisateur vers la page de connexion, etc.
   };
 
+  console.log("user", user);
+
   return (
     <div className="user-controller-modal">
       <div className="user-controller-wrapper">
         <button
-          className="close-user-modal-btn"
+          className={`close-user-modal-btn ${
+            user?.isAdmin ? "" : "--no-admin"
+          }`}
           onClick={() => setUserModal(false)}
         >
           <i className="fa-solid fa-circle-xmark"></i>
         </button>
+        {user?.isAdmin && (
+          <button
+            className="close-user-modal-btn --admin-settings"
+            onClick={() => {
+              navigate("/admin");
+              setUserModal(false);
+            }}
+          >
+            <i class="fa-solid fa-gear"></i>
+          </button>
+        )}
         <div className="user-information-wrapper">
           <figure className="figure-user-profile-picture --modal">
             <img

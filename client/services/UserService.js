@@ -106,15 +106,3 @@ export const deleteUserNeedPassword = async (userId, password) => {
     throw error; // Propagez l'erreur pour la gérer au niveau supérieur si nécessaire
   }
 };
-
-// export const verifyEmailToken = async (token) => {
-//   try {
-//     const response = await axios.get(
-//       `${apiURL}/user/verify/verify-email?token=${token}`
-//     );
-//     return response.data; // Retourne les données de la réponse
-//   } catch (error) {
-//     console.error("Erreur lors de la vérification de l'e-mail : ", error);
-//     throw error; // Propage l'erreur pour la gérer au niveau supérieur si nécessaire
-//   }
-// };
