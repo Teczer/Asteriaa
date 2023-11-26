@@ -66,21 +66,5 @@ export const useSignup = () => {
     }
   };
 
-  const getUserInfo = async (userId) => {
-    try {
-      console.log("userIdFromgetuserInfo", userId);
-      const { data } = await axios.get(
-        `http://146.59.150.192:5001/user/${userId}`
-      );
-      return data; // Renvoie les informations de l'utilisateur
-    } catch (error) {
-      console.error(
-        "Erreur lors de la récupération des informations de l'utilisateur : ",
-        error
-      );
-      return null;
-    }
-  };
-
-  return { signup, isLoading, error, sendVerificationEmail, getUserInfo };
+  return { signup, isLoading, error, sendVerificationEmail };
 };

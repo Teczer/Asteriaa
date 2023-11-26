@@ -82,11 +82,6 @@ function QuizzResult({ CorrectAns }) {
         </div>
       ) : (
         <>
-          <div className={`test ${testVisible ? "active" : ""}`}>
-            <h1 className="total-correct-ans-quizz">
-              Bonnes réponses : {CorrectAns} / 3
-            </h1>
-          </div>
           <p style={{ color: "white" }}>
             Félicitations vous avez gagné la carte{" "}
             {currentCollection.cardTitle[Number(params.quizzProgression)]}
@@ -113,9 +108,9 @@ function QuizzResult({ CorrectAns }) {
             <div className="modal-user-notconnected-buttons">
               <a
                 className="modal-user-notconnected-inscription"
-                href={`/quizzcontroller/${params.quizzType}/${Number(
-                  params.quizzProgression
-                )}`}
+                href={`/quizzcontroller/${params.quizzType}/${
+                  Number(params.quizzProgression) + 1
+                }`}
               >
                 Niveau suivant
               </a>

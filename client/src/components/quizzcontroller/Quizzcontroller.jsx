@@ -1,6 +1,5 @@
 import "./quizzcontroller.scss";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import QuestionCard from "./questionCard/QuestionCard";
 import QuestionAnswerCard from "./questionAnswerCard/QuestionAnswerCard";
 import QuizzResult from "./quizzResult/QuizzResult";
@@ -9,32 +8,28 @@ import classNames from "classnames";
 import Stepper from "./stepper/Stepper";
 import AlertModal from "../header/modal/AlertModal";
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import { getSqlQuizz } from "../../../services/QuizzService";
 
 function Quizzcontroller() {
   const [posts, setPosts] = useState([]);
 
   // ANTI-CHEAT for Asteria Users
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await getSqlQuizz(params);
+        setPosts(response);
+      } catch (error) {
+        console.error(error);
+        // Gérez l'erreur comme vous le souhaitez
+      }
+    }
+
+    fetchData();
+  }, []);
   // console.log("posts", posts);
   const params = useParams();
-
-  async function getSqlQuizz(params) {
-    try {
-      const response = await axios.post("http://mehdiv.fr:5001/quizz", {
-        quizzType: params.quizzType,
-        quizzProgression: params.quizzProgression,
-      });
-
-      console.log("Axios SQL Response", response.data);
-      setPosts(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    getSqlQuizz(params);
-  }, []);
 
   const [CorrectAns, setCorrectAns] = useState(0);
   const [showResult, setShowResult] = useState(false);
