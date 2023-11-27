@@ -33,7 +33,7 @@ function Usermodal({ setUserModal, setIsChangingProfilePicture }) {
               setUserModal(false);
             }}
           >
-            <i class="fa-solid fa-gear"></i>
+            <i className="fa-solid fa-gear"></i>
           </button>
         )}
         <div className="user-information-wrapper">

@@ -1,8 +1,9 @@
 import axios from "axios";
 
-const apiURL = import.meta.env.PROD
-  ? import.meta.env.VITE_PROD_URL_API
-  : import.meta.env.VITE_SERVER_LOCAL_URL_API;
+const apiURL =
+  import.meta.env.VITE_NODE_ENV === "development"
+    ? import.meta.env.VITE_SERVER_LOCAL_URL_API
+    : import.meta.env.VITE_PROD_URL_API;
 
 export async function getSqlQuizz(params) {
   try {

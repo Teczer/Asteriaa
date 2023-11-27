@@ -49,7 +49,7 @@ function DeleteUserModal({
         </p>
         {errorPasswordMsg && (
           <div className="property-catch-error --delete-user-modal">
-            <i class="fa-solid fa-circle-minus" />
+            <i className="fa-solid fa-circle-minus" />
             <div className="error-link-wrap">
               <strong>{errorPasswordMsg}</strong>
               <Link className="delete-modal-forgot-password" to="/">
