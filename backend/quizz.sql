@@ -309,77 +309,88 @@ VALUES
     (9, N'François Pescquet', false);
 
 -- Pour le quizz "quizzSystemeSolaire04"
-INSERT INTO Quizz (quizz_name)
-VALUES ('quizzSystemeSolaire04');
-
-INSERT INTO Question (
-  quizz_id,
-  question_value,
-  photo_question,
-  photo_answer,
-  answer_name,
-  answer_explanation
-)
-VALUES (
-  4,
-  'Quel est l''âge du système solaire ?',
-  'https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677939/images-quizz/SystemeSolaireQuizz/quizz-1-question-10_h6apl9.jpg',
-  'https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677933/images-quizz/SystemeSolaireQuizz/quizz-1-answer-10_uzdqsq.png',
-  '4,567 milliards d''années',
-  'L''âge de la Terre, et celui du système solaire, est de 4,567 milliards d’années, avec une incertitude de quelques dizaines de millions d’années. C’est une connaissance aujourd’hui stabilisée.'
-);
-
-INSERT INTO QuizOption (question_id, question_answer, is_correct)
+INSERT INTO
+    Quizz (quizz_name)
 VALUES
-  (10, '1 million d''années', false),
-  (10, '4,5 milliards d''années', true),
-  (10, '2022 ans', false),
-  (10, '4000 ans', false);
+    ('quizzSystemeSolaire04');
 
-INSERT INTO Question (
-  quizz_id,
-  question_value,
-  photo_question,
-  photo_answer,
-  answer_name,
-  answer_explanation
-)
-VALUES (
-  4,
-  'Quelle planète surnomme-t-on ''l''étoile du berger''?',
-  'https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677937/images-quizz/SystemeSolaireQuizz/quizz-1-question-11_tzio1r.jpg',
-  'https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677938/images-quizz/SystemeSolaireQuizz/quizz-1-answer-11_quec9l.jpg',
-  'Vénus',
-  'L''expression *étoile du Berger* est très ancienne. Autrefois, les gardiens de troupeaux qui vivaient au rythme des jours et des nuits, tout au long de l''année, guettaient l''apparition de la première étoile dans le ciel, le soir, pour rentrer à la bergerie.'
-);
-
-INSERT INTO QuizOption (question_id, question_answer, is_correct)
+INSERT INTO
+    Question (
+        quizz_id,
+        question_value,
+        photo_question,
+        photo_answer,
+        answer_name,
+        answer_explanation
+    )
 VALUES
-  (11, 'Mars', false),
-  (11, 'Apollon', false),
-  (11, 'Mercure', false),
-  (11, 'Vénus', true);
+    (
+        4,
+        'Quel est l''âge du système solaire ?',
+        'https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677939/images-quizz/SystemeSolaireQuizz/quizz-1-question-10_h6apl9.jpg',
+        'https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677933/images-quizz/SystemeSolaireQuizz/quizz-1-answer-10_uzdqsq.png',
+        '4,567 milliards d''années',
+        'L''âge de la Terre, et celui du système solaire, est de 4,567 milliards d’années, avec une incertitude de quelques dizaines de millions d’années. C’est une connaissance aujourd’hui stabilisée.'
+    );
 
-INSERT INTO Question (
-  quizz_id,
-  question_value,
-  photo_question,
-  photo_answer,
-  answer_name,
-  answer_explanation
-)
-VALUES (
-  4,
-  'Existe-t-il d''autres systèmes solaires dans l''univers ?',
-  'https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677937/images-quizz/SystemeSolaireQuizz/quizz-1-question-12_n2n0nw.jpg',
-  'https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677937/images-quizz/SystemeSolaireQuizz/quizz-1-answer-12_g54bpb.jpg',
-  'Oui',
-  'Le premier système planétaire découvert autour d''une étoile de type solaire en dehors du Système solaire est celui de l''étoile 51 Pegasi en 1995. Depuis ce temps, des centaines de planètes extra-solaires ont été découvertes.'
-);
-
-INSERT INTO QuizOption (question_id, question_answer, is_correct)
+INSERT INTO
+    QuizOption (question_id, question_answer, is_correct)
 VALUES
-  (12, 'Personne ne sait', false),
-  (12, 'Non', false),
-  (12, 'Oui', true),
-  (12, 'Peut-être', false);
+    (10, '1 million d''années', false),
+    (10, '4,5 milliards d''années', true),
+    (10, '2022 ans', false),
+    (10, '4000 ans', false);
+
+INSERT INTO
+    Question (
+        quizz_id,
+        question_value,
+        photo_question,
+        photo_answer,
+        answer_name,
+        answer_explanation
+    )
+VALUES
+    (
+        4,
+        'Quelle planète surnomme-t-on ''l''étoile du berger''?',
+        'https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677937/images-quizz/SystemeSolaireQuizz/quizz-1-question-11_tzio1r.jpg',
+        'https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677938/images-quizz/SystemeSolaireQuizz/quizz-1-answer-11_quec9l.jpg',
+        'Vénus',
+        'L''expression *étoile du Berger* est très ancienne. Autrefois, les gardiens de troupeaux qui vivaient au rythme des jours et des nuits, tout au long de l''année, guettaient l''apparition de la première étoile dans le ciel, le soir, pour rentrer à la bergerie.'
+    );
+
+INSERT INTO
+    QuizOption (question_id, question_answer, is_correct)
+VALUES
+    (11, 'Mars', false),
+    (11, 'Apollon', false),
+    (11, 'Mercure', false),
+    (11, 'Vénus', true);
+
+INSERT INTO
+    Question (
+        quizz_id,
+        question_value,
+        photo_question,
+        photo_answer,
+        answer_name,
+        answer_explanation
+    )
+VALUES
+    (
+        4,
+        'Existe-t-il d''autres systèmes solaires dans l''univers ?',
+        'https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677937/images-quizz/SystemeSolaireQuizz/quizz-1-question-12_n2n0nw.jpg',
+        'https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677937/images-quizz/SystemeSolaireQuizz/quizz-1-answer-12_g54bpb.jpg',
+        'Oui',
+        'Le premier système planétaire découvert autour d''une étoile de type solaire en dehors du Système solaire est celui de l''étoile 51 Pegasi en 1995. Depuis ce temps, des centaines de planètes extra-solaires ont été découvertes.'
+    );
+
+INSERT INTO
+    QuizOption (question_id, question_answer, is_correct)
+VALUES
+    (12, 'Personne ne sait', false),
+    (12, 'Non', false),
+    (12, 'Oui', true),
+    (12, 'Peut-être', false);

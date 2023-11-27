@@ -1,0 +1,14 @@
+# Build the backend
+FROM node:16.17.1-alpine3.14 as build
+WORKDIR /usr/app
+COPY ./backend /usr/app
+RUN npm install
+
+# Rebuild bcrypt
+RUN npm rebuild bcrypt --build-from-source
+
+# Expose the necessary port for the backend application
+EXPOSE 5001
+
+# Start the backend application
+CMD ["npm", "start"]
