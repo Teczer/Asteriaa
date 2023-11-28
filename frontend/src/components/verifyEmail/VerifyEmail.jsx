@@ -23,7 +23,7 @@ function VerifyEmail() {
   const sendVerificationEmail = async (email, userId) => {
     try {
       const response = await axios.post(
-        "http://146.59.150.192:5001/user/send-verification-email",
+        "https://apiasteria.mehdiv.fr/user/send-verification-email",
         { email, userId },
         {
           headers: { "Content-Type": "application/json" },
@@ -51,7 +51,7 @@ function VerifyEmail() {
       const verifyEmail = async () => {
         try {
           const response = await axios.get(
-            `http://146.59.150.192:5001/user/verify/verify-email?token=${token}`
+            `https://apiasteria.mehdiv.fr/user/verify/verify-email?token=${token}`
           );
           setLoading(false);
           setSucess(true);
@@ -60,7 +60,7 @@ function VerifyEmail() {
           if (userId) {
             // Effectuer la requête pour récupérer les nouvelles données utilisateur
             const afterpatch = await axios.get(
-              `http://146.59.150.192:5001/user/${userId}`
+              `https://apiasteria.mehdiv.fr/user/${userId}`
             );
             const updatedUserData = afterpatch.data;
 
