@@ -52,6 +52,52 @@ GROUP BY
   return rows;
 };
 
+export const getFullQuizz = async (quizzId, quizzName) => {
+  const sqlQuery = `
+    SELECT
+      qu.quizz_name AS quizzName,
+      q.question_value AS questionValue,
+      q.photo_question AS photoQuestion,
+      q.photo_answer AS photoAnswer,
+      q.answer_name AS answerName,
+      q.answer_explanation AS answerExplanation,
+      JSON_ARRAYAGG(
+        JSON_OBJECT(
+          'questionAnswer', op.question_answer,
+          'isCorrect', op.is_correct
+        )
+      ) AS questionOptions
+    FROM
+      Quizz qu
+      JOIN Question q ON qu.id = q.quizz_id
+      JOIN QuizOption op ON q.id = op.question_id
+    WHERE
+      qu.id = ? AND qu.quizz_name = ?
+    GROUP BY
+      qu.id, q.id;
+  `;
+
+  const [rows] = await pool.query(sqlQuery, [quizzId, quizzName]);
+
+  if (rows.length === 0) {
+    return null; // Aucun quizz trouvé avec ces paramètres
+  }
+
+  // Organise les données en format souhaité
+  const quizz = {
+    quizzName: rows[0].quizzName,
+    questions: rows.map((row) => ({
+      questionValue: row.questionValue,
+      photoQuestion: row.photoQuestion,
+      photoAnswer: row.photoAnswer,
+      answerName: row.answerName,
+      answerExplanation: row.answerExplanation,
+      questionOptions: row.questionOptions,
+    })),
+  };
+  return quizz; // Retourne l'objet quizz directement
+};
+
 // CREATE
 
 export const createQuizzCat = async (quizzName, questions) => {

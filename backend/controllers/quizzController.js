@@ -1,6 +1,7 @@
 import {
   getAllQuizz,
   getQuizzSQLByCat,
+  getFullQuizz,
   createQuizzCat,
   deleteQuizzCat,
 } from "../utils/quizz.js";
@@ -27,6 +28,51 @@ export const getQuizzByCat = async (req, res) => {
   const quizz = await getQuizzSQLByCat(quizzType, quizzProgression);
 
   res.json(quizz);
+};
+
+export const getFullQuizzByIdAndName = async (req, res) => {
+  const { quizzId, quizzName } = req.body;
+
+  try {
+    const quizz = await getFullQuizz(quizzId, quizzName);
+
+    if (!quizz || !quizz.quizzName || !quizz.questions) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Quizz non trouvé." });
+    }
+
+    const responseQuizz = {
+      quizzName: quizz.quizzName,
+      questions: quizz.questions.map((question) => {
+        const {
+          questionValue,
+          photoQuestion,
+          photoAnswer,
+          answerName,
+          answerExplanation,
+          questionOptions,
+        } = question;
+
+        return {
+          questionValue,
+          photoQuestion,
+          photoAnswer,
+          answerName,
+          answerExplanation,
+          questionOptions,
+        };
+      }),
+    };
+
+    res.json(responseQuizz); // Retourne directement l'objet responseQuizz
+  } catch (error) {
+    console.error(
+      "Erreur lors de la récupération du quizz complet :",
+      error.message
+    );
+    res.status(500).json({ success: false, message: "Erreur serveur." });
+  }
 };
 
 // POST CREATE QUIZZ
