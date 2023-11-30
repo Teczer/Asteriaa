@@ -18,24 +18,11 @@ function Usermodal({ setUserModal, setIsChangingProfilePicture }) {
     <div className="user-controller-modal">
       <div className="user-controller-wrapper">
         <button
-          className={`close-user-modal-btn ${
-            user?.isAdmin ? "" : "--no-admin"
-          }`}
+          className="close-user-modal-btn"
           onClick={() => setUserModal(false)}
         >
           <i className="fa-solid fa-circle-xmark"></i>
         </button>
-        {user?.isAdmin && (
-          <button
-            className="close-user-modal-btn --admin-settings"
-            onClick={() => {
-              navigate("/admin");
-              setUserModal(false);
-            }}
-          >
-            <i className="fa-solid fa-gear"></i>
-          </button>
-        )}
         <div className="user-information-wrapper">
           <figure className="figure-user-profile-picture --modal">
             <img
@@ -61,12 +48,21 @@ function Usermodal({ setUserModal, setIsChangingProfilePicture }) {
           </div>
         </div>
         <Link
-          className="to-user-page"
+          className={`to-user-page ${user?.isAdmin ? "--admin" : ""}`}
           to="/settings/profile"
           onClick={() => setUserModal(false)}
         >
           Gérer votre compte Asteria
         </Link>
+        {user?.isAdmin && (
+          <Link
+            className="to-user-page --admin"
+            to="/admin/quizz"
+            onClick={() => setUserModal(false)}
+          >
+            Back-Office Asteria
+          </Link>
+        )}
       </div>
       <Link
         onClick={handleLogout}

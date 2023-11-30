@@ -19,12 +19,6 @@ function DeleteUserModal({
           e.stopPropagation();
         }}
       >
-        <button
-          className="close-user-modal-btn --delete-user-modal"
-          onClick={() => setDeleteUserModal(false)}
-        >
-          <i className="fa-solid fa-circle-xmark"></i>
-        </button>
         <div className="delete-modal-title-logo">
           <img
             className="delete-modal-logo"

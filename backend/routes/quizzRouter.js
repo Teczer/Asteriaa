@@ -2,7 +2,7 @@ import express from "express";
 import {
   getAllQuizzController,
   getQuizzByCat,
-  getFullQuizzByIdAndName,
+  getFullQuizzById,
   createQuizz,
   deleteQuizz,
 } from "../controllers/quizzController.js";
@@ -16,7 +16,7 @@ router.get("/all", getAllQuizzController);
 router.post("/", getQuizzByCat);
 
 // GET FULL QUIZZ BY ID AND NAME
-router.post("/getFullQuizz", getFullQuizzByIdAndName);
+router.get("/:quizzId", getFullQuizzById);
 
 // POST CREATE QUIZZ
 

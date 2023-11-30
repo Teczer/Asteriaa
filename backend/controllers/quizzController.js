@@ -30,13 +30,13 @@ export const getQuizzByCat = async (req, res) => {
   res.json(quizz);
 };
 
-export const getFullQuizzByIdAndName = async (req, res) => {
-  const { quizzId, quizzName } = req.body;
+export const getFullQuizzById = async (req, res) => {
+  const { quizzId } = req.params;
 
   try {
-    const quizz = await getFullQuizz(quizzId, quizzName);
+    const quizz = await getFullQuizz(quizzId);
 
-    if (!quizz || !quizz.quizzName || !quizz.questions) {
+    if (!quizz || !quizz.questions) {
       return res
         .status(404)
         .json({ success: false, message: "Quizz non trouvé." });

@@ -52,7 +52,7 @@ GROUP BY
   return rows;
 };
 
-export const getFullQuizz = async (quizzId, quizzName) => {
+export const getFullQuizz = async (quizzId) => {
   const sqlQuery = `
     SELECT
       qu.quizz_name AS quizzName,
@@ -72,12 +72,12 @@ export const getFullQuizz = async (quizzId, quizzName) => {
       JOIN Question q ON qu.id = q.quizz_id
       JOIN QuizOption op ON q.id = op.question_id
     WHERE
-      qu.id = ? AND qu.quizz_name = ?
+      qu.id = ?
     GROUP BY
       qu.id, q.id;
   `;
 
-  const [rows] = await pool.query(sqlQuery, [quizzId, quizzName]);
+  const [rows] = await pool.query(sqlQuery, [quizzId]);
 
   if (rows.length === 0) {
     return null; // Aucun quizz trouvé avec ces paramètres

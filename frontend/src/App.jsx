@@ -16,6 +16,7 @@ import UserSettings from "./components/userSettings/UserSettings";
 import VerifyEmail from "./components/verifyEmail/VerifyEmail";
 import Collection from "./components/collections/Collection";
 import AdminPage from "./components/admin/AdminPage";
+import EditEntrieView from "./components/admin/EditEntrieView";
 
 function App() {
   const location = useLocation();
@@ -24,6 +25,7 @@ function App() {
   const isSignUpScreen = location.pathname.includes("signup");
   const isAsteriaTutorialScreen = location.pathname.includes("tutorial");
   const isVerifyingScreen = location.pathname.includes("verify");
+  const isAdminScreen = location.pathname.includes("admin");
 
   const { user } = useAuthContext();
   return (
@@ -32,7 +34,7 @@ function App() {
         !isLoginScreen &&
         !isSignUpScreen &&
         !isVerifyingScreen &&
-        !isAsteriaTutorialScreen && <Header />}
+        !isAsteriaTutorialScreen && <Header isAdmin={isAdminScreen} />}
       <Routes>
         <Route path="/tutorial" element={<AsteriaTutorial />} />
         <Route path="/" element={<Homepage />} />
@@ -50,7 +52,8 @@ function App() {
         <Route path="/news" element={<Article />} />
         <Route path="/collection" element={<Collection />} />
         <Route path="/settings/profile" element={<UserSettings />} />
-        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/:type" element={<AdminPage />} />
+        <Route path="/admin/:type/:id" element={<EditEntrieView />} />
         <Route
           path="/quizzcontroller/:quizzType/:quizzProgression"
           element={<Quizzcontroller />}
@@ -59,6 +62,7 @@ function App() {
       {!isQuizzControllerScreen &&
         !isLoginScreen &&
         !isSignUpScreen &&
+        !isAdminScreen &&
         !isVerifyingScreen &&
         !isAsteriaTutorialScreen && <Footer />}
     </>

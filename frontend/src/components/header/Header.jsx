@@ -6,7 +6,7 @@ import Usermodal from "./modal/Usermodal";
 import Modalburger from "./modal/Modalburger";
 import ChangePictureModal from "./modal/ChangePictureModal";
 
-const Header = () => {
+const Header = ({ isAdmin }) => {
   const [modalBurger, setModalBurger] = useState(false);
   const [modalAuthentification, setModalAuthentification] = useState(false);
   const [userModal, setUserModal] = useState(false);
@@ -17,7 +17,11 @@ const Header = () => {
 
   return (
     <>
-      <header className={`header-asteria ${user ? "--userconnected" : ""}`}>
+      <header
+        className={`header-asteria ${user ? "--userconnected" : ""} ${
+          isAdmin ? "--isAdmin" : ""
+        }`}
+      >
         {isChangingProfilePicture && (
           <ChangePictureModal
             setIsChangingProfilePicture={setIsChangingProfilePicture}

@@ -14,6 +14,9 @@
   right: 0;
   padding-left: 180px;
 
+  &.--isAdmin {
+    background: rgb(24, 24, 38);
+  }
   &.--userconnected {
     padding-left: 0px;
   }
@@ -351,27 +354,15 @@
   cursor: pointer;
   width: 40px;
   height: 40px;
-  border-top-right-radius: 27px;
+  border-radius: 999px;
   color: white;
-  border: 1px solid #c4c7c5;
   background: #181836;
   position: absolute;
   top: 0px;
-  right: 0px;
+  right: 5px;
   border-left: none;
-
-  &.--no-admin {
-    border: 1px solid #c4c7c5;
-    right: 6px;
-    border-radius: 999px;
-  }
-
-  &.--admin-settings {
-    right: 40px;
-    border-top-right-radius: 0px;
-    border-right: none;
-    border-left: 1px solid #c4c7c5;
-  }
+  border: none;
+  border: 1px solid white;
 
   &.--delete-user-modal {
     position: relative !important;
@@ -434,6 +425,10 @@
   overflow: hidden;
   width: 100%;
   color: #e3e3e3;
+
+  &.--admin {
+    padding: 0;
+  }
 
   @include xs {
     margin-left: 0px;
