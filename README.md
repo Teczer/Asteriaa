@@ -1,4 +1,4 @@
-# Asteriaa
+# Asteria
 
 Version Web et approfondie d'Asteria ! 🌌🚀
 
