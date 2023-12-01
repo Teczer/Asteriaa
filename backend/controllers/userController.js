@@ -127,7 +127,7 @@ export const updateUser = async (req, res) => {
   res.status(200).json(user);
 };
 
-// GET A SINGLE USER
+// GET A SINGLE USER BY ID
 
 export const getUser = async (req, res) => {
   const { id } = req.params;
@@ -143,6 +143,18 @@ export const getUser = async (req, res) => {
   }
 
   res.status(200).json(user);
+};
+
+// GET ALL USERS
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Erreur lors de la récupération des utilisateurs" });
+  }
 };
 
 // DELETE AN EXISTING USER

@@ -13,6 +13,7 @@ import {
   loginUser,
   updateUser,
   getUser,
+  getAllUsers,
   deleteUser,
 } from "../controllers/userController.js";
 
@@ -35,6 +36,8 @@ router.patch("/:id", updateUser);
 // GET single user
 
 router.get("/:id", getUser);
+
+router.get("/", getAllUsers);
 
 export default router;
 
