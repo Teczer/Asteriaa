@@ -101,7 +101,7 @@ export default function EditEntrieView() {
     <main className="main-content-admin">
       <nav className="collections-type">
         <h3 className="collection-type-titles">
-          Collection Types <div className="collection-type-counter">2</div>
+          Collection Typess <div className="collection-type-counter">2</div>
         </h3>
         <Link className="collection-type-link" to="/admin/quizz">
           Quizz
