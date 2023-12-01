@@ -68,3 +68,18 @@ export async function deleteQuizz(quizzId) {
     throw error;
   }
 }
+
+// PATCH UPDATE QUIZZ
+export async function updateQuizz(quizzId, updatedQuizz) {
+  try {
+    const response = await axios.patch(
+      `${apiURL}/quizz/${quizzId}`,
+      updatedQuizz
+    );
+    console.log("Axios PATCH Update Quizz Response", response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

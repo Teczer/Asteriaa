@@ -25,6 +25,9 @@ export default function AdminPage() {
   return (
     <main className="main-content-admin">
       <nav className="collections-type">
+        <h3 className="collection-type-titles">
+          Collection Types <div className="collection-type-counter">2</div>
+        </h3>
         <Link className="collection-type-link" to="/admin/quizz">
           Quizz
         </Link>
@@ -33,7 +36,7 @@ export default function AdminPage() {
         </Link>
       </nav>
       {params?.type === "quizz" && (
-        <section className="collection-view">
+        <section className="collection-view" style={{ height: "100svh" }}>
           <div className="collection-title-create-container">
             <div className="collection-create-title">
               <h1 className="collection-type-title">{params?.type}</h1>

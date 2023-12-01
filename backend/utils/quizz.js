@@ -198,3 +198,64 @@ export const deleteQuizzCat = async (quizzId) => {
     };
   }
 };
+
+// UPDATE
+
+export const updateQuizz = async (quizzId, quizzName, questions) => {
+  try {
+    await pool.query("START TRANSACTION");
+
+    // Mise à jour du nom du quizz
+    await pool.query("UPDATE Quizz SET quizz_name = ? WHERE id = ?", [
+      quizzName,
+      quizzId,
+    ]);
+
+    // Supprimer les anciennes options de quiz liées à ce quizz
+    await pool.query(
+      "DELETE FROM QuizOption WHERE question_id IN (SELECT id FROM Question WHERE quizz_id = ?)",
+      [quizzId]
+    );
+
+    // Suppression des anciennes questions liées à ce quizz
+    await pool.query("DELETE FROM Question WHERE quizz_id = ?", [quizzId]);
+
+    // Insérer les nouvelles questions
+    for (const question of questions) {
+      const [questionResult] = await pool.query(
+        "INSERT INTO Question (quizz_id, question_value, photo_question, photo_answer, answer_name, answer_explanation) VALUES (?, ?, ?, ?, ?, ?)",
+        [
+          quizzId,
+          question.questionValue,
+          question.photoQuestion,
+          question.photoAnswer,
+          question.answerName,
+          question.answerExplanation,
+        ]
+      );
+
+      const newQuestionId = questionResult.insertId;
+
+      // Insérer les nouvelles options de quiz
+      for (const option of question.questionOptions) {
+        await pool.query(
+          "INSERT INTO QuizOption (question_id, question_answer, is_correct) VALUES (?, ?, ?)",
+          [newQuestionId, option.questionAnswer, option.isCorrect]
+        );
+      }
+    }
+
+    await pool.query("COMMIT");
+
+    console.log("Quizz mis à jour avec succès !");
+    return { success: true, message: "Quizz mis à jour avec succès !" };
+  } catch (error) {
+    await pool.query("ROLLBACK");
+
+    console.error("Erreur lors de la mise à jour du quizz :", error.message);
+    return {
+      success: false,
+      message: "Erreur lors de la mise à jour du quizz.",
+    };
+  }
+};

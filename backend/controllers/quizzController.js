@@ -4,6 +4,7 @@ import {
   getFullQuizz,
   createQuizzCat,
   deleteQuizzCat,
+  updateQuizz,
 } from "../utils/quizz.js";
 
 // GET QUIZZ
@@ -100,4 +101,25 @@ export const deleteQuizz = async (req, res) => {
   const result = await deleteQuizzCat(quizzId);
 
   res.json(result);
+};
+
+// PATCH UPDATE QUIZZ
+export const patchQuizz = async (req, res) => {
+  const { quizzId } = req.params;
+  const { quizzName, questions } = req.body;
+
+  try {
+    const result = await updateQuizz(quizzId, quizzName, questions);
+
+    if (result.success) {
+      return res.status(200).json({ message: result.message });
+    } else {
+      return res.status(400).json({ message: result.message });
+    }
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ message: "Erreur serveur lors de la mise à jour du quizz." });
+  }
 };

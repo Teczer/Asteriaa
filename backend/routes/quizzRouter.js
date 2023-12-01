@@ -5,25 +5,27 @@ import {
   getFullQuizzById,
   createQuizz,
   deleteQuizz,
+  patchQuizz, // Ajout de la fonction de mise à jour
 } from "../controllers/quizzController.js";
 
 const router = express.Router();
 
-// GET all quizz
+// GET ALL QUIZZ
 router.get("/all", getAllQuizzController);
 
 // GET:POST By Cat
 router.post("/", getQuizzByCat);
 
-// GET FULL QUIZZ BY ID AND NAME
+// GET FULL QUIZZ BY ID
 router.get("/:quizzId", getFullQuizzById);
 
 // POST CREATE QUIZZ
-
 router.post("/create", createQuizz);
 
-// DELETE
+// PATCH UPDATE QUIZZ
+router.patch("/:quizzId", patchQuizz);
 
+// DELETE
 router.delete("/:quizzId", deleteQuizz);
 
 export default router;
