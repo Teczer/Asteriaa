@@ -16,7 +16,6 @@ import {
   getAllUsers,
   deleteUser,
 } from "../controllers/userController.js";
-import { requireAuth, requireAdmin } from "../middleware/requireAuth.js";
 
 const router = express.Router();
 

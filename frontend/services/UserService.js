@@ -5,6 +5,8 @@ export const apiURL =
     ? import.meta.env.VITE_SERVER_LOCAL_URL_API
     : import.meta.env.VITE_PROD_URL_API;
 
+export const SECRET_ADMIN_KEY = import.meta.env.VITE_SECRET_ADMIN_KEY;
+
 export const getUser = async (userId) => {
   try {
     const { data } = await axios.get(`${apiURL}/user/${userId}`);
@@ -109,12 +111,22 @@ export const updateUser = async (userId, data) => {
   }
 };
 
-export const deleteUserNeedPassword = async (userId, password) => {
+export const deleteUserNeedPassword = async (
+  userId,
+  password,
+  secretadminkey
+) => {
   try {
     // Effectuez la requête POST pour supprimer l'utilisateur avec un mot de passe
-    const response = await axios.post(`${apiURL}/user/delete/${userId}`, {
-      password,
-    });
+    const response = await axios.post(
+      `${apiURL}/user/delete/${userId}`,
+      { password },
+      {
+        headers: {
+          secretadminkey,
+        },
+      }
+    );
 
     return response; // Vous pouvez également renvoyer d'autres données en fonction de l'API
   } catch (error) {

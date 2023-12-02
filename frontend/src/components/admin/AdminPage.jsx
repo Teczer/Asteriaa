@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { getAllQuizz } from "../../../services/QuizzService";
 import { Link, useParams } from "react-router-dom";
 import "./adminpage.scss";
-import { getAllUsers } from "../../../services/UserService";
+import {
+  deleteUserNeedPassword,
+  getAllUsers,
+  SECRET_ADMIN_KEY,
+} from "../../../services/UserService";
 
 export default function AdminPage() {
   const [collection, setCollection] = useState([]);
@@ -29,7 +33,7 @@ export default function AdminPage() {
   useEffect(() => {
     if (params.type === "quizz") fetchAllQuizz();
     if (params.type === "user") fetchAllUsers();
-  }, [params.type]); // Le tableau vide en second argument signifie que cet effet ne s'exécutera qu'au montage du composant
+  }, [params.type, collection.length]);
 
   console.log("collection", collection);
 
@@ -118,11 +122,7 @@ export default function AdminPage() {
               collection.map((value, index) => {
                 console.log("value", value);
                 return (
-                  <Link
-                    to={`/admin/quizz/${value?.quizzId}`}
-                    className="collection-entrie"
-                    key={index}
-                  >
+                  <div className="collection-entrie" key={index}>
                     <div className="entrie-value-box">
                       <span>{value?._id}</span>
                       <span>{value?.email}</span>
@@ -136,7 +136,16 @@ export default function AdminPage() {
                         {value?.isEmailVerified?.toString()}
                       </span>
                     </div>
-                    <div className="entrie-controller-box">
+                    <div
+                      className="entrie-controller-box"
+                      onClick={async () =>
+                        await deleteUserNeedPassword(
+                          value?._id,
+                          "taurarienmoncoquin",
+                          SECRET_ADMIN_KEY
+                        )
+                      }
+                    >
                       <button className="entrie-delete">
                         <i className="fa-solid fa-pen" />
                       </button>
@@ -144,7 +153,7 @@ export default function AdminPage() {
                         <i className="fa-solid fa-trash" />
                       </button>
                     </div>
-                  </Link>
+                  </div>
                 );
               })}
           </div>

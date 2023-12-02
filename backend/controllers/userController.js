@@ -2,6 +2,22 @@ import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import User from "../models/userModel.js";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import { config as dotenvConfig } from "dotenv";
+
+// Importer le module path
+import path from "path";
+
+// Convertir l'URL du module en chemin de fichier
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Construire le chemin absolu vers le fichier .env
+const envPath = path.resolve(__dirname, "../.env");
+
+// Charger les variables d'environnement depuis le fichier .env
+dotenvConfig({ path: envPath });
 
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
@@ -162,9 +178,7 @@ export const getAllUsers = async (req, res) => {
 export const deleteUser = async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
-
-  console.log("STARTid", id);
-  console.log("STARTpass", password);
+  const { secretadminkey } = req.headers;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "ID d'utilisateur invalide" });
@@ -175,10 +189,20 @@ export const deleteUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "Utilisateur non trouvé" });
     }
+
+    // Si la clé secrète est égale à "process.env.SECRET_ADMIN_KEY", supprime l'utilisateur sans vérifier le mot de passe
+    if (secretadminkey === process.env.SECRET_ADMIN_KEY) {
+      await User.findByIdAndRemove(id);
+      return res
+        .status(200)
+        .json({ message: "Utilisateur supprimé avec succès" });
+    }
+
     // Vérifiez si le mot de passe fourni correspond au mot de passe de l'utilisateur
     const isPasswordValid = await bcrypt.compare(password, user.password);
     console.log("bcryptPass", isPasswordValid);
-    if (!isPasswordValid || user.isAdmin === true) {
+
+    if (!isPasswordValid) {
       return res.status(401).json({
         error: "Ce mot de passe était incorrect. Veuillez réessayer.",
       });
