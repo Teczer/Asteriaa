@@ -50,20 +50,23 @@ export default function AdminPage() {
           Utilisateurs
         </Link>
       </nav>
-      {params?.type === "quizz" && (
-        <section className="collection-view" style={{ height: "100svh" }}>
-          <div className="collection-title-create-container">
-            <div className="collection-create-title">
-              <h1 className="collection-type-title">{params?.type}</h1>
-              <a className="admin-create-item">
-                <i className="fa-solid fa-plus" />
-                <p>Créer une nouvelle entrée</p>
-              </a>
-            </div>
-            <p className="collection-length">
-              {collection?.length} {params?.type} trouvées
-            </p>
+      <section className="collection-view" style={{ height: "100svh" }}>
+        <div className="collection-title-create-container">
+          <div className="collection-create-title">
+            <h1 className="collection-type-title">{params?.type}</h1>
+            <Link
+              to={`/admin/${params?.type}/create`}
+              className="admin-create-item"
+            >
+              <i className="fa-solid fa-plus" />
+              <p>Créer une nouvelle entrée</p>
+            </Link>
           </div>
+          <p className="collection-length">
+            {collection?.length} {params?.type} trouvées
+          </p>
+        </div>
+        {params?.type === "quizz" && (
           <div className="collection-entries-container">
             <div className="collection-layout-info">
               <span>ID</span>
@@ -94,22 +97,8 @@ export default function AdminPage() {
                 );
               })}
           </div>
-        </section>
-      )}
-      {params?.type === "user" && (
-        <section className="collection-view" style={{ height: "100svh" }}>
-          <div className="collection-title-create-container">
-            <div className="collection-create-title">
-              <h1 className="collection-type-title">{params?.type}</h1>
-              <a className="admin-create-item">
-                <i className="fa-solid fa-plus" />
-                <p>Créer une nouvelle entrée</p>
-              </a>
-            </div>
-            <p className="collection-length">
-              {collection?.length} {params?.type} trouvées
-            </p>
-          </div>
+        )}
+        {params?.type === "user" && (
           <div className="collection-entries-container">
             <div className="collection-layout-info">
               <span>ID</span>
@@ -122,7 +111,11 @@ export default function AdminPage() {
               collection.map((value, index) => {
                 console.log("value", value);
                 return (
-                  <div className="collection-entrie" key={index}>
+                  <Link
+                    to={`/admin/user/${value?._id}`}
+                    className="collection-entrie"
+                    key={index}
+                  >
                     <div className="entrie-value-box">
                       <span>{value?._id}</span>
                       <span>{value?.email}</span>
@@ -153,12 +146,12 @@ export default function AdminPage() {
                         <i className="fa-solid fa-trash" />
                       </button>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
           </div>
-        </section>
-      )}
+        )}
+      </section>
     </main>
   );
 }
