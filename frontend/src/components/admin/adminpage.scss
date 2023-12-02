@@ -209,6 +209,8 @@
   align-items: center;
   gap: 30px;
   align-self: flex-end;
+  position: relative;
+  z-index: 9999;
 }
 
 .collection-entrie-img-layout {
