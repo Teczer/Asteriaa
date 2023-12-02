@@ -18,6 +18,19 @@ export const getUser = async (userId) => {
   }
 };
 
+export const getAllUsers = async () => {
+  try {
+    const { data } = await axios.get(`${apiURL}/user/`);
+    return data; // Renvoie les informations de l'utilisateur
+  } catch (error) {
+    console.error(
+      "Erreur lors de la récupération des informations de l'utilisateur : ",
+      error
+    );
+    return null;
+  }
+};
+
 export const loginUser = async (email, password) => {
   try {
     const { data } = await axios.post(

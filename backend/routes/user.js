@@ -40,7 +40,7 @@ router.get("/:id", getUser);
 
 // GET ALL USERS
 
-router.get("/", requireAdmin, getAllUsers);
+router.get("/", getAllUsers);
 
 export default router;
 

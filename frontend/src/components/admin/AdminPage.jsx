@@ -2,25 +2,36 @@ import { useEffect, useState } from "react";
 import { getAllQuizz } from "../../../services/QuizzService";
 import { Link, useParams } from "react-router-dom";
 import "./adminpage.scss";
+import { getAllUsers } from "../../../services/UserService";
 
 export default function AdminPage() {
-  const [quizz, setQuizz] = useState([]);
+  const [collection, setCollection] = useState([]);
   const params = useParams();
 
+  const fetchAllQuizz = async () => {
+    try {
+      const quizzData = await getAllQuizz();
+      setCollection(quizzData);
+    } catch (error) {
+      console.error("Error fetching quizz:", error);
+    }
+  };
+
+  const fetchAllUsers = async () => {
+    try {
+      const quizzData = await getAllUsers();
+      setCollection(quizzData);
+    } catch (error) {
+      console.error("Error fetching quizz:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchAllQuizz = async () => {
-      try {
-        const quizzData = await getAllQuizz();
-        setQuizz(quizzData);
-      } catch (error) {
-        console.error("Error fetching quizz:", error);
-      }
-    };
+    if (params.type === "quizz") fetchAllQuizz();
+    if (params.type === "user") fetchAllUsers();
+  }, [params.type]); // Le tableau vide en second argument signifie que cet effet ne s'exécutera qu'au montage du composant
 
-    fetchAllQuizz();
-  }, []); // Le tableau vide en second argument signifie que cet effet ne s'exécutera qu'au montage du composant
-
-  console.log("quizz", quizz);
+  console.log("collection", collection);
 
   return (
     <main className="main-content-admin">
@@ -46,7 +57,7 @@ export default function AdminPage() {
               </a>
             </div>
             <p className="collection-length">
-              {quizz?.length} {params?.type} trouvées
+              {collection?.length} {params?.type} trouvées
             </p>
           </div>
           <div className="collection-entries-container">
@@ -54,8 +65,8 @@ export default function AdminPage() {
               <span>ID</span>
               <span>quizzName</span>
             </div>
-            {quizz.length > 0 &&
-              quizz.map((value, index) => {
+            {collection.length > 0 &&
+              collection.map((value, index) => {
                 console.log("value", value);
                 return (
                   <Link
@@ -66,6 +77,64 @@ export default function AdminPage() {
                     <div className="entrie-value-box">
                       <span>{value?.quizzId}</span>
                       <span>{value?.quizzName}</span>
+                    </div>
+                    <div className="entrie-controller-box">
+                      <button className="entrie-delete">
+                        <i className="fa-solid fa-pen" />
+                      </button>
+                      <button className="entrie-delete">
+                        <i className="fa-solid fa-trash" />
+                      </button>
+                    </div>
+                  </Link>
+                );
+              })}
+          </div>
+        </section>
+      )}
+      {params?.type === "user" && (
+        <section className="collection-view" style={{ height: "100svh" }}>
+          <div className="collection-title-create-container">
+            <div className="collection-create-title">
+              <h1 className="collection-type-title">{params?.type}</h1>
+              <a className="admin-create-item">
+                <i className="fa-solid fa-plus" />
+                <p>Créer une nouvelle entrée</p>
+              </a>
+            </div>
+            <p className="collection-length">
+              {collection?.length} {params?.type} trouvées
+            </p>
+          </div>
+          <div className="collection-entries-container">
+            <div className="collection-layout-info">
+              <span>ID</span>
+              <span>EMAIL</span>
+              <span>PSEUDO</span>
+              <span>VERIFIE</span>
+              <span>ADMIN</span>
+            </div>
+            {collection.length > 0 &&
+              collection.map((value, index) => {
+                console.log("value", value);
+                return (
+                  <Link
+                    to={`/admin/quizz/${value?.quizzId}`}
+                    className="collection-entrie"
+                    key={index}
+                  >
+                    <div className="entrie-value-box">
+                      <span>{value?._id}</span>
+                      <span>{value?.email}</span>
+                      <span>{value?.userName}</span>
+                      <span className={`isTrueOrFalse ${value?.isAdmin}`}>
+                        {value?.isAdmin?.toString()}
+                      </span>
+                      <span
+                        className={`isTrueOrFalse ${value?.isEmailVerified}`}
+                      >
+                        {value?.isEmailVerified?.toString()}
+                      </span>
                     </div>
                     <div className="entrie-controller-box">
                       <button className="entrie-delete">

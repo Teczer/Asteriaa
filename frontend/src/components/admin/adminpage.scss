@@ -223,3 +223,13 @@
   width: 100%;
   margin-bottom: 20px;
 }
+
+.isTrueOrFalse {
+  &.true {
+    color: var(--carnation-pink);
+  }
+
+  &.false {
+    color: red;
+  }
+}
