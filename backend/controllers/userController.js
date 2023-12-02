@@ -178,7 +178,7 @@ export const deleteUser = async (req, res) => {
     // Vérifiez si le mot de passe fourni correspond au mot de passe de l'utilisateur
     const isPasswordValid = await bcrypt.compare(password, user.password);
     console.log("bcryptPass", isPasswordValid);
-    if (!isPasswordValid) {
+    if (!isPasswordValid || user.isAdmin === true) {
       return res.status(401).json({
         error: "Ce mot de passe était incorrect. Veuillez réessayer.",
       });

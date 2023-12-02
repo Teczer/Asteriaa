@@ -52,6 +52,10 @@ i {
     font-size: 80px;
     color: var(--orchid-crayola);
   }
+
+  @include sm {
+    width: 85%;
+  }
 }
 
 .verify-email-info {
@@ -74,8 +78,19 @@ i {
   &:hover {
     background-color: var(--purple-mountain-majesty);
   }
+
+  @include sm {
+    width: 150px;
+  }
 }
 
 .verify-redirection-timer {
   color: var(--lavender-blush);
+}
+
+.verify-email-button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }

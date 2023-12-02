@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiURL =
+export const apiURL =
   import.meta.env.VITE_NODE_ENV === "development"
     ? import.meta.env.VITE_SERVER_LOCAL_URL_API
     : import.meta.env.VITE_PROD_URL_API;
@@ -63,11 +63,11 @@ export const signupUser = async (email, password, userName) => {
   }
 };
 
-export const sendVerificationEmail = async (email, userId) => {
+export const sendVerificationEmail = async (email, userId, username) => {
   try {
     const { data } = await axios.post(
       `${apiURL}/user/send-verification-email`,
-      { email, userId },
+      { email, userId, username },
       {
         headers: { "Content-Type": "application/json" },
       }

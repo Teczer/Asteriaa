@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 
-const requireAuth = async (req, res, next) => {
+export const requireAuth = async (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization) {
@@ -21,4 +21,17 @@ const requireAuth = async (req, res, next) => {
   }
 };
 
-export default requireAuth;
+export const requireAdmin = (req, res, next) => {
+  // Assuming that you attach user information to the request object after authentication
+  const user = req.user;
+
+  if (user && user.isAdmin === true) {
+    // If the user is an admin, proceed to the next middleware or route handler
+    next();
+  } else {
+    // If not an admin, send a 403 Forbidden response
+    res
+      .status(403)
+      .json({ error: "Permission denied. Admin access required." });
+  }
+};

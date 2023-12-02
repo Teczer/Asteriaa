@@ -16,6 +16,7 @@ import {
   getAllUsers,
   deleteUser,
 } from "../controllers/userController.js";
+import { requireAuth, requireAdmin } from "../middleware/requireAuth.js";
 
 const router = express.Router();
 
@@ -37,7 +38,9 @@ router.patch("/:id", updateUser);
 
 router.get("/:id", getUser);
 
-router.get("/", getAllUsers);
+// GET ALL USERS
+
+router.get("/", requireAdmin, getAllUsers);
 
 export default router;
 
@@ -45,7 +48,7 @@ export default router;
 
 // Route pour envoyer l'e-mail de vérification
 router.post("/send-verification-email", async (req, res) => {
-  const { email, userId } = req.body;
+  const { email, userId, username } = req.body;
 
   try {
     const user = await User.findById(userId);
@@ -78,7 +81,7 @@ router.post("/send-verification-email", async (req, res) => {
     await user.save();
 
     // Envoyez l'e-mail de vérification avec le lien contenant le token
-    await sendVerificationEmail(email, verificationToken);
+    await sendVerificationEmail(email, verificationToken, username);
 
     res
       .status(200)

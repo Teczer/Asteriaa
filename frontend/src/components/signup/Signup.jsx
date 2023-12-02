@@ -17,11 +17,10 @@ function Signup() {
     e.preventDefault();
 
     await signup(email, password, userName);
-    console.log(email, password, userName);
-    console.log("joriszs", user);
 
     if (user) {
-      sendVerificationEmail(user.email, user._id);
+      console.log("user", user);
+      sendVerificationEmail(user.email, user._id, user.userName);
     }
   };
   return (

@@ -21,7 +21,7 @@ export const useSignup = () => {
       setIsLoading(false);
       localStorage.setItem("isVerifiedAccount", false);
       // Envoi de l'e-mail de vérification
-      await sendVerificationEmail(email, data._id);
+      await sendVerificationEmail(email, data?._id, data?.userName);
       navigate("/verify?type=verifying");
     } catch (error) {
       const { response } = error;
