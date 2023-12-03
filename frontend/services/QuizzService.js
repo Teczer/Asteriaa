@@ -45,9 +45,9 @@ export async function getFullQuizzById(quizzId) {
 }
 
 // POST CREATE QUIZZ
-export async function createQuizz(params) {
+export async function createQuizz(quizz) {
   try {
-    const response = await axios.post(`${apiURL}/quizz/create`, params);
+    const response = await axios.post(`${apiURL}/quizz/create`, quizz);
     console.log("Axios POST Create Quizz Response", response.data);
     return response.data;
   } catch (error) {

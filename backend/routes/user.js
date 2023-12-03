@@ -16,6 +16,7 @@ import {
   getAllUsers,
   deleteUser,
 } from "../controllers/userController.js";
+import { createUser } from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -24,6 +25,10 @@ router.post("/login", loginUser);
 
 // signup route
 router.post("/signup", signupUser);
+
+// create user
+
+router.post("/create", createUser);
 
 // delete user
 

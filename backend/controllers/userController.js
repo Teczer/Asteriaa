@@ -115,6 +115,13 @@ export const signupUser = async (req, res) => {
 export const updateUser = async (req, res) => {
   const { id } = req.params;
   const { userName } = req.body;
+  const { secretadminkey } = req.headers;
+
+  if (secretadminkey !== process.env.SECRET_ADMIN_KEY) {
+    return res.status(401).json({
+      error: "Vous n'avez pas l'autorisation de modifier un utilisateur !",
+    });
+  }
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "No such user" });
@@ -163,6 +170,15 @@ export const getUser = async (req, res) => {
 
 // GET ALL USERS
 export const getAllUsers = async (req, res) => {
+  const { secretadminkey } = req.headers;
+
+  if (secretadminkey !== process.env.SECRET_ADMIN_KEY) {
+    return res.status(401).json({
+      error:
+        "Vous n'avez pas l'autorisation de récuperer les informations de tout les utilisateurs !",
+    });
+  }
+
   try {
     const users = await User.find();
     res.status(200).json(users);
@@ -222,5 +238,98 @@ export const deleteUser = async (req, res) => {
     res
       .status(500)
       .json({ error: "Erreur lors de la suppression de l'utilisateur" });
+  }
+};
+
+// CREATE USER
+
+export const createUser = async (req, res) => {
+  const {
+    email,
+    password,
+    isAdmin,
+    isEmailVerified,
+    userName,
+    profilePicture,
+    quizzSystemeSolaire,
+    quizzGalaxies,
+    quizzPhenomenesObservables,
+    quizzAstronautes,
+  } = req.body;
+  const { secretadminkey } = req.headers;
+
+  if (secretadminkey !== process.env.SECRET_ADMIN_KEY) {
+    return res.status(401).json({
+      error: "Vous n'avez pas l'autorisation de créer un utilisateur !",
+    });
+  }
+
+  // Vérifier que tous les champs nécessaires sont remplis et ne sont pas vides
+  if (
+    !email ||
+    email.trim() === "" ||
+    !password ||
+    password.trim() === "" ||
+    typeof isAdmin === "undefined" ||
+    typeof isEmailVerified === "undefined" ||
+    !userName ||
+    userName.trim() === "" ||
+    !profilePicture ||
+    profilePicture.trim() === "" ||
+    typeof quizzSystemeSolaire === "undefined" ||
+    typeof quizzGalaxies === "undefined" ||
+    typeof quizzPhenomenesObservables === "undefined" ||
+    typeof quizzAstronautes === "undefined"
+  ) {
+    return res
+      .status(400)
+      .json({ error: "Tous les champs doivent être remplis" });
+  }
+
+  try {
+    // Check if the user already exists with the given email
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: "L'utilisateur existe déjà" });
+    }
+
+    // Générer le sel avec bcrypt
+    const salt = await bcrypt.genSalt(10);
+
+    // Hasher le mot de passe avec le sel
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Create a new user instance with the hashed password
+    const newUser = await User.create({
+      email,
+      password: hashedPassword,
+      isAdmin,
+      isEmailVerified,
+      userName,
+      profilePicture,
+      quizzSystemeSolaire,
+      quizzGalaxies,
+      quizzPhenomenesObservables,
+      quizzAstronautes,
+    });
+
+    // create a token
+    const token = createToken(newUser._id);
+
+    res.status(200).json({
+      email,
+      token,
+      isAdmin: newUser.isAdmin,
+      isEmailVerified: newUser.isEmailVerified,
+      userName: newUser.userName,
+      profilePicture: newUser.profilePicture,
+      quizzSystemeSolaire: newUser.quizzSystemeSolaire,
+      quizzGalaxies: newUser.quizzGalaxies,
+      quizzPhenomenesObservables: newUser.quizzPhenomenesObservables,
+      quizzAstronautes: newUser.quizzAstronautes,
+      _id: newUser._id,
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 };

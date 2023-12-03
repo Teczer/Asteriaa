@@ -222,6 +222,14 @@
   background: #212134;
   cursor: pointer;
   padding: 20px 0px;
+
+  &:hover {
+    background: #24244e;
+    color: var(--carnation-pink) !important;
+    .entrie-delete {
+      color: var(--carnation-pink) !important;
+    }
+  }
 }
 
 .collection-entrie-img-layout {
@@ -234,7 +242,6 @@
   background: rgb(24, 24, 38);
   padding: 24px;
   width: 100%;
-  margin-bottom: 20px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

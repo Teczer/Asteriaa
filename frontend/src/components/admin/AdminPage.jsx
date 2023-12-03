@@ -108,14 +108,10 @@ export default function AdminPage() {
                       setModal={setModal}
                       deleteFunction={async () => {
                         if (params.type === "user") {
-                          await deleteUserNeedPassword(
-                            value?._id,
-                            "taurarienmoncoquin",
-                            SECRET_ADMIN_KEY
-                          );
+                          await deleteUserNeedPassword(value?._id);
                           await fetchAllUsers();
                         }
-                        if (params.type === "quzz") {
+                        if (params.type === "quizz") {
                           await deleteQuizz(value?.quizzId);
                           await fetchAllQuizz();
                         }
@@ -134,8 +130,8 @@ export default function AdminPage() {
 
 export function PenTrashLayout({ setModal }) {
   return (
-    <div className="entrie-controller-box">
-      <button className="entrie-delete" onClick={() => setModal(true)}>
+    <div className="entrie-controller-box" onClick={() => setModal(true)}>
+      <button className="entrie-delete">
         <i className="fa-solid fa-trash" />
       </button>
     </div>

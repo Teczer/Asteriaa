@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getFullQuizzById, updateQuizz } from "../../../services/QuizzService";
+import {
+  createQuizz,
+  getFullQuizzById,
+  updateQuizz,
+} from "../../../services/QuizzService";
 import "./editentrieview.scss";
-import { getUser, updateUser } from "../../../services/UserService";
+import { createUser, getUser, updateUser } from "../../../services/UserService";
 
 export default function EditEntrieView() {
   const [entrie, setEntrie] = useState([]);
@@ -42,9 +46,70 @@ export default function EditEntrieView() {
   };
 
   useEffect(() => {
-    if (params.type === "quizz") fetchQuizz();
-    if (params.type === "user") fetchUser();
-  }, [params?.id]);
+    if (params.type === "quizz" && params.id !== "create") fetchQuizz();
+    if (params.type === "user" && params.id !== "create") fetchUser();
+    if (params.id === "create") {
+      setEntrie([]);
+      setEditedEntrie({
+        quizzName: "",
+        questions: [
+          {
+            questionValue: "",
+            photoQuestion: "",
+            photoAnswer: "",
+            answerName: "",
+            answerExplanation: "",
+            questionOptions: [
+              { isCorrect: false, questionAnswer: "" },
+              { isCorrect: false, questionAnswer: "" },
+              { isCorrect: false, questionAnswer: "" },
+              { isCorrect: false, questionAnswer: "" },
+            ],
+          },
+          {
+            questionValue: "",
+            photoQuestion: "",
+            photoAnswer: "",
+            answerName: "",
+            answerExplanation: "",
+            questionOptions: [
+              { isCorrect: false, questionAnswer: "" },
+              { isCorrect: false, questionAnswer: "" },
+              { isCorrect: false, questionAnswer: "" },
+              { isCorrect: false, questionAnswer: "" },
+            ],
+          },
+          {
+            questionValue: "",
+            photoQuestion: "",
+            photoAnswer: "",
+            answerName: "",
+            answerExplanation: "",
+            questionOptions: [
+              { isCorrect: false, questionAnswer: "" },
+              { isCorrect: false, questionAnswer: "" },
+              { isCorrect: false, questionAnswer: "" },
+              { isCorrect: false, questionAnswer: "" },
+            ],
+          },
+        ],
+      });
+      setEditedUser({
+        email: "",
+        password: "",
+        isAdmin: false, // Assuming isAdmin is a boolean
+        userName: "",
+        isEmailVerified: false, // Assuming isEmailVerified is a boolean
+        profilePicture: "", // You can set a default value or leave it empty
+        quizzAstronautes: 0, // You can set a default value or leave it as 0
+        quizzGalaxies: 0, // You can set a default value or leave it as 0
+        quizzPhenomenesObservables: 0, // You can set a default value or leave it as 0
+        quizzSystemeSolaire: 0, // You can set a default value or leave it as 0
+        __v0: "", // You can set a default value or leave it empty
+        _id: "", // You can set a default value or leave it empty
+      });
+    }
+  }, [params?.id, params?.type]);
 
   const handleUserChange = (field, value) => {
     setEditedUser((prev) => ({
@@ -58,14 +123,6 @@ export default function EditEntrieView() {
       ...prev,
       quizzName: e.target.value,
     }));
-  };
-
-  const handleQuestionChange = (index, field, value) => {
-    setEditedEntrie((prev) => {
-      const newQuestions = [...prev.questions];
-      newQuestions[index][field] = value;
-      return { ...prev, questions: newQuestions };
-    });
   };
 
   const handleOptionChange = (questionIndex, optionIndex, field, value) => {
@@ -105,7 +162,7 @@ export default function EditEntrieView() {
     });
   };
 
-  console.log("editedEntrie", editedEntrie);
+  console.log("Object.keys(params)", Object.keys(entrie));
 
   return (
     <main className="main-content-admin">
@@ -124,6 +181,7 @@ export default function EditEntrieView() {
         <div className="collection-title-create-container">
           <div className="collection-create-title">
             <h1 className="collection-type-title">
+              {params?.id === "create" && <p>Create an {params?.type}</p>}
               {entrie?.quizzName || entrie?.userName}
             </h1>
             <div className="collection-entrie-create-message-box">
@@ -137,7 +195,7 @@ export default function EditEntrieView() {
               <button
                 className="admin-create-item"
                 onClick={async () => {
-                  if (params?.type === "quizz") {
+                  if (params?.type === "quizz" && params?.id !== "create") {
                     try {
                       const patchQuizz = await updateQuizz(
                         params?.id,
@@ -154,13 +212,9 @@ export default function EditEntrieView() {
                       });
                     }
                   }
-                  if (params?.type === "user") {
+                  if (params?.type === "user" && params?.id !== "create") {
                     try {
-                      const patchUser = await updateUser(
-                        params?.id,
-                        editedUser
-                      );
-
+                      await updateUser(params?.id, editedUser);
                       setRequestMessage({
                         message: `L'utilisateur a bien été modifié ${entrie?.userName}`,
                         status: true,
@@ -170,6 +224,44 @@ export default function EditEntrieView() {
                         message: `Il y a eu un problème sur la modification de l'utilisateur : ${error}`,
                         status: false,
                       });
+                    }
+                  }
+                  if (params?.id === "create") {
+                    if (params?.type === "quizz") {
+                      try {
+                        await createQuizz(editedEntrie);
+                        setRequestMessage({
+                          message: `Le quizz a bien été créée`,
+                          status: true,
+                        });
+                      } catch (error) {
+                        console.log(
+                          "erreur lors de la création du quizz :",
+                          error
+                        );
+                        setRequestMessage({
+                          message: `Il y a eu un problème lors de la création du quizz : ${error}`,
+                          status: false,
+                        });
+                      }
+                    }
+                    if (params?.type === "user") {
+                      try {
+                        await createUser(editedUser);
+                        setRequestMessage({
+                          message: `L'utilisateur ${editedUser?.userName} a bien été créé`,
+                          status: true,
+                        });
+                      } catch (error) {
+                        console.log(
+                          "erreur lors de la création de l'utilisateur :",
+                          error
+                        );
+                        setRequestMessage({
+                          message: `Il y a eu un problème lors de la création de l'utilisateur ${editedUser?.userName} : ${error}`,
+                          status: false,
+                        });
+                      }
                     }
                   }
                 }}
@@ -219,15 +311,28 @@ export default function EditEntrieView() {
                       {key}
                       <span style={{ color: "red" }}> *</span>
                     </label>
-                    <input
-                      type="text"
-                      className={`collection-text-input --overide ${
-                        key === "_id" || key === "password" ? "--block" : ""
-                      }`}
-                      value={editedUser[key]}
-                      disabled={key === "_id" || key === "password"}
-                      onChange={(e) => handleUserChange(key, e.target.value)}
-                    />
+                    {typeof editedUser[key] === "boolean" ? (
+                      <Checkbox
+                        checked={editedUser[key]}
+                        onChange={(e) =>
+                          handleUserChange(key, e.target.checked)
+                        }
+                      />
+                    ) : (
+                      <input
+                        type="text"
+                        className={`collection-text-input --overide ${
+                          key === "_id" || key === "password" || key === "__v0"
+                            ? "--block"
+                            : ""
+                        }`}
+                        value={editedUser[key]}
+                        disabled={
+                          key === "_id" || key === "password" || key === "__v0"
+                        }
+                        onChange={(e) => handleUserChange(key, e.target.value)}
+                      />
+                    )}
                   </div>
                 ))}
             </div>

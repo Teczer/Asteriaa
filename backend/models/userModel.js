@@ -66,7 +66,7 @@ userSchema.statics.signup = async function (
   if (
     !validator.isStrongPassword(password, {
       minSymbols: 0,
-      minLengh: 8, // Vous voudrez peut-être corriger la faute de frappe ici : cela devrait être "minLength" au lieu de "minLengh"
+      minLength: 8,
       minUppercase: 0,
     })
   ) {
