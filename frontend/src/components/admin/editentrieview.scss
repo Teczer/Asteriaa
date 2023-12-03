@@ -14,10 +14,9 @@
 }
 
 .collection-create-box {
-  -webkit-box-align: stretch;
-  align-items: stretch;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
   margin: 0px;
   padding: 0px;
@@ -64,6 +63,12 @@
     font: inherit;
     writing-mode: horizontal-tb !important;
     box-sizing: border-box;
+
+    &.--block {
+      cursor: not-allowed !important;
+      background-color: rgba(81, 81, 114, 0.1019607843) !important;
+      color: #fff6 !important;
+    }
 
     &:focus {
       outline: rgb(109, 107, 211) solid 2px;
@@ -137,4 +142,14 @@
   align-items: center;
   width: 80%;
   gap: 20px;
+}
+
+.entrie-input-label-box {
+  -webkit-box-align: stretch;
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  grid-column: span 6;
+  width: 45%;
 }

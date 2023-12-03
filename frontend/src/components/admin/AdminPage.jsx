@@ -83,7 +83,9 @@ export default function AdminPage() {
                   key={index}
                 >
                   <Link
-                    to={`/admin/user/${value?._id}`}
+                    to={`/admin/${params?.type}/${
+                      value?._id || value?.quizzId
+                    }`}
                     className="collection-entrie"
                   >
                     <div className="entrie-value-box">
