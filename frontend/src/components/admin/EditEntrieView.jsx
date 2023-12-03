@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { getFullQuizzById, updateQuizz } from "../../../services/QuizzService";
 import "./editentrieview.scss";
 import Checkbox from "./Checkbox";
-import { getUser } from "../../../services/UserService";
+import { getUser, updateUser } from "../../../services/UserService";
 
 export default function EditEntrieView() {
   const [entrie, setEntrie] = useState([]);
@@ -12,7 +12,10 @@ export default function EditEntrieView() {
     questions: [],
   });
   const [editedUser, setEditedUser] = useState();
-  const [requestMessage, setRequestMessage] = useState(null);
+  const [requestMessage, setRequestMessage] = useState({
+    message: null,
+    status: null,
+  });
 
   const params = useParams();
 
@@ -32,7 +35,7 @@ export default function EditEntrieView() {
   const fetchUser = async () => {
     try {
       const user = await getUser(params?.id);
-      setEntrie([user]);
+      setEntrie(user);
       setEditedUser(user || "");
     } catch (error) {
       console.error("Error fetching entrie:", error);
@@ -51,7 +54,6 @@ export default function EditEntrieView() {
     }));
   };
 
-  console.log("editedUser", editedUser);
   const handleQuizzNameChange = (e) => {
     setEditedEntrie((prev) => ({
       ...prev,
@@ -116,7 +118,7 @@ export default function EditEntrieView() {
     });
   };
 
-  console.log("editedEntrie", editedEntrie);
+  console.log("requestMessage", requestMessage);
 
   return (
     <main className="main-content-admin">
@@ -138,15 +140,51 @@ export default function EditEntrieView() {
               {entrie?.quizzName || entrie?.userName}
             </h1>
             <div className="collection-entrie-create-message-box">
-              <span>{requestMessage}</span>
+              <span
+                className={`request-message ${
+                  requestMessage?.status === true ? "--success" : "--error"
+                }`}
+              >
+                {requestMessage?.message}
+              </span>
               <button
                 className="admin-create-item"
                 onClick={async () => {
-                  const patchQuizz = await updateQuizz(
-                    params?.id,
-                    editedEntrie
-                  );
-                  setRequestMessage(patchQuizz?.message);
+                  if (params?.type === "quizz") {
+                    try {
+                      const patchQuizz = await updateQuizz(
+                        params?.id,
+                        editedEntrie
+                      );
+                      setRequestMessage({
+                        message: patchQuizz?.message,
+                        status: true,
+                      });
+                    } catch (error) {
+                      setRequestMessage({
+                        message: `Il y a eu un problème sur la modification du quizz : ${error}`,
+                        status: false,
+                      });
+                    }
+                  }
+                  if (params?.type === "user") {
+                    try {
+                      const patchUser = await updateUser(
+                        params?.id,
+                        editedUser
+                      );
+
+                      setRequestMessage({
+                        message: `L'utilisateur a bien été modifié ${entrie?.userName}`,
+                        status: true,
+                      });
+                    } catch (error) {
+                      setRequestMessage({
+                        message: `Il y a eu un problème sur la modification de l'utilisateur : ${error}`,
+                        status: false,
+                      });
+                    }
+                  }
                 }}
               >
                 <p>Valider</p>
@@ -201,136 +239,144 @@ export default function EditEntrieView() {
                 ))}
             </div>
             {params.type === "quizz" &&
-              editedEntrie.questions.map((question, questionIndex) => (
-                <div key={questionIndex} className="question-serie-container">
-                  <span style={{ color: "white" }}>
-                    Question {questionIndex + 1}
-                  </span>
-                  <div className="collection-entries-section-container">
-                    <label className="collection-create-label" htmlFor="">
-                      questionValue
-                      <span style={{ color: "red" }}> *</span>
-                    </label>
-                    <textarea
-                      type="textarea"
-                      className="collection-textarea-input"
-                      value={question?.questionValue}
-                      onChange={(e) =>
-                        handleQuestionChange(
-                          questionIndex,
-                          "questionValue",
-                          e.target.value
-                        )
-                      }
-                    />
-                    <label className="collection-create-label" htmlFor="">
-                      answerExplanation
-                      <span style={{ color: "red" }}> *</span>
-                    </label>
-                    <textarea
-                      type="textarea"
-                      className="collection-textarea-input"
-                      value={question?.answerExplanation}
-                      onChange={(e) =>
-                        handleAnswerExplanationChange(
-                          questionIndex,
-                          e.target.value
-                        )
-                      }
-                    />
-                    <label className="collection-create-label" htmlFor="">
-                      answerName
-                      <span style={{ color: "red" }}> *</span>
-                    </label>
-                    <textarea
-                      type="textarea"
-                      className="collection-textarea-input"
-                      value={question?.answerName}
-                      onChange={(e) =>
-                        handleAnswerNameChange(questionIndex, e.target.value)
-                      }
-                    />
-                    <label className="collection-create-label" htmlFor="">
-                      photoAnswer
-                      <span style={{ color: "red" }}> *</span>
-                    </label>
-                    <div className="collection-entrie-img-layout">
+              editedEntrie.questions.map((question, questionIndex) => {
+                console.log("yo");
+                const AllCollectionKey = Object.keys(question);
+                console.log("AllCollectionKey", AllCollectionKey);
+                return (
+                  <div key={questionIndex} className="question-serie-container">
+                    <span style={{ color: "white" }}>
+                      Question {questionIndex + 1}
+                    </span>
+                    <div className="collection-entries-section-container">
+                      <label className="collection-create-label" htmlFor="">
+                        questionValue
+                        <span style={{ color: "red" }}> *</span>
+                      </label>
                       <textarea
                         type="textarea"
                         className="collection-textarea-input"
-                        value={question?.photoAnswer}
+                        value={question?.questionValue}
                         onChange={(e) =>
-                          handlePhotoAnswerChange(questionIndex, e.target.value)
+                          handleQuestionChange(
+                            questionIndex,
+                            "questionValue",
+                            e.target.value
+                          )
                         }
                       />
-                      <img
-                        className="collection-entrie-img"
-                        src={question?.photoAnswer}
-                        alt={question?.photoAnswer}
-                      />
-                    </div>
-                    <label className="collection-create-label" htmlFor="">
-                      photoQuestion
-                      <span style={{ color: "red" }}> *</span>
-                    </label>
-                    <div className="collection-entrie-img-layout">
+                      <label className="collection-create-label" htmlFor="">
+                        answerExplanation
+                        <span style={{ color: "red" }}> *</span>
+                      </label>
                       <textarea
                         type="textarea"
                         className="collection-textarea-input"
-                        value={question?.photoQuestion}
+                        value={question?.answerExplanation}
                         onChange={(e) =>
-                          handlePhotoQuestionChange(
+                          handleAnswerExplanationChange(
                             questionIndex,
                             e.target.value
                           )
                         }
                       />
-                      <img
-                        className="collection-entrie-img"
-                        src={question?.photoQuestion}
-                        alt={question?.photoQuestion}
-                      />
-                    </div>
-                  </div>
-                  {/* QUIZZ OPTIONS */}
-                  <span style={{ color: "white" }}>Question Options</span>
-                  {/* <div className="collection-entries-section-container">
-                  {question.questionOptions.map((option, optionIndex) => (
-                    <div key={optionIndex} className="option-container">
                       <label className="collection-create-label" htmlFor="">
-                        questionAnswer {optionIndex}
+                        answerName
                         <span style={{ color: "red" }}> *</span>
                       </label>
-                      <div className="collection-answer-checkbox-container">
-                        <input
+                      <textarea
+                        type="textarea"
+                        className="collection-textarea-input"
+                        value={question?.answerName}
+                        onChange={(e) =>
+                          handleAnswerNameChange(questionIndex, e.target.value)
+                        }
+                      />
+                      <label className="collection-create-label" htmlFor="">
+                        photoAnswer
+                        <span style={{ color: "red" }}> *</span>
+                      </label>
+                      <div className="collection-entrie-img-layout">
+                        <textarea
                           type="textarea"
                           className="collection-textarea-input"
-                          value={option.questionAnswer}
+                          value={question?.photoAnswer}
                           onChange={(e) =>
-                            handleOptionChange(
+                            handlePhotoAnswerChange(
                               questionIndex,
-                              optionIndex,
-                              "questionAnswer",
                               e.target.value
                             )
                           }
                         />
-                        <Checkbox
-                          checked={option.isCorrect}
+                        <img
+                          className="collection-entrie-img"
+                          src={question?.photoAnswer}
+                          alt={question?.photoAnswer}
+                        />
+                      </div>
+                      <label className="collection-create-label" htmlFor="">
+                        photoQuestion
+                        <span style={{ color: "red" }}> *</span>
+                      </label>
+                      <div className="collection-entrie-img-layout">
+                        <textarea
+                          type="textarea"
+                          className="collection-textarea-input"
+                          value={question?.photoQuestion}
                           onChange={(e) =>
-                            handleIsCorrectChange(
+                            handlePhotoQuestionChange(
                               questionIndex,
-                              optionIndex,
-                              e.target.checked ? 1 : 0
+                              e.target.value
                             )
                           }
-                        ></Checkbox>
+                        />
+                        <img
+                          className="collection-entrie-img"
+                          src={question?.photoQuestion}
+                          alt={question?.photoQuestion}
+                        />
                       </div>
                     </div>
-                  ))}
-                </div> */}
-                </div>
-              ))}
+                    {/* QUIZZ OPTIONS */}
+                    <span style={{ color: "white" }}>Question Options</span>
+                    <div className="collection-entries-section-container">
+                      {question.questionOptions.map((option, optionIndex) => (
+                        <div key={optionIndex} className="option-container">
+                          <label className="collection-create-label" htmlFor="">
+                            questionAnswer {optionIndex}
+                            <span style={{ color: "red" }}> *</span>
+                          </label>
+                          <div className="collection-answer-checkbox-container">
+                            <input
+                              type="textarea"
+                              className="collection-textarea-input"
+                              value={option.questionAnswer}
+                              onChange={(e) =>
+                                handleOptionChange(
+                                  questionIndex,
+                                  optionIndex,
+                                  "questionAnswer",
+                                  e.target.value
+                                )
+                              }
+                            />
+                            <Checkbox
+                              checked={option.isCorrect}
+                              onChange={(e) =>
+                                handleIsCorrectChange(
+                                  questionIndex,
+                                  optionIndex,
+                                  e.target.checked ? 1 : 0
+                                )
+                              }
+                            ></Checkbox>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
           </div>
         </div>
       </section>

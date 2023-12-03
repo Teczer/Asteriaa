@@ -115,6 +115,11 @@
   vertical-align: baseline;
   color: white;
 
+  &.--block {
+    border: 1px solid rgb(74, 74, 106);
+    background: rgb(50, 50, 77);
+  }
+
   &:hover {
     border: 1px solid var(--oxford-blue);
     background: var(--space-cadet);
@@ -369,4 +374,14 @@
   width: 100%;
   justify-content: flex-start;
   align-items: center;
+}
+
+.request-message {
+  &.--success {
+    color: var(--carnation-pink);
+  }
+
+  &.--error {
+    color: red;
+  }
 }
