@@ -62,12 +62,17 @@
     font: inherit;
     writing-mode: horizontal-tb !important;
     box-sizing: border-box;
-    padding: 0.65625rem 16px !important;
+    padding: 20px !important;
 
     &.--block {
       cursor: not-allowed !important;
       background-color: rgba(81, 81, 114, 0.1019607843) !important;
       color: #fff6 !important;
+    }
+
+    &:hover {
+      outline: rgb(127, 126, 187) solid 2px;
+      outline-offset: 1px;
     }
 
     &:focus {
@@ -108,6 +113,11 @@
   outline: none;
   transition-property: border-color, box-shadow, fill;
   transition-duration: 0.2s;
+
+  &:hover {
+    outline: rgb(127, 126, 187) solid 2px;
+    outline-offset: 1px;
+  }
 
   &:focus {
     outline: rgb(109, 107, 211) solid 2px;

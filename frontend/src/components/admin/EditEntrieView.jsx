@@ -245,13 +245,14 @@ export default function EditEntrieView() {
                     }
                     if (params?.type === "user") {
                       const createdUserRequest = await createUser(editedUser);
+                      console.log("createdUserRequest", createdUserRequest);
                       if (createdUserRequest?.response?.status !== 200) {
                         setRequestMessage({
                           message: createdUserRequest?.response?.data?.error,
                           status: false,
                         });
                       }
-                      if (createdUserRequest?.response?.status === 200) {
+                      if (createdUserRequest?.email) {
                         setRequestMessage({
                           message: `L'utilisateur ${editedUser?.userName} a été crée avec succès !`,
                           status: true,
@@ -300,41 +301,55 @@ export default function EditEntrieView() {
 
               {params?.type === "user" &&
                 typeof editedUser === "object" &&
-                Object.keys(editedUser).map((key, index) => (
-                  <div className="entrie-input-label-box" key={index}>
-                    <label className="collection-create-label" htmlFor={key}>
-                      {key}
-                      <span style={{ color: "red" }}> *</span>
-                    </label>
-                    {typeof editedUser[key] === "boolean" ? (
-                      <Checkbox
-                        checked={editedUser[key]}
-                        onChange={(e) =>
-                          handleUserChange(key, e.target.checked)
-                        }
-                      />
-                    ) : (
-                      <input
-                        type={`${key}`}
-                        className={`collection-text-input --overide ${
-                          key === "_id" ||
-                          (key === "password" && params?.id !== "create") ||
-                          key === "__v0"
-                            ? "--block"
-                            : ""
-                        }`}
-                        value={editedUser[key]}
-                        disabled={
-                          key === "_id" ||
-                          (key === "password" && params?.id !== "create") ||
-                          key === "__v0"
-                        }
-                        onChange={(e) => handleUserChange(key, e.target.value)}
-                        required
-                      />
-                    )}
-                  </div>
-                ))}
+                Object.keys(editedUser).map((key, index) => {
+                  const inputType = (key) => {
+                    if (key === "email" || key === "password") {
+                      return key;
+                    } else if (key.startsWith("quizz")) {
+                      return "number";
+                    } else {
+                      return "text";
+                    }
+                  };
+
+                  const isNumberInput = inputType(key) === "number";
+                  return (
+                    <div className="entrie-input-label-box" key={index}>
+                      <label className="collection-create-label" htmlFor={key}>
+                        {key}
+                        <span style={{ color: "red" }}> *</span>
+                      </label>
+                      {typeof editedUser[key] === "boolean" ? (
+                        <Checkbox
+                          checked={editedUser[key]}
+                          onChange={(e) =>
+                            handleUserChange(key, e.target.checked)
+                          }
+                        />
+                      ) : (
+                        <input
+                          type={inputType(key)}
+                          className={`collection-text-input --overide ${
+                            key === "_id" ||
+                            (key === "password" && params?.id !== "create") ||
+                            key === "__v0"
+                              ? "--block"
+                              : ""
+                          } ${isNumberInput ? "--number-input" : ""}`}
+                          value={editedUser[key]}
+                          disabled={
+                            key === "_id" ||
+                            (key === "password" && params?.id !== "create") ||
+                            key === "__v0"
+                          }
+                          onChange={(e) =>
+                            handleUserChange(key, e.target.value)
+                          }
+                        />
+                      )}
+                    </div>
+                  );
+                })}
             </div>
             {params.type === "quizz" &&
               editedEntrie.questions.map((question, questionIndex) => {

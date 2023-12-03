@@ -17,6 +17,7 @@ import VerifyEmail from "./components/verifyEmail/VerifyEmail";
 import Collection from "./components/collections/Collection";
 import AdminPage from "./components/admin/AdminPage";
 import EditEntrieView from "./components/admin/EditEntrieView";
+import ScrollToTop from "../hooks/ScrollToTop";
 
 function App() {
   const location = useLocation();
@@ -35,30 +36,33 @@ function App() {
         !isSignUpScreen &&
         !isVerifyingScreen &&
         !isAsteriaTutorialScreen && <Header isAdmin={isAdminScreen} />}
-      <Routes>
-        <Route path="/tutorial" element={<AsteriaTutorial />} />
-        <Route path="/" element={<Homepage />} />
-        <Route
-          path="/login"
-          element={!user ? <Login /> : <Navigate to="/" />}
-        />
-        <Route
-          path="/signup"
-          element={!user ? <Signup /> : <Navigate to="/" />}
-        />
-        <Route path="/verify" element={<VerifyEmail />} />
-        <Route path="*" element={<Notfound />} />
-        <Route path="/quizz" element={<Main />} />
-        <Route path="/news" element={<Article />} />
-        <Route path="/collection" element={<Collection />} />
-        <Route path="/settings/profile" element={<UserSettings />} />
-        <Route path="/admin/:type" element={<AdminPage />} />
-        <Route path="/admin/:type/:id" element={<EditEntrieView />} />
-        <Route
-          path="/quizzcontroller/:quizzType/:quizzProgression"
-          element={<Quizzcontroller />}
-        />
-      </Routes>
+      <ScrollToTop>
+        <Routes>
+          <Route path="/tutorial" element={<AsteriaTutorial />} />
+          <Route path="/" element={<Homepage />} />
+          <Route
+            path="/login"
+            element={!user ? <Login /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/signup"
+            element={!user ? <Signup /> : <Navigate to="/" />}
+          />
+          <Route path="/verify" element={<VerifyEmail />} />
+          <Route path="*" element={<Notfound />} />
+          <Route path="/quizz" element={<Main />} />
+          <Route path="/news" element={<Article />} />
+          <Route path="/collection" element={<Collection />} />
+          <Route path="/settings/profile" element={<UserSettings />} />
+          <Route path="/admin/:type" element={<AdminPage />} />
+          <Route path="/admin/:type/:id" element={<EditEntrieView />} />
+          <Route
+            path="/quizzcontroller/:quizzType/:quizzProgression"
+            element={<Quizzcontroller />}
+          />
+        </Routes>
+      </ScrollToTop>
+
       {!isQuizzControllerScreen &&
         !isLoginScreen &&
         !isSignUpScreen &&
