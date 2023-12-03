@@ -10,6 +10,7 @@ import {
 
 export default function AdminPage() {
   const [collection, setCollection] = useState([]);
+  const [modal, setModal] = useState(false);
   const params = useParams();
 
   const fetchAllQuizz = async () => {
@@ -34,12 +35,6 @@ export default function AdminPage() {
     if (params.type === "quizz") fetchAllQuizz();
     if (params.type === "user") fetchAllUsers();
   }, [params.type, collection.length]);
-
-  console.log("collection", collection);
-
-  if (collection && collection.length > 0) {
-    console.log("ObjectEntriesCollection", Object.keys(collection[0]));
-  }
 
   return (
     <main className="main-content-admin">
@@ -70,38 +65,7 @@ export default function AdminPage() {
             {collection?.length} {params?.type} trouvées
           </p>
         </div>
-        {collection.length > 0 && params?.type === "quizz" && (
-          <div className="collection-entries-container">
-            <div className="collection-layout-info">
-              {Object.keys(collection[0])
-                .filter((key) => key === "quizzId" || key === "quizzName")
-                .map((key) => (
-                  <span key={key}>{key}</span>
-                ))}
-            </div>
-            {collection.length > 0 &&
-              collection.map((value, index) => {
-                return (
-                  <Link
-                    to={`/admin/quizz/${value?.quizzId}`}
-                    className="collection-entrie"
-                    key={value?.quizzId}
-                  >
-                    <div className="entrie-value-box">
-                      <span>{value?.quizzId}</span>
-                      <span>{value?.quizzName}</span>
-                    </div>
-                    <PenTrashLayout
-                      deleteFunction={async () => {
-                        await deleteQuizz(value?.quizzId);
-                      }}
-                    />
-                  </Link>
-                );
-              })}
-          </div>
-        )}
-        {collection.length > 0 && params?.type === "user" && (
+        {collection.length > 0 && (
           <div className="collection-entries-container">
             <div className="collection-layout-info">
               {Object.keys(collection[0])
@@ -110,15 +74,17 @@ export default function AdminPage() {
                   <span key={key}>{key}</span>
                 ))}
             </div>
-            {collection.length > 0 &&
-              collection.map((value, index) => {
-                const AllCollectionKey = Object.keys(collection[0]).slice(0, 5);
-                console.log("AllCollectionKey", AllCollectionKey);
-                return (
+            {collection.map((value, index) => {
+              const AllCollectionKey = Object.keys(collection[0]).slice(0, 5);
+              console.log("AllCollectionKey", AllCollectionKey);
+              return (
+                <div
+                  className="entrie-item-button-controller-wrapper"
+                  key={index}
+                >
                   <Link
                     to={`/admin/user/${value?._id}`}
                     className="collection-entrie"
-                    key={index}
                   >
                     <div className="entrie-value-box">
                       {AllCollectionKey.map((key, index) => (
@@ -132,18 +98,31 @@ export default function AdminPage() {
                         </span>
                       ))}
                     </div>
-                    <PenTrashLayout
+                    <i className="fa-solid fa-pen" />
+                  </Link>
+                  <PenTrashLayout setModal={setModal} />
+                  {modal && (
+                    <DeleteEntrieModal
+                      setModal={setModal}
                       deleteFunction={async () => {
-                        await deleteUserNeedPassword(
-                          value?._id,
-                          "taurarienmoncoquin",
-                          SECRET_ADMIN_KEY
-                        );
+                        if (params.type === "user") {
+                          await deleteUserNeedPassword(
+                            value?._id,
+                            "taurarienmoncoquin",
+                            SECRET_ADMIN_KEY
+                          );
+                          await fetchAllUsers();
+                        }
+                        if (params.type === "quzz") {
+                          await deleteQuizz(value?.quizzId);
+                          await fetchAllQuizz();
+                        }
                       }}
                     />
-                  </Link>
-                );
-              })}
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
       </section>
@@ -151,20 +130,65 @@ export default function AdminPage() {
   );
 }
 
-export function PenTrashLayout({ deleteFunction }) {
+export function PenTrashLayout({ setModal }) {
   return (
     <div className="entrie-controller-box">
-      <button className="entrie-delete">
-        <i className="fa-solid fa-pen" />
-      </button>
-      <button
-        className="entrie-delete"
-        onClick={() => {
-          deleteFunction();
-        }}
-      >
+      <button className="entrie-delete" onClick={() => setModal(true)}>
         <i className="fa-solid fa-trash" />
       </button>
+    </div>
+  );
+}
+
+export function DeleteEntrieModal({ setModal, deleteFunction }) {
+  return (
+    <div className="delete-entrie-modal" onClick={() => setModal(false)}>
+      <div
+        role="dialog"
+        className="delete-modal-box"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="confirmation-section">
+          <h2 className="confirmation-title">Confirmation</h2>
+        </div>
+        <div className="sc-bdvvtL bOQZK">
+          <div className="message-button-box">
+            <div className="danger-icon-wrapper">
+              <i className="fa-solid fa-circle-exclamation" />
+            </div>
+            <div className="delete-message-wrapper">
+              <span className="delete-message">
+                Êtes-vous sûr de vouloir supprimer ceci ?
+              </span>
+            </div>
+          </div>
+          <div className="button-section">
+            <div className="button-wrapper">
+              <button
+                aria-disabled="false"
+                type="button"
+                className="button --cancel"
+                onClick={() => setModal(false)}
+              >
+                <span className="button-message">Cancel</span>
+              </button>
+              <button
+                aria-disabled="false"
+                type="button"
+                id="confirm-delete"
+                className="button --delete"
+                onClick={() => {
+                  deleteFunction();
+                  setModal(false);
+                }}
+              >
+                <i className="fa-solid fa-trash" />
+                <span className="button-message">Confirm</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
