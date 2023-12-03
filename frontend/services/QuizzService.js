@@ -37,7 +37,6 @@ export async function getAllQuizz() {
 export async function getFullQuizzById(quizzId) {
   try {
     const response = await axios.get(`${apiURL}/quizz/${quizzId}`);
-    console.log("Axios Get Full Quizz Response", response.data);
     return response.data;
   } catch (error) {
     console.error(error);
