@@ -146,12 +146,9 @@ export const createUser = async (user) => {
         secretadminkey: SECRET_ADMIN_KEY,
       },
     });
-    return data; // Renvoie les informations de l'utilisateur
+    return data;
   } catch (error) {
-    console.error(
-      "Erreur lors de la récupération des informations de l'utilisateur : ",
-      error
-    );
-    return null;
+    console.error("Erreur lors de la création de l'utilisateur : ", error);
+    return error;
   }
 };

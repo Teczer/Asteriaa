@@ -162,8 +162,6 @@ export default function EditEntrieView() {
     });
   };
 
-  console.log("Object.keys(params)", Object.keys(entrie));
-
   return (
     <main className="main-content-admin">
       <nav className="collections-type">
@@ -246,20 +244,17 @@ export default function EditEntrieView() {
                       }
                     }
                     if (params?.type === "user") {
-                      try {
-                        await createUser(editedUser);
+                      const createdUserRequest = await createUser(editedUser);
+                      if (createdUserRequest?.response?.status !== 200) {
                         setRequestMessage({
-                          message: `L'utilisateur ${editedUser?.userName} a bien été créé`,
-                          status: true,
-                        });
-                      } catch (error) {
-                        console.log(
-                          "erreur lors de la création de l'utilisateur :",
-                          error
-                        );
-                        setRequestMessage({
-                          message: `Il y a eu un problème lors de la création de l'utilisateur ${editedUser?.userName} : ${error}`,
+                          message: createdUserRequest?.response?.data?.error,
                           status: false,
+                        });
+                      }
+                      if (createdUserRequest?.response?.status === 200) {
+                        setRequestMessage({
+                          message: `L'utilisateur ${editedUser?.userName} a été crée avec succès !`,
+                          status: true,
                         });
                       }
                     }
@@ -320,17 +315,22 @@ export default function EditEntrieView() {
                       />
                     ) : (
                       <input
-                        type="text"
+                        type={`${key}`}
                         className={`collection-text-input --overide ${
-                          key === "_id" || key === "password" || key === "__v0"
+                          key === "_id" ||
+                          (key === "password" && params?.id !== "create") ||
+                          key === "__v0"
                             ? "--block"
                             : ""
                         }`}
                         value={editedUser[key]}
                         disabled={
-                          key === "_id" || key === "password" || key === "__v0"
+                          key === "_id" ||
+                          (key === "password" && params?.id !== "create") ||
+                          key === "__v0"
                         }
                         onChange={(e) => handleUserChange(key, e.target.value)}
+                        required
                       />
                     )}
                   </div>
