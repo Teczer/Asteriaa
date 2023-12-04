@@ -5,6 +5,7 @@ import cardimage from "./Group 72.png";
 import collectionimage from "./Group 63.png";
 import snappi from "./MascotHappyFace.svg";
 import textbulle from "./Component 7.svg";
+import Spline from "@splinetool/react-spline";
 
 function AsteriaTutorial() {
   const [step, setStep] = useState(1);
@@ -25,30 +26,13 @@ function AsteriaTutorial() {
       case 1:
         return (
           <div className="tutorial-content">
-            <img
-              className="asteria-tutorial-logo asteria"
-              src={image}
-              alt="Asterialogo"
-              style={{ top: "30%" }}
-            />
-            <p className="tutorial-paragraph snappi">
-              Bienvenue sur Asteria ! Ici, le but est d’en apprendre plus sur
-              l’Univers, ce monde <b>lointain et mystérieux</b> qui nous
-              entoure...
-            </p>
+            <Spline scene="https://prod.spline.design/bdppaHvICWJFL6Ey/scene.splinecode" />
           </div>
         );
       case 2:
         return (
           <div className="tutorial-content">
-            <img
-              className="asteria-tutorial-logo question"
-              src={cardimage}
-              alt="Asterialogo"
-            />
-            <p className="tutorial-paragraph snappi">
-              <b>Répond</b> à des questions et améliore tes connaissances...
-            </p>
+            <Spline scene="https://prod.spline.design/po53pkcex0MAo07C/scene.splinecode" />
           </div>
         );
       case 3:
