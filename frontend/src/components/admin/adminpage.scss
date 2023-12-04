@@ -115,6 +115,11 @@
   vertical-align: baseline;
   color: white;
 
+  &.--block {
+    border: 1px solid rgb(74, 74, 106);
+    background: rgb(50, 50, 77);
+  }
+
   &:hover {
     border: 1px solid var(--oxford-blue);
     background: var(--space-cadet);
@@ -134,9 +139,13 @@
   padding-right: 56px;
   padding-left: 56px;
   width: 100%;
-  height: 100%;
+  height: 100svh;
   background: rgb(24, 24, 38);
   padding-bottom: 30px;
+
+  &.--quizz {
+    height: 100%;
+  }
 }
 
 .collection-layout-info {
@@ -165,7 +174,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 95%;
   background: #212134;
   color: white;
   border-bottom: 1px solid rgb(50, 50, 77);
@@ -188,12 +197,12 @@
 }
 
 .entrie-delete {
-  position: relative;
   background: none;
   color: white;
   border: none;
   cursor: pointer;
   font-size: 20px;
+  width: 100%;
   &:hover {
     color: var(--carnation-pink);
   }
@@ -208,7 +217,19 @@
   justify-content: center;
   align-items: center;
   gap: 30px;
-  align-self: flex-end;
+  border-bottom: 1px solid rgb(50, 50, 77);
+  width: 5%;
+  background: #212134;
+  cursor: pointer;
+  padding: 20px 0px;
+
+  &:hover {
+    background: #24244e;
+    color: var(--carnation-pink) !important;
+    .entrie-delete {
+      color: var(--carnation-pink) !important;
+    }
+  }
 }
 
 .collection-entrie-img-layout {
@@ -221,7 +242,10 @@
   background: rgb(24, 24, 38);
   padding: 24px;
   width: 100%;
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .isTrueOrFalse {
@@ -232,4 +256,236 @@
   &.false {
     color: red;
   }
+}
+
+.delete-entrie-modal {
+  inset: 0px;
+  position: fixed;
+  padding: 40px;
+  z-index: 99999;
+  background: rgba(255, 255, 255, 0.1);
+
+  .delete-modal-box {
+    max-width: 500px;
+    margin: 10% auto 0px;
+    overflow: hidden;
+    background: rgb(33, 33, 52);
+    border-radius: 4px;
+    box-shadow: rgba(3, 3, 5, 0.35) 1px 1px 10px;
+
+    .confirmation-section {
+      -webkit-box-align: center;
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      -webkit-box-pack: center;
+      justify-content: center;
+      border-bottom: 1px solid rgb(50, 50, 77);
+      padding: 24px;
+
+      .confirmation-title {
+        font-weight: 600;
+        font-size: 1.125rem;
+        line-height: 1.22;
+        color: white;
+        margin: 0px;
+        padding: 0px;
+        border: 0px;
+        font: inherit;
+        vertical-align: baseline;
+      }
+    }
+
+    .message-button-box {
+      padding: 40px 24px;
+
+      .danger-icon-wrapper {
+        -webkit-box-align: center;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        -webkit-box-pack: center;
+        justify-content: center;
+        padding-bottom: 8px;
+        color: rgb(238, 94, 82);
+        font-size: 25px;
+      }
+
+      .delete-message-wrapper {
+        -webkit-box-align: center;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        -webkit-box-pack: center;
+        justify-content: center;
+
+        .delete-message {
+          font-size: 16px;
+          line-height: 1.43;
+          color: rgb(255, 255, 255);
+        }
+      }
+    }
+
+    .button-section {
+      border-top: 1px solid rgb(50, 50, 77) !important;
+      padding: 16px;
+      border: 0px;
+      font: inherit;
+      vertical-align: baseline;
+
+      .button-wrapper {
+        -webkit-box-align: center;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+
+        .button {
+          width: 100%;
+          display: inline-flex;
+          -webkit-box-pack: center;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          height: 2rem;
+          border: 1px solid rgb(74, 74, 106);
+          color: white;
+          padding: 16px 16px;
+          border-radius: 4px;
+          cursor: pointer;
+          position: relative;
+          outline: none;
+
+          &.--cancel {
+            background: rgb(33, 33, 52);
+
+            &:hover {
+              background: rgb(24, 24, 38);
+            }
+          }
+
+          &.--delete {
+            background: rgb(24, 24, 38);
+            color: rgb(238, 94, 82);
+            &:hover {
+              background: rgb(33, 33, 52);
+            }
+          }
+
+          .button-message {
+            font-size: 14px;
+            line-height: 1.33;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}
+
+.entrie-item-button-controller-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.request-message {
+  &.--success {
+    color: var(--carnation-pink);
+  }
+
+  &.--error {
+    color: red;
+  }
+}
+
+/* SwitchInput.css */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--carnation-pink);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* On state styles */
+input:checked + .slider:before {
+  background-color: var(--cyber-grape);
+}
+
+/* Checkbox.css */
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 4px;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: #2196f3; /* Couleur lorsque c'est "true" */
 }

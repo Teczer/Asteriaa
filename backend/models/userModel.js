@@ -14,11 +14,15 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  userName: {
+    type: String,
+  },
   isAdmin: {
     type: Boolean,
   },
-  userName: {
-    type: String,
+  isEmailVerified: {
+    type: Boolean,
+    default: false, // Nouveaux utilisateurs n'ont pas encore vérifié leur e-mail
   },
   profilePicture: {
     type: String,
@@ -34,10 +38,6 @@ const userSchema = new Schema({
   },
   quizzAstronautes: {
     type: Number,
-  },
-  isEmailVerified: {
-    type: Boolean,
-    default: false, // Nouveaux utilisateurs n'ont pas encore vérifié leur e-mail
   },
   verificationToken: {
     type: String,
@@ -66,7 +66,7 @@ userSchema.statics.signup = async function (
   if (
     !validator.isStrongPassword(password, {
       minSymbols: 0,
-      minLengh: 8, // Vous voudrez peut-être corriger la faute de frappe ici : cela devrait être "minLength" au lieu de "minLengh"
+      minLength: 8,
       minUppercase: 0,
     })
   ) {

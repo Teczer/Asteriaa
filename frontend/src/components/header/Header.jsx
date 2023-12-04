@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import "./header.scss";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Usermodal from "./modal/Usermodal";
 import Modalburger from "./modal/Modalburger";
 import ChangePictureModal from "./modal/ChangePictureModal";
 
-const Header = ({ isAdmin }) => {
+const Header = ({ isAdmin, location }) => {
   const [modalBurger, setModalBurger] = useState(false);
   const [modalAuthentification, setModalAuthentification] = useState(false);
   const [userModal, setUserModal] = useState(false);

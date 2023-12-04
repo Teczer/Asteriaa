@@ -22,7 +22,11 @@ export const getUser = async (userId) => {
 
 export const getAllUsers = async () => {
   try {
-    const { data } = await axios.get(`${apiURL}/user/`);
+    const { data } = await axios.get(`${apiURL}/user/`, {
+      headers: {
+        secretadminkey: SECRET_ADMIN_KEY,
+      },
+    });
     return data; // Renvoie les informations de l'utilisateur
   } catch (error) {
     console.error(
@@ -96,7 +100,11 @@ export const sendVerificationEmail = async (email, userId, username) => {
 export const updateUser = async (userId, data) => {
   try {
     // Effectuez la requête PATCH pour mettre à jour l'utilisateur
-    await axios.patch(`${apiURL}/user/${userId}`, data);
+    await axios.patch(`${apiURL}/user/${userId}`, data, {
+      headers: {
+        secretadminkey: SECRET_ADMIN_KEY,
+      },
+    });
 
     // Re-récupérez les données mises à jour de l'utilisateur après le patch
     const { data: updatedUserData } = await axios.get(
@@ -111,11 +119,7 @@ export const updateUser = async (userId, data) => {
   }
 };
 
-export const deleteUserNeedPassword = async (
-  userId,
-  password,
-  secretadminkey
-) => {
+export const deleteUserNeedPassword = async (userId, password) => {
   try {
     // Effectuez la requête POST pour supprimer l'utilisateur avec un mot de passe
     const response = await axios.post(
@@ -123,7 +127,7 @@ export const deleteUserNeedPassword = async (
       { password },
       {
         headers: {
-          secretadminkey,
+          secretadminkey: SECRET_ADMIN_KEY,
         },
       }
     );
@@ -132,5 +136,19 @@ export const deleteUserNeedPassword = async (
   } catch (error) {
     console.error("Erreur lors de la suppression de l'utilisateur : ", error);
     throw error; // Propagez l'erreur pour la gérer au niveau supérieur si nécessaire
+  }
+};
+
+export const createUser = async (user) => {
+  try {
+    const { data } = await axios.post(`${apiURL}/user/create`, user, {
+      headers: {
+        secretadminkey: SECRET_ADMIN_KEY,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.error("Erreur lors de la création de l'utilisateur : ", error);
+    return error;
   }
 };

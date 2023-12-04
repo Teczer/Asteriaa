@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllQuizz } from "../../../services/QuizzService";
+import { deleteQuizz, getAllQuizz } from "../../../services/QuizzService";
 import { Link, useParams } from "react-router-dom";
 import "./adminpage.scss";
 import {
@@ -10,6 +10,7 @@ import {
 
 export default function AdminPage() {
   const [collection, setCollection] = useState([]);
+  const [modal, setModal] = useState(false);
   const params = useParams();
 
   const fetchAllQuizz = async () => {
@@ -35,8 +36,6 @@ export default function AdminPage() {
     if (params.type === "user") fetchAllUsers();
   }, [params.type, collection.length]);
 
-  console.log("collection", collection);
-
   return (
     <main className="main-content-admin">
       <nav className="collections-type">
@@ -50,115 +49,144 @@ export default function AdminPage() {
           Utilisateurs
         </Link>
       </nav>
-      {params?.type === "quizz" && (
-        <section className="collection-view" style={{ height: "100svh" }}>
-          <div className="collection-title-create-container">
-            <div className="collection-create-title">
-              <h1 className="collection-type-title">{params?.type}</h1>
-              <a className="admin-create-item">
-                <i className="fa-solid fa-plus" />
-                <p>Créer une nouvelle entrée</p>
-              </a>
-            </div>
-            <p className="collection-length">
-              {collection?.length} {params?.type} trouvées
-            </p>
+      <section className="collection-view" style={{ height: "100svh" }}>
+        <div className="collection-title-create-container">
+          <div className="collection-create-title">
+            <h1 className="collection-type-title">{params?.type}</h1>
+            <Link
+              to={`/admin/${params?.type}/create`}
+              className="admin-create-item"
+            >
+              <i className="fa-solid fa-plus" />
+              <p>Créer une nouvelle entrée</p>
+            </Link>
           </div>
+          <p className="collection-length">
+            {collection?.length} {params?.type} trouvées
+          </p>
+        </div>
+        {collection.length > 0 && (
           <div className="collection-entries-container">
             <div className="collection-layout-info">
-              <span>ID</span>
-              <span>quizzName</span>
+              {Object.keys(collection[0])
+                .slice(0, 5)
+                .map((key) => (
+                  <span key={key}>{key}</span>
+                ))}
             </div>
-            {collection.length > 0 &&
-              collection.map((value, index) => {
-                console.log("value", value);
-                return (
+            {collection.map((value, index) => {
+              const AllCollectionKey = Object.keys(collection[0]).slice(0, 5);
+              console.log("AllCollectionKey", AllCollectionKey);
+              return (
+                <div
+                  className="entrie-item-button-controller-wrapper"
+                  key={index}
+                >
                   <Link
-                    to={`/admin/quizz/${value?.quizzId}`}
+                    to={`/admin/${params?.type}/${
+                      value?._id || value?.quizzId
+                    }`}
                     className="collection-entrie"
-                    key={value?.quizzId}
                   >
                     <div className="entrie-value-box">
-                      <span>{value?.quizzId}</span>
-                      <span>{value?.quizzName}</span>
+                      {AllCollectionKey.map((key, index) => (
+                        <span
+                          className={`${
+                            key === "isAdmin" ? "isTrueOrFalse" : ""
+                          } ${value[key] === true ? "true" : "false"}`}
+                          key={index}
+                        >
+                          {value[key].toString()}
+                        </span>
+                      ))}
                     </div>
-                    <div className="entrie-controller-box">
-                      <button className="entrie-delete">
-                        <i className="fa-solid fa-pen" />
-                      </button>
-                      <button className="entrie-delete">
-                        <i className="fa-solid fa-trash" />
-                      </button>
-                    </div>
+                    <i className="fa-solid fa-pen" />
                   </Link>
-                );
-              })}
+                  <PenTrashLayout setModal={setModal} />
+                  {modal && (
+                    <DeleteEntrieModal
+                      setModal={setModal}
+                      deleteFunction={async () => {
+                        if (params.type === "user") {
+                          await deleteUserNeedPassword(value?._id);
+                          await fetchAllUsers();
+                        }
+                        if (params.type === "quizz") {
+                          await deleteQuizz(value?.quizzId);
+                          await fetchAllQuizz();
+                        }
+                      }}
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
-        </section>
-      )}
-      {params?.type === "user" && (
-        <section className="collection-view" style={{ height: "100svh" }}>
-          <div className="collection-title-create-container">
-            <div className="collection-create-title">
-              <h1 className="collection-type-title">{params?.type}</h1>
-              <a className="admin-create-item">
-                <i className="fa-solid fa-plus" />
-                <p>Créer une nouvelle entrée</p>
-              </a>
-            </div>
-            <p className="collection-length">
-              {collection?.length} {params?.type} trouvées
-            </p>
-          </div>
-          <div className="collection-entries-container">
-            <div className="collection-layout-info">
-              <span>ID</span>
-              <span>EMAIL</span>
-              <span>PSEUDO</span>
-              <span>VERIFIE</span>
-              <span>ADMIN</span>
-            </div>
-            {collection.length > 0 &&
-              collection.map((value, index) => {
-                console.log("value", value);
-                return (
-                  <div className="collection-entrie" key={index}>
-                    <div className="entrie-value-box">
-                      <span>{value?._id}</span>
-                      <span>{value?.email}</span>
-                      <span>{value?.userName}</span>
-                      <span className={`isTrueOrFalse ${value?.isAdmin}`}>
-                        {value?.isAdmin?.toString()}
-                      </span>
-                      <span
-                        className={`isTrueOrFalse ${value?.isEmailVerified}`}
-                      >
-                        {value?.isEmailVerified?.toString()}
-                      </span>
-                    </div>
-                    <div
-                      className="entrie-controller-box"
-                      onClick={async () =>
-                        await deleteUserNeedPassword(
-                          value?._id,
-                          "taurarienmoncoquin",
-                          SECRET_ADMIN_KEY
-                        )
-                      }
-                    >
-                      <button className="entrie-delete">
-                        <i className="fa-solid fa-pen" />
-                      </button>
-                      <button className="entrie-delete">
-                        <i className="fa-solid fa-trash" />
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
-        </section>
-      )}
+        )}
+      </section>
     </main>
+  );
+}
+
+export function PenTrashLayout({ setModal }) {
+  return (
+    <div className="entrie-controller-box" onClick={() => setModal(true)}>
+      <button className="entrie-delete">
+        <i className="fa-solid fa-trash" />
+      </button>
+    </div>
+  );
+}
+
+export function DeleteEntrieModal({ setModal, deleteFunction }) {
+  return (
+    <div className="delete-entrie-modal" onClick={() => setModal(false)}>
+      <div
+        role="dialog"
+        className="delete-modal-box"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="confirmation-section">
+          <h2 className="confirmation-title">Confirmation</h2>
+        </div>
+        <div className="sc-bdvvtL bOQZK">
+          <div className="message-button-box">
+            <div className="danger-icon-wrapper">
+              <i className="fa-solid fa-circle-exclamation" />
+            </div>
+            <div className="delete-message-wrapper">
+              <span className="delete-message">
+                Êtes-vous sûr de vouloir supprimer ceci ?
+              </span>
+            </div>
+          </div>
+          <div className="button-section">
+            <div className="button-wrapper">
+              <button
+                aria-disabled="false"
+                type="button"
+                className="button --cancel"
+                onClick={() => setModal(false)}
+              >
+                <span className="button-message">Cancel</span>
+              </button>
+              <button
+                aria-disabled="false"
+                type="button"
+                id="confirm-delete"
+                className="button --delete"
+                onClick={() => {
+                  deleteFunction();
+                  setModal(false);
+                }}
+              >
+                <i className="fa-solid fa-trash" />
+                <span className="button-message">Confirm</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
