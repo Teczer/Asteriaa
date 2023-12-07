@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import "./asteriaTutorial.scss";
 import image from "./launchlogo@3x 2.png";
 import cardimage from "./Group 72.png";
@@ -6,33 +6,58 @@ import collectionimage from "./Group 63.png";
 import snappi from "./MascotHappyFace.svg";
 import textbulle from "./Component 7.svg";
 import Spline from "@splinetool/react-spline";
+import { Spinner } from "@chakra-ui/spinner";
 
 function AsteriaTutorial() {
   const [step, setStep] = useState(1);
-
+  const [isLoading, setIsLoading] = useState(false);
   const handleNextStep = () => {
+    setIsLoading(false);
     if (step >= 4) return;
     setStep(step + 1);
   };
 
   const handlePrevStep = () => {
+    setIsLoading(false);
     if (step > 1) {
       setStep(step - 1);
     }
   };
+
+  console.log("isLoading", isLoading);
 
   const renderStepContent = () => {
     switch (step) {
       case 1:
         return (
           <div className="tutorial-content">
-            <Spline scene="https://prod.spline.design/bdppaHvICWJFL6Ey/scene.splinecode" />
+            {!isLoading && (
+              <Spinner
+                color="red.500"
+                size="xl"
+                style={{ width: "50px", height: "50px", position: "fixed" }}
+              />
+            )}
+            <Spline
+              onLoad={() => setIsLoading(true)}
+              scene="https://prod.spline.design/bdppaHvICWJFL6Ey/scene.splinecode"
+            />
           </div>
         );
       case 2:
         return (
           <div className="tutorial-content">
-            <Spline scene="https://prod.spline.design/po53pkcex0MAo07C/scene.splinecode" />
+            {!isLoading && (
+              <Spinner
+                color="red.500"
+                size="xl"
+                style={{ width: "50px", height: "50px", position: "fixed" }}
+              />
+            )}
+            <Spline
+              onLoad={() => setIsLoading(true)}
+              scene="https://prod.spline.design/po53pkcex0MAo07C/scene.splinecode"
+            />
           </div>
         );
       case 3:
