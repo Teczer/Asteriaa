@@ -9,7 +9,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: asteriaQuizz
-      MAX_ALLOWED_PACKET: 1073741824
     ports:
       - "3306:3306"
     volumes:
