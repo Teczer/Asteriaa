@@ -20,10 +20,10 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.PRIVATE_KEY }}
           port: 22
           script: |
-            cd mehdiv/Asteriaa/
+            cd teczer-deployement/Asteriaa/
             git pull origin main
             sudo docker compose build
             sudo docker compose up -d
