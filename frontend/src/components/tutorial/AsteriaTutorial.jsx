@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from "react";
+import React, { useEffect, useState } from "react";
 import "./asteriaTutorial.scss";
 import image from "./launchlogo@3x 2.png";
 import cardimage from "./Group 72.png";
@@ -24,7 +24,9 @@ function AsteriaTutorial() {
     }
   };
 
-  console.log("isLoading", isLoading);
+  useEffect(() => {
+    document.title = "Asteria | Tutorial";
+  }, []);
 
   const renderStepContent = () => {
     switch (step) {
@@ -40,7 +42,7 @@ function AsteriaTutorial() {
             )}
             <Spline
               onLoad={() => setIsLoading(true)}
-              scene="https://prod.spline.design/bdppaHvICWJFL6Ey/scene.splinecode"
+              scene="https://prod.spline.design/TwiuJ2W9zb-0VG7k/scene.splinecode"
             />
           </div>
         );
@@ -63,35 +65,33 @@ function AsteriaTutorial() {
       case 3:
         return (
           <div className="tutorial-content">
-            <img
-              className="asteria-tutorial-logo collection"
-              src={collectionimage}
-              alt="Asterialogo"
-              style={{ top: "10%" }}
+            {!isLoading && (
+              <Spinner
+                color="red.500"
+                size="xl"
+                style={{ width: "50px", height: "50px", position: "fixed" }}
+              />
+            )}
+            <Spline
+              onLoad={() => setIsLoading(true)}
+              scene="https://prod.spline.design/nq2Ddo1xg8yV2Kxd/scene.splinecode"
             />
-            <p className="tutorial-paragraph snappi">
-              ...et <b>remporte</b> de magnifiques cartes à collectionner !
-            </p>
           </div>
         );
       case 4:
         return (
           <div className="tutorial-content">
-            <img
-              className="asteria-tutorial-logo soucoupe"
-              src={snappi}
-              alt="Asterialogo"
-              style={{ top: "30%" }}
+            {!isLoading && (
+              <Spinner
+                color="red.500"
+                size="xl"
+                style={{ width: "50px", height: "50px", position: "fixed" }}
+              />
+            )}
+            <Spline
+              onLoad={() => setIsLoading(true)}
+              scene="https://prod.spline.design/WbBRu-qirZWQWZnf/scene.splinecode"
             />
-            <img
-              className="asteria-tutorial-logo snappi"
-              src={textbulle}
-              alt="Asterialogo"
-              style={{ top: "20%" }}
-            />
-            <p className="tutorial-paragraph snappi">
-              Prépare-toi à explorer l'infini avec <b>Asteria</b> !
-            </p>
           </div>
         );
       default:
