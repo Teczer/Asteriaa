@@ -1,4 +1,4 @@
-# docker-compose.dev.yml
+# docker-compose
 
 version: '3'
 
@@ -11,10 +11,8 @@ services:
       MYSQL_DATABASE: asteriaQuizz
     ports:
       - "3306:3306"
-    volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: always
-
+    command: ["--init-file", "/docker-entrypoint-initdb.d/init.sql"]  # Ajoutez cette ligne
   backend:
     build:
       context: ./  # Modification du chemin du contexte
