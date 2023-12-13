@@ -1,9 +1,6 @@
 User-agent: *
 Disallow: /quizzcontroller/
-Disallow: /login/
-Disallow: /signup/
 Disallow: /verify/
-Disallow: /tutorial/
 Disallow: /admin/
 Disallow: /settings/profile
 
