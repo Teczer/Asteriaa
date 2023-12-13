@@ -24,33 +24,25 @@ function Login() {
         </h1>
         <section className="loginform-container">
           <div id="login">
-            <form
-              className="login-form" /* onSubmit={this.onSubmit} */
-              onSubmit={handleSubmit}
-            >
+            <form className="login-form" onSubmit={handleSubmit}>
               <span className="fa fa-user" />
               <input
-                // rome-ignore lint/a11y/noAutofocus: <explanation>
                 autoFocus
                 maxLength="25"
-                /* onChange={this.handleChange.bind(this, "email")} */
                 placeholder="Email"
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                /* value={this.state.user.email} */
                 required
               />
               <span className="fa fa-lock" />
               <input
                 autoComplete="off"
                 maxLength="12"
-                /* onChange={this.handleChange.bind(this, "password")} */
                 placeholder="Mot de passe"
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                /* value={this.state.user.password} */
                 required
               />
               <input
