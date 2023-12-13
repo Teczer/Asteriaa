@@ -6,7 +6,7 @@
   align-items: center;
   background: var(--oxford-blue);
   width: 100vw;
-  height: 11vh;
+  height: 80px;
   border-bottom: 2px solid var(--space-cadet);
   position: fixed;
   z-index: 4;
@@ -208,7 +208,7 @@
     padding-right: 10%;
 
     @include xs {
-      height: 60vh;
+      height: 60svh;
       padding-left: 9%;
       padding-right: 9%;
     }
@@ -328,8 +328,8 @@
   height: 280px;
   top: 90px;
   right: 13%;
-  max-height: calc(-61px + 100vh);
-  max-width: calc(-8px + 100vw);
+  max-height: calc(-61px + 100svh);
+  max-width: calc(-8px + 100svw);
   transition: opacity 0.1s ease 0.02s;
   opacity: 1;
   background: var(--space-cadet);
@@ -514,7 +514,7 @@
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.7);
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   top: 0;
   right: 0;
   padding: 0 55px;
@@ -531,7 +531,7 @@
   align-items: center;
   justify-content: space-between;
   width: 600px;
-  height: 92vh;
+  height: 92svh;
   border-radius: 35px;
   background: #181836;
   opacity: 1;

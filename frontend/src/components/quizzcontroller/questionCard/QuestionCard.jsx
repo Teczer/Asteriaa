@@ -40,7 +40,7 @@ function QuestionCard({
       <p className="question-questionvalue">{post.questionValue}</p>
       <div className="button-anwser-container">
         {post.questionOptions.map((question, index) => {
-          const isCorrect = question.isCorrect === 1;
+          const isCorrect = question.isCorrect === true;
           const isSelected = selectedOption === index;
           const buttonClassName = `button-quizz ${
             isSelected ? (isCorrect ? "correct" : "incorrect") : ""

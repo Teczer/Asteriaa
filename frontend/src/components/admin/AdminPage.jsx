@@ -5,7 +5,6 @@ import "./adminpage.scss";
 import {
   deleteUserNeedPassword,
   getAllUsers,
-  SECRET_ADMIN_KEY,
 } from "../../../services/UserService";
 
 export default function AdminPage() {
@@ -16,11 +15,14 @@ export default function AdminPage() {
   const fetchAllQuizz = async () => {
     try {
       const quizzData = await getAllQuizz();
-      setCollection(quizzData);
+      const orderQuizz = quizzData.sort((a, b) => a.quizzId - b.quizzId);
+      setCollection(orderQuizz);
     } catch (error) {
       console.error("Error fetching quizz:", error);
     }
   };
+
+  console.log("collection", collection);
 
   const fetchAllUsers = async () => {
     try {

@@ -7,10 +7,10 @@
 .main-content {
   height: 100%;
   width: 100vw;
-  padding-bottom: 40px;
+  padding: 40px 0px;
   border-bottom: 2px solid var(--space-cadet);
   margin-bottom: 20px;
-  margin-top: 150px;
+  margin-top: 80px;
 
   @include xs {
     display: flex;

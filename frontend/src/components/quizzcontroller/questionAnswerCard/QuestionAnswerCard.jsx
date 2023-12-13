@@ -5,9 +5,11 @@ import classNames from "classnames";
 function QuestionAnswerCard({ post, handleNextQuestion }) {
   // Trouver la réponse correcte
   const correctAnswer = post.questionOptions.find(
-    (option) => option.isCorrect === 1
+    (option) => option.isCorrect === true
   );
 
+  console.log("correctAnswer", correctAnswer);
+  console.log("post", post);
   // ANTI ABUSE BUTTON
 
   const [buttonEnabled, setButtonEnabled] = useState(true);

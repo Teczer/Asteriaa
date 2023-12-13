@@ -1,41 +1,61 @@
-# docker-compose
-
 version: '3'
 
 services:
 
-  mysql-db:
-    image: mysql:latest
+  asteriadatabase:
+    container_name: asteriadatabase
+    image: postgres:15.3
+    platform: linux/amd64
+    restart: unless-stopped
+    env_file: ./.env
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: asteriaQuizz
+      PGDATA: /var/lib/postgresql/data/asteria/
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
     ports:
-      - "3306:3306"
-    restart: always
-    command: ["--init-file", "/docker-entrypoint-initdb.d/init.sql"]  # Ajoutez cette ligne
+      - "5432:5432"
+    volumes:
+      - asteriadata:/var/lib/postgresql/data/
+    networks:
+      - netasteria
+
   backend:
     build:
-      context: ./  # Modification du chemin du contexte
-      dockerfile: ./docker/backend/Dockerfile  # Correction du chemin du Dockerfile
+      context: ./ 
+      dockerfile: ./docker/backend/Dockerfile  
     ports:
       - "5001:5001"
     volumes:
-      - ./backend:/usr/app # Montez le répertoire du backend pour permettre les mises à jour en temps réel
-      - /usr/app/node_modules # Volume anonyme pour node_modules seulement
+      - ./backend:/usr/app
+      - /usr/app/node_modules
+    env_file: ./.env
     environment:
-      NODE_ENV: development
-      DATABASE_HOST: mysql-db  # Utilisez le nom du service MySQL comme hôte
-      DATABASE_USER: root
-      DATABASE_PASSWORD: root
-      DATABASE: asteriaQuizz
-      
+      DATABASE_HOST: asteriadatabase
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE: ${DATABASE_NAME}
+    networks:
+      - netasteria
+    depends_on:
+      - asteriadatabase
+
   frontend:
     build:
-      context: ./  # Modification du chemin du contexte
-      dockerfile: ./docker/frontend/Dockerfile  # Correction du chemin du Dockerfile
+      context: ./  
+      dockerfile: ./docker/frontend/Dockerfile  
     ports:
       - "8880:80"
     volumes:
-      - ./frontend:/usr/app # Montez le répertoire du frontend pour permettre les mises à jour en temps réel
+      - ./frontend:/usr/app
     environment:
-      NODE_ENV: development # Définissez l'environnement sur le mode développement
+      NODE_ENV: development
+    networks:
+      - netasteria
+
+volumes:
+  asteriadata:
+networks:
+  netasteria:
+    name: netasteria
+    external: true

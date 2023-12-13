@@ -2,7 +2,6 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
-import jsonServer from "json-server";
 import userRoutes from "./routes/user.js";
 import quizzRouter from "./routes/quizzRouter.js";
 
@@ -26,14 +25,6 @@ app.use(function (req, res, next) {
   );
   next();
 });
-
-const server = jsonServer.create();
-const middlewares = jsonServer.defaults();
-
-// server use
-server.use(cors());
-server.use(jsonServer.bodyParser);
-server.use(middlewares);
 
 // middleware
 app.use(express.json());

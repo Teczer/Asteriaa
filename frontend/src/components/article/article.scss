@@ -2,7 +2,8 @@
 
 .article-section {
   border-bottom: 2px solid var(--space-cadet);
-  margin-top: 150px;
+  margin-top: 80px;
+  padding: 40px 0px;
 
   h1 {
     text-align: center;
@@ -15,7 +16,7 @@
     width: 100vw;
     display: flex;
     justify-content: space-between;
-    padding: 40px 200px 60px 200px;
+    padding: 40px 200px 0px 200px;
     gap: 50px;
 
     &.--skeleton {
