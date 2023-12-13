@@ -5,3 +5,4 @@ node_modules
 .sql
 quizz.sql
 init.sql
+dist
