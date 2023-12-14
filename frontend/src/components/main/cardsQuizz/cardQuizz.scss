@@ -1,4 +1,5 @@
-article {
+.card-quizz-box {
+  position: relative;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -8,6 +9,10 @@ article {
   border-radius: 20px;
   border: 2px solid var(--lavender-blush);
 
+  .card-quizz-img {
+    border-radius: 20px;
+  }
+
   &:hover {
     border: 2px solid var(--orchid-crayola);
 
@@ -16,17 +21,12 @@ article {
     }
   }
 
-  img {
-    position: relative;
-    z-index: -1;
-    width: 272px;
-    height: 100%;
-    object-fit: cover;
-    border-top-left-radius: 20px 20px;
-    border-top-right-radius: 20px 20px;
-  }
-
   .depliage {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -35,17 +35,12 @@ article {
     background-color: var(--cyber-grape);
     border-bottom-left-radius: 20px 20px;
     border-bottom-right-radius: 20px 20px;
-    // width: 273px;
-    height: 60px;
     border-top: 1px solid var(--lavender-blush);
-
-    p {
-      color: var(--lavender-blush);
-      margin: 0 !important;
-    }
-
-    i {
-      color: var(--lavender-blush);
-    }
+    color: var(--lavender-blush);
   }
+}
+
+.card-quizz-link {
+  width: 274px;
+  height: 472px;
 }

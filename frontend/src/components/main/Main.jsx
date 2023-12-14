@@ -1,10 +1,35 @@
 import CardQuizz from "./cardsQuizz/CardQuizz";
-import "./main.scss";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../../services/UserService";
+
+// Système Solaire
+import imageSS1 from "../../assets/quizzData/collec1-cardFrontImage-1-soleil_bb36ak.webp";
+import imageSS2 from "../../assets/quizzData/collec1-cardFrontImage-2-comet_wnzq4h.webp";
+import imageSS3 from "../../assets/quizzData/collec1-cardBackImage-3-neptune_naijmj.webp";
+import imageSS4 from "../../assets/quizzData/collec1-cardFrontImage-5-saturn_ncxgiv.webp";
+
+// Galaxies
+import imageGalaxies1 from "../../assets/quizzData/collec2-cardFrontImage-6-voielactee_emeafm.webp";
+import imageGalaxies2 from "../../assets/quizzData/collec2-cardFrontImage-7-whirlpool_xmk2zn.webp";
+import imageGalaxies3 from "../../assets/quizzData/collec2-cardFrontImage-8-andromede_gmy2sv.webp";
+import imageGalaxies4 from "../../assets/quizzData/collec2-cardFrontImage-9-magellan_fawb7z.webp";
+
+// Phénomènes Observables
+import imagePhenomenes1 from "../../assets/quizzData/collec3-cardBackImage-11-eclipse_hqzlbx.webp";
+import imagePhenomenes2 from "../../assets/quizzData/collec3-cardBackImage-13-etoile_jfmy1t.webp";
+import imagePhenomenes3 from "../../assets/quizzData/collec3-cardBackImage-14-zod-light_txkudi.webp";
+import imagePhenomenes4 from "../../assets/quizzData/collec3-cardBackImage-13-etoile_jfmy1t.webp";
+
+// Astronautes
+import imageAstronautes1 from "../../assets/quizzData/collec4-cardFrontImage-18-leonov_xri8tn.webp";
+import imageAstronautes2 from "../../assets/quizzData/collec4-cardFrontImage-17-armstrong_zrq05u.webp";
+import imageAstronautes3 from "../../assets/quizzData/collec4-cardBackImage-17-armstrong_stxghf.webp";
+import imageAstronautes4 from "../../assets/quizzData/collec4-cardBackImage-20-terechkova_nuti1l.webp";
+
+import "./main.scss";
 
 function Main() {
   const { user, updateUserContext } = useAuthContext();
@@ -26,6 +51,8 @@ function Main() {
   }
 
   useEffect(() => {
+    document.title = "Quizz | Asteria";
+
     async function fetchData() {
       await getUserProgression();
     }
@@ -62,33 +89,19 @@ function Main() {
   );
   const progressionAstronautesLocal = localStorage.getItem("quizzAstronautes");
 
-  let mescouilles = [
+  const quizzData = [
     {
       label: "Système Solaire",
       level: user
         ? userProgression.quizzSystemeSolaire || 1
         : progressionSystemeSolaireLocal,
-      img: [
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675179/images-collections/1-systeme%20solaire/collec1-cardFrontImage-1-soleil_bb36ak.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675181/images-collections/1-systeme%20solaire/collec1-cardFrontImage-2-comet_wnzq4h.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675179/images-collections/1-systeme%20solaire/collec1-cardBackImage-3-neptune_naijmj.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675178/images-collections/1-systeme%20solaire/collec1-cardFrontImage-5-saturn_ncxgiv.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675178/images-collections/1-systeme%20solaire/collec1-cardBackImage-1-soleil_fcgefa.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677915/images-quizz/PhenomenesObservable/nebuleuse4_3x_hhw3yd.jpg",
-      ],
+      img: [imageSS1, imageSS2, imageSS3, imageSS4],
       to: "quizzSystemeSolaire",
     },
     {
       label: "Galaxies",
       level: user ? userProgression.quizzGalaxies : progressionGalaxiesLocal,
-      img: [
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675173/images-collections/2-galaxies/collec2-cardFrontImage-6-voielactee_emeafm.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675171/images-collections/2-galaxies/collec2-cardFrontImage-7-whirlpool_xmk2zn.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675169/images-collections/2-galaxies/collec2-cardFrontImage-8-andromede_gmy2sv.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675170/images-collections/2-galaxies/collec2-cardFrontImage-9-magellan_fawb7z.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675171/images-collections/2-galaxies/collec2-cardFrontImage-10-horsehead_ixzx8i.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677915/images-quizz/PhenomenesObservable/nebuleuse4_3x_hhw3yd.jpg",
-      ],
+      img: [imageGalaxies1, imageGalaxies2, imageGalaxies3, imageGalaxies4],
       to: "quizzGalaxies",
     },
     {
@@ -97,12 +110,10 @@ function Main() {
         ? userProgression.quizzPhenomenesObservables
         : progressionPhenomenesObservablesLocal,
       img: [
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677917/images-quizz/PhenomenesObservable/eclipse_w3bgwj.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675177/images-collections/3-phenomenes/collec3-cardBackImage-11-eclipse_hqzlbx.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675177/images-collections/3-phenomenes/collec3-cardBackImage-14-zod-light_txkudi.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675177/images-collections/3-phenomenes/collec3-cardBackImage-13-etoile_jfmy1t.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675175/images-collections/3-phenomenes/collec3-cardFrontImage-12-moon_veahxq.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677915/images-quizz/PhenomenesObservable/nebuleuse4_3x_hhw3yd.jpg",
+        imagePhenomenes1,
+        imagePhenomenes2,
+        imagePhenomenes3,
+        imagePhenomenes4,
       ],
       to: "quizzPhenomenesObservables",
     },
@@ -112,12 +123,10 @@ function Main() {
         ? userProgression.quizzAstronautes
         : progressionAstronautesLocal,
       img: [
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675173/images-collections/4-astronautes/collec4-cardFrontImage-18-leonov_xri8tn.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675177/images-collections/4-astronautes/collec4-cardFrontImage-17-armstrong_zrq05u.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675173/images-collections/4-astronautes/collec4-cardBackImage-17-armstrong_stxghf.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675173/images-collections/4-astronautes/collec4-cardBackImage-20-terechkova_nuti1l.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670675174/images-collections/4-astronautes/collec4-cardFrontImage-16-gagarine_nrk3re.jpg",
-        "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677915/images-quizz/PhenomenesObservable/nebuleuse4_3x_hhw3yd.jpg",
+        imageAstronautes1,
+        imageAstronautes2,
+        imageAstronautes3,
+        imageAstronautes4,
       ],
       to: "quizzAstronautes",
     },
@@ -135,25 +144,26 @@ function Main() {
       <main className="main-content">
         <h1>Quizz Espace</h1>
         <ul className="cards-container">
-          {mescouilles &&
-            mescouilles.map((value, index) => (
+          {quizzData &&
+            quizzData.map((value, index) => (
               <li className="card-container" key={index}>
                 <h2 className="category-name">{value.label}</h2>
-                <h5 className="category-level-progression">
-                  {value.level === 5
+                <span className="category-level-progression">
+                  {value.level >= 5
                     ? "Niveau fini"
                     : `Niveau ${value.level} / 5`}
-                </h5>
+                </span>
                 <Link
+                  className="card-quizz-link"
                   to={
-                    value.level === 5
+                    value.level >= 5
                       ? "/"
                       : `/quizzcontroller/${value.to}/${value.level}`
                   }
                 >
                   <CardQuizz
                     src={
-                      value.level === 5
+                      value.level >= 5
                         ? "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677915/images-quizz/PhenomenesObservable/nebuleuse4_3x_hhw3yd.jpg"
                         : value.img[value.level - 1]
                     }

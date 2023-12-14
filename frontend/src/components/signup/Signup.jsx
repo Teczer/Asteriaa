@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useSignup } from "../../../hooks/useSignup";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-import "./signup.scss";
 import image from "../login/launchlogo@3x 2.png";
 import { Link } from "react-router-dom";
 import { sendVerificationEmail } from "../../../services/UserService";
+
+import "./signup.scss";
 
 function Signup() {
   const [email, setEmail] = useState("");

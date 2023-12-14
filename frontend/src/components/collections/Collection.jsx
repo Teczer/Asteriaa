@@ -4,6 +4,8 @@ import ActualCardViewFront from "./ActualCardViewFront";
 import { useCollection } from "../../../hooks/useCollection";
 
 export default function Collection() {
+  document.title = "Ma collection | Asteria";
+
   const collections = useCollection();
 
   const [actualCardView, setActualCardView] = useState(null);
@@ -51,10 +53,11 @@ export default function Collection() {
                   .map((title, cardIndex) => (
                     <article
                       key={cardIndex}
-                      className="card"
+                      className="card-quizz-box card"
                       onClick={() => handleCardClick(collection, cardIndex)}
                     >
                       <img
+                        className="collection-card-img"
                         src={collection.cardFrontImage[cardIndex]}
                         alt={title}
                         style={{ borderRadius: 20 }}

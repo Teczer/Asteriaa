@@ -11,7 +11,7 @@ const SimpleArticle = ({ image, date, title, linkto }) => {
       >
         <img className="simple-article-img" src={image} alt="" />
         <div className="article-content-container">
-          <h4 className="simple-article-date">{date}</h4>
+          <span className="simple-article-date">{date}</span>
           <h2 className="simple-article-title">{title}</h2>
         </div>
       </a>

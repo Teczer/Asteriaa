@@ -1,23 +1,32 @@
-import Article from "./components/article/Article";
-import Header from "./components/header/Header";
-import Main from "./components/main/Main";
-import Quizzcontroller from "./components/quizzcontroller/Quizzcontroller";
-import Notfound from "./components/notfound/Notfound";
-import Homepage from "./components/homepage/Homepage";
-import Login from "./components/login/Login";
-import Signup from "./components/signup/Signup";
-import Footer from "./components/footer/Footer";
-import AsteriaTutorial from "./components/tutorial/AsteriaTutorial";
-import "./scss/app.scss";
-
+import { Suspense, lazy } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
-import UserSettings from "./components/userSettings/UserSettings";
-import VerifyEmail from "./components/verifyEmail/VerifyEmail";
-import Collection from "./components/collections/Collection";
-import AdminPage from "./components/admin/AdminPage";
-import EditEntrieView from "./components/admin/EditEntrieView";
+
 import ScrollToTop from "../hooks/ScrollToTop";
+
+const AdminPage = lazy(() => import("./components/admin/AdminPage"));
+const Article = lazy(() => import("./components/article/Article"));
+const AsteriaTutorial = lazy(() =>
+  import("./components/tutorial/AsteriaTutorial")
+);
+const Collection = lazy(() => import("./components/collections/Collection"));
+const EditEntrieView = lazy(() => import("./components/admin/EditEntrieView"));
+const Footer = lazy(() => import("./components/footer/Footer"));
+const Header = lazy(() => import("./components/header/Header"));
+const Homepage = lazy(() => import("./components/homepage/Homepage"));
+const Login = lazy(() => import("./components/login/Login"));
+const Main = lazy(() => import("./components/main/Main"));
+const Notfound = lazy(() => import("./components/notfound/Notfound"));
+const Quizzcontroller = lazy(() =>
+  import("./components/quizzcontroller/Quizzcontroller")
+);
+const Signup = lazy(() => import("./components/signup/Signup"));
+const UserSettings = lazy(() =>
+  import("./components/userSettings/UserSettings")
+);
+const VerifyEmail = lazy(() => import("./components/verifyEmail/VerifyEmail"));
+
+import "./scss/app.scss";
 
 function App() {
   const location = useLocation();
@@ -37,30 +46,32 @@ function App() {
         !isVerifyingScreen &&
         !isAsteriaTutorialScreen && <Header isAdmin={isAdminScreen} />}
       <ScrollToTop>
-        <Routes>
-          <Route path="/tutorial" element={<AsteriaTutorial />} />
-          <Route path="/" element={<Homepage />} />
-          <Route
-            path="/login"
-            element={!user ? <Login /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/signup"
-            element={!user ? <Signup /> : <Navigate to="/" />}
-          />
-          <Route path="/verify" element={<VerifyEmail />} />
-          <Route path="*" element={<Notfound />} />
-          <Route path="/quizz" element={<Main />} />
-          <Route path="/news" element={<Article />} />
-          <Route path="/collection" element={<Collection />} />
-          <Route path="/settings/profile" element={<UserSettings />} />
-          <Route path="/admin/:type" element={<AdminPage />} />
-          <Route path="/admin/:type/:id" element={<EditEntrieView />} />
-          <Route
-            path="/quizzcontroller/:quizzType/:quizzProgression"
-            element={<Quizzcontroller />}
-          />
-        </Routes>
+        <Suspense fallback="Loading...">
+          <Routes>
+            <Route path="/tutorial" element={<AsteriaTutorial />} />
+            <Route path="/" element={<Homepage />} />
+            <Route
+              path="/login"
+              element={!user ? <Login /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/signup"
+              element={!user ? <Signup /> : <Navigate to="/" />}
+            />
+            <Route path="/verify" element={<VerifyEmail />} />
+            <Route path="*" element={<Notfound />} />
+            <Route path="/quizz" element={<Main />} />
+            <Route path="/news" element={<Article />} />
+            <Route path="/collection" element={<Collection />} />
+            <Route path="/settings/profile" element={<UserSettings />} />
+            <Route path="/admin/:type" element={<AdminPage />} />
+            <Route path="/admin/:type/:id" element={<EditEntrieView />} />
+            <Route
+              path="/quizzcontroller/:quizzType/:quizzProgression"
+              element={<Quizzcontroller />}
+            />
+          </Routes>
+        </Suspense>
       </ScrollToTop>
 
       {!isQuizzControllerScreen &&

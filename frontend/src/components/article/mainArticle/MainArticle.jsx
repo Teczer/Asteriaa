@@ -10,7 +10,7 @@ const MainArticle = ({ image, title, sommaire, date, linkto }) => {
         rel="noreferrer"
       >
         <img className="main-article-img" src={image} alt="" />
-        <h4 className="main-article-date">{date}</h4>
+        <span className="main-article-date">{date}</span>
         <h2 className="main-article-title">{title}</h2>
         <p className="main-article-sommary">{sommaire}</p>
       </a>

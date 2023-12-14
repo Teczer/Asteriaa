@@ -6,6 +6,7 @@ import ProfileSettingsSkeletons from "../skeletons/ProfileSettingsSkeletons";
 import ChangePictureModal from "../header/modal/ChangePictureModal";
 
 function UserSettings() {
+  document.title = "Mon compte | Asteria";
   const { user } = useAuthContext();
   const [isChangingProfilePicture, setIsChangingProfilePicture] =
     useState(false);

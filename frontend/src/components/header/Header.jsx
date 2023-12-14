@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Usermodal from "./modal/Usermodal";
 import Modalburger from "./modal/Modalburger";
 import ChangePictureModal from "./modal/ChangePictureModal";
+import AsteriaHeaderLogo from "../../assets/AsteriaHeaderLogo.svg";
 
 const Header = ({ isAdmin, location }) => {
   const [modalBurger, setModalBurger] = useState(false);
@@ -63,7 +64,6 @@ const Header = ({ isAdmin, location }) => {
             aria-hidden="true"
             viewBox="0 0 22 16"
             xmlns="http://www.w3.org/2000/svg"
-            class=""
             version="1.1"
             className="burger-svg"
             fill="#FFFFFF"
@@ -83,11 +83,7 @@ const Header = ({ isAdmin, location }) => {
           className={`logo-container ${user ? "--userconnected" : ""}`}
           href="/"
         >
-          <img
-            className="header-logo"
-            src="https://res.cloudinary.com/dw3mwclgk/image/upload/v1670528238/asteriaLogo_af3kfh.svg"
-            alt="Asteria"
-          />
+          <img className="header-logo" src={AsteriaHeaderLogo} alt="Asteria" />
         </a>
         {!modalBurger && (
           <div className="user-icon">

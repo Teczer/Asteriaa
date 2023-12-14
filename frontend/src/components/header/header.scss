@@ -660,7 +660,7 @@ input[type="text"] {
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
-  background-color: var(--purple-mountain-majesty);
+  background-color: var(--cyber-grape);
   color: var(--lavender-blush);
   font-weight: 700;
   text-transform: uppercase;
@@ -670,6 +670,9 @@ input[type="text"] {
   font-size: 14px;
   padding: 0;
   cursor: pointer;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 
   &.--usermodal {
     padding: 5px 10px;
@@ -681,7 +684,7 @@ input[type="text"] {
   }
 
   &:hover {
-    background-color: var(--cyber-grape);
+    scale: 1.1;
   }
 }
 
@@ -703,7 +706,9 @@ input[type="text"] {
   padding: 0;
   cursor: pointer;
   border: 1px solid var(--cyber-grape);
-
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
   &.--result {
     padding: 0px 20px;
     text-align: center;
@@ -715,6 +720,6 @@ input[type="text"] {
   }
 
   &:hover {
-    background-color: rgb(13, 34, 67);
+    scale: 1.1;
   }
 }

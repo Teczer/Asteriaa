@@ -9,6 +9,7 @@ const Article = ({ marginFix }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
+    document.title = "Nos actualités | Asteria";
     axios
       .get("https://api.spaceflightnewsapi.net/v3/articles")
       .then((res) => {

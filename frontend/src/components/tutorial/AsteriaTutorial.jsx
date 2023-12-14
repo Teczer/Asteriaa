@@ -25,7 +25,7 @@ function AsteriaTutorial() {
   };
 
   useEffect(() => {
-    document.title = "Asteria | Tutorial";
+    document.title = "Tutoriel | Asteria";
   }, []);
 
   // test build

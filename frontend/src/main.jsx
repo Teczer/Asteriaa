@@ -1,16 +1,19 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "../context/AuthContext";
 import { QuizzContextProvider } from "../context/QuizzContext";
 
+const LazyApp = lazy(() => import("./App"));
+
 ReactDOM.createRoot(document.getElementById("root")).render(
-	<AuthContextProvider>
-		<QuizzContextProvider>
-			<BrowserRouter>
-				<App />
-			</BrowserRouter>
-		</QuizzContextProvider>
-	</AuthContextProvider>,
+  <AuthContextProvider>
+    <QuizzContextProvider>
+      <BrowserRouter>
+        <Suspense fallback={<div>Loading...</div>}>
+          <LazyApp />
+        </Suspense>
+      </BrowserRouter>
+    </QuizzContextProvider>
+  </AuthContextProvider>
 );

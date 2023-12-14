@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 import { convertToBase64 } from "../../../../helpers";
