@@ -139,6 +139,20 @@ function Main() {
     }
   }, [userProgression]);
 
+  function isMobileDevice() {
+    const width =
+      window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth;
+
+    // You can adjust the threshold value based on your design
+    const threshold = 768;
+
+    return width < threshold;
+  }
+
+  const isMobile = isMobileDevice();
+
   return (
     <>
       <main className="main-content">
@@ -168,6 +182,7 @@ function Main() {
                         : value.img[value.level - 1]
                     }
                     label={value.label}
+                    isMobile={isMobile}
                   />
                 </Link>
               </li>
