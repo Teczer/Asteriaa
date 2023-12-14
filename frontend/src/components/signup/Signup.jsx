@@ -26,11 +26,16 @@ function Signup() {
   };
   return (
     <main className="login-screen">
-      <img className="asteria-login-logo" src={image} alt="Asterialogo" />
-      <h1 className="sign-up-title">
-        Inscrivez-vous chez <span className="asteria-name"> Asteria </span> !
-      </h1>
+      <img
+        className="asteria-login-logo"
+        src={image}
+        alt="Asterialogo"
+        loading="lazy"
+      />
       <section className="loginform-container --sign">
+        <h1 className="sign-up-title">
+          Inscrivez-vous chez <span className="asteria-name"> Asteria </span> !
+        </h1>
         <div id="login">
           <form className="login-form " onSubmit={handleSubmit}>
             <span className="fa fa-user" />

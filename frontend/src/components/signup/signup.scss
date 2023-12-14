@@ -1,17 +1,30 @@
+@import "../../scss/media-queries";
+
 .login-screen {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   width: 100vw;
   height: 100vh;
   margin: 0;
-  padding: 0;
+  padding: 0px 10px;
+
+  .asteria-login-logo {
+    width: 300px;
+    height: auto;
+    object-fit: cover;
+
+    @include xs {
+      width: 200px;
+    }
+  }
 
   .sign-up-title {
     text-align: center;
     color: var(--lavender-blush);
     margin-bottom: 40px;
+    font-size: 32px;
   }
 
   h1 {
@@ -21,6 +34,12 @@
   }
 
   .loginform-container {
+    &.--sign {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
     #login {
       width: 280px;
 
@@ -103,7 +122,7 @@
           border-radius: 3px;
           -moz-border-radius: 3px;
           -webkit-border-radius: 3px;
-          background-color: var(--purple-mountain-majesty);
+          background-color: var(--cyber-grape);
           color: var(--lavender-blush);
           font-weight: 700;
           margin-bottom: 10px;
@@ -115,9 +134,11 @@
           font-size: 14px;
           padding: 0;
           cursor: pointer;
-
+          transition-property: all;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+          transition-duration: 150ms;
           &:hover {
-            background-color: var(--space-cadet);
+            scale: 1.1;
           }
         }
       }
@@ -136,14 +157,14 @@
         vertical-align: baseline;
         font-size: 13px;
         font-weight: 300;
-        color: rgba(255, 255, 255, 0.7);
+        color: white;
 
         a {
           width: 83px;
           height: 16px;
           font-size: 13px;
           font-weight: 300;
-          color: var(--lavender-blush);
+          color: white;
           padding-right: 5px;
           text-decoration: none;
           margin: 0;
@@ -186,7 +207,7 @@
   font-size: 13px;
   width: 100% !important;
   text-align: center;
-  opacity: 0.6;
+  opacity: 0.8;
 
   &:hover {
     opacity: 1;

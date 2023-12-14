@@ -9,7 +9,12 @@ const MainArticle = ({ image, title, sommaire, date, linkto }) => {
         target="_blank"
         rel="noreferrer"
       >
-        <img className="main-article-img" src={image} alt="" />
+        <img
+          className="main-article-img"
+          src={image}
+          alt="cover-article"
+          loading="lazy"
+        />
         <span className="main-article-date">{date}</span>
         <h2 className="main-article-title">{title}</h2>
         <p className="main-article-sommary">{sommaire}</p>

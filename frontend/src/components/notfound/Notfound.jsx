@@ -1,7 +1,6 @@
-import React from "react";
-import Header from "../header/Header";
-import "./notfound.scss";
 import { Link } from "react-router-dom";
+import AsteriaHeaderLogo from "../../assets/AsteriaHeaderLogo.svg";
+import "./notfound.scss";
 
 function Notfound() {
   return (
@@ -11,13 +10,13 @@ function Notfound() {
           <p>4</p>
           <img
             className="notfound-img"
-            src="/src/assets/icons/asteriaLogo.svg"
-            alt=""
+            src={AsteriaHeaderLogo}
+            alt="logo-asteria"
           />
           <p>4</p>
         </div>
         <h2>
-          Vous vous rapprochez d'un trou noir, veuillez faire demi tout le plus
+          Vous vous rapprochez d'un trou noir, veuillez faire demi-tour le plus
           rapidement possible !
         </h2>
         <Link to="/" className="backhome-notfound">

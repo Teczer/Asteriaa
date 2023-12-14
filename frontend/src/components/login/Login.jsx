@@ -17,7 +17,12 @@ function Login() {
   };
   return (
     <main className="login-screen">
-      <img className="asteria-login-logo" src={image} alt="Asterialogo" />
+      <img
+        className="asteria-login-logo"
+        src={image}
+        alt="Asterialogo"
+        loading="lazy"
+      />
       <div className="login-form-wrapper">
         <h1 className="login-title">
           Bienvenue sur <span className="asteria-name">Asteria</span>,
