@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /quizzcontroller/
+Disallow: /verify/
+Disallow: /admin/
+Disallow: /settings/profile
+
+Sitemap: https://asteriaspace.fr/sitemap.xml

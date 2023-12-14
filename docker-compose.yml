@@ -48,6 +48,8 @@ services:
       - "8880:80"
     volumes:
       - ./frontend:/usr/app
+      - ./sitemap.xml:/usr/share/nginx/html/sitemap.xml
+      - ./robots.txt:/usr/share/nginx/html/robots.txt
     environment:
       NODE_ENV: development
     networks:
