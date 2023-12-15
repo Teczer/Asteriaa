@@ -2,11 +2,11 @@
 
 .header-asteria {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   background: var(--oxford-blue);
   width: 100vw;
-  height: 80px;
+  height: 90px;
   border-bottom: 2px solid var(--space-cadet);
   position: fixed;
   z-index: 4;
