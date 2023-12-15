@@ -13,7 +13,6 @@ const Article = ({ marginFix }) => {
     axios
       .get("https://api.spaceflightnewsapi.net/v3/articles")
       .then((res) => {
-        console.log(res);
         setPosts(res.data);
       })
       .catch((err) => {

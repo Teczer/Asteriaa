@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
 import { useLogin } from "../../../hooks/useLogin";
 import image from "./launchlogo@3x 2.png";
 
@@ -15,6 +17,7 @@ function Login() {
 
     await login(email, password);
   };
+
   return (
     <main className="login-screen">
       <img
@@ -55,8 +58,15 @@ function Login() {
                 type="submit"
                 value="Se connecter"
                 disabled={isLoading}
-                style={{ marginBottom: "20px" }}
+                style={{ marginBottom: "1em" }}
               />
+              <a
+                role="button"
+                href="http://localhost:5001/auth/google"
+                className="login-with-google-btn"
+              >
+                Sign in with Google
+              </a>
               {error && (
                 <div className="error" style={{ color: "red" }}>
                   {error}
