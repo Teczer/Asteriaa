@@ -7,6 +7,15 @@ import { useAuthContext } from "../../../hooks/useAuthContext";
 function Footer() {
   const form = useRef();
   const { user } = useAuthContext();
+  // IF USER IS NOT CONNECTED
+  const progressionSystemeSolaireLocal = localStorage.getItem(
+    "quizzSystemeSolaire"
+  );
+  const progressionGalaxiesLocal = localStorage.getItem("quizzGalaxies");
+  const progressionPhenomenesObservablesLocal = localStorage.getItem(
+    "quizzPhenomenesObservables"
+  );
+  const progressionAstronautesLocal = localStorage.getItem("quizzAstronautes");
   console.log("useraaa", user);
 
   const sendEmail = (e) => {
@@ -31,39 +40,50 @@ function Footer() {
 
   const footerSections = [
     {
-      title: "Asteria",
+      title: "Navigation",
       links: [
         { text: "Accueil", to: "/" },
-        { text: "À propos", to: "/" },
-        { text: "Qui est Asteria ?", to: "/" },
+        { text: "Collection", to: "/collection" },
+        { text: "Actualités", to: "/news" },
       ],
     },
+
     {
       title: "Catégories",
       links: [
         {
           text: "Systeme Solaire",
-          to: `/quizzcontroller/quizzSystemeSolaire/${user.quizzSystemeSolaire}`,
+          to: `/quizzcontroller/quizzSystemeSolaire/${
+            user ? user.quizzSystemeSolaire : progressionSystemeSolaireLocal
+          }`,
         },
         {
           text: "Galaxies",
-          to: `/quizzcontroller/quizzGalaxies/${user.quizzGalaxies}`,
+          to: `/quizzcontroller/quizzGalaxies/${
+            user ? user.quizzGalaxies : progressionGalaxiesLocal
+          }`,
         },
         {
           text: "Phénomènes Observables",
-          to: `/quizzcontroller/quizzPhenomenesObservables/${user.quizzPhenomenesObservables}`,
+          to: `/quizzcontroller/quizzPhenomenesObservables/${
+            user
+              ? user.quizzPhenomenesObservables
+              : progressionPhenomenesObservablesLocal
+          }`,
         },
         {
           text: "Astronautes",
-          to: `/quizzcontroller/quizzAstronautes/${user.quizzAstronautes}`,
+          to: `/quizzcontroller/quizzAstronautes/${
+            user ? user.quizzAstronautes : progressionAstronautesLocal
+          }`,
         },
       ],
     },
     {
-      title: "Collection / Actualités",
+      title: "Asteria",
       links: [
-        { text: "Collection", to: "/collection" },
-        { text: "Actualités", to: "/news" },
+        { text: "À propos", to: "/" },
+        { text: "Qui est Asteria ?", to: "/" },
       ],
     },
     {
@@ -75,61 +95,9 @@ function Footer() {
     },
   ];
 
-  const footerMobileSection = [
-    {
-      text: "Politique de confidentialité",
-      to: "/",
-    },
-    {
-      text: "Catégories",
-      to: "/",
-    },
-    {
-      text: "À propos",
-      to: "/",
-    },
-    {
-      text: "Investir et Soutenir",
-      to: "/",
-    },
-    {
-      text: "Crédits",
-      to: "/",
-    },
-  ];
-
   return (
     <footer className="footer-asteria">
       <div className="footer-sections-container">
-        {/* FOOTER MOBILE */}
-        <section className="footer-section --mobile">
-          <ul className="footer-link-container --mobile">
-            {footerMobileSection.map((title, index) => (
-              <li className="footer-link-item --mobile" key={index}>
-                <Link className="footer-h3 --mobile" to={title.to}>
-                  {title.text}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-        {/* FOOTER DESKTOP */}
-        <div className="footer-section-links-container">
-          {footerSections.map((section, index) => (
-            <section key={index} className="footer-section">
-              <h3 className="footer-h3">{section.title}</h3>
-              <ul className="footer-link-container">
-                {section.links.map((link, index) => (
-                  <li key={index} className="footer-link-item">
-                    <Link className="footer-link" to={link.to}>
-                      {link.text}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-        </div>
         <form className="contact-form" ref={form} onSubmit={sendEmail}>
           <label htmlFor="from_name" className="contact-form-label">
             Nom
@@ -168,6 +136,23 @@ function Footer() {
             />
           </div>
         </form>
+        {/* FOOTER DESKTOP */}
+        <div className="footer-section-links-container">
+          {footerSections.map((section, index) => (
+            <section key={index} className="footer-section">
+              <h3 className="footer-h3">{section.title}</h3>
+              <ul className="footer-link-container">
+                {section.links.map((link, index) => (
+                  <li key={index} className="footer-link-item">
+                    <Link className="footer-link" to={link.to}>
+                      {link.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
       </div>
       <div className="social-medials --mobile">
         <div className="footer-copyright">

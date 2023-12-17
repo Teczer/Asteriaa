@@ -199,9 +199,12 @@
 }
 
 .footer-section-links-container {
+  padding: 20px;
   width: 50%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px; /* Espacement entre les éléments, ajustez selon vos préférences */
   height: 100%;
+  justify-items: center;
+  align-items: start;
 }
