@@ -1,9 +1,13 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 
 function Usermodal({ setUserModal, setIsChangingProfilePicture }) {
   const { user, logoutUser } = useAuthContext();
-  const navigate = useNavigate();
+  const googleLogout = () => {
+    logoutUser();
+    window.open("/auth/logout", "_self");
+    window.location.href = "/login";
+  };
 
   const handleLogout = () => {
     // Appel de la fonction 'logoutUser' pour se déconnecter
@@ -64,13 +68,19 @@ function Usermodal({ setUserModal, setIsChangingProfilePicture }) {
           </Link>
         )}
       </div>
-      <Link
-        onClick={handleLogout}
-        to="login"
-        className="modal-user-notconnected-inscription --usermodal"
-      >
-        Se deconnecter
-      </Link>
+      {user?.loginService === "google" ? (
+        <button onClick={googleLogout} className="login-with-google-btn">
+          Deconnexion
+        </button>
+      ) : (
+        <Link
+          onClick={handleLogout}
+          to="login"
+          className="modal-user-notconnected-inscription --usermodal"
+        >
+          Se deconnecter
+        </Link>
+      )}
     </div>
   );
 }

@@ -14,9 +14,11 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
+    "connect-mongo": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "json-serve": "^0.1.0",
     "json-server": "^0.17.1",
     "jsonwebtoken": "^9.0.1",
@@ -26,6 +28,8 @@
     "mysql2": "^3.4.3",
     "nodemailer": "^6.9.4",
     "nodemon": "^2.0.20",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
     "path": "^0.12.7",
     "pg": "^8.11.3",
     "validator": "^13.9.0"

@@ -23,7 +23,7 @@ onDrop: async (acceptedFiles) => {
 
       const base64 = await convertToBase64(compressedFile);
 
-      return axios.patch(`http://146.59.150.192:5001/user/${user._id}`, {
+      return axios.patch(`/user/${user._id}`, {
         profilePicture: base64,
       });
     })
@@ -31,9 +31,7 @@ onDrop: async (acceptedFiles) => {
 
   try {
     const responses = await Promise.all(compressedFiles);
-    const afterpatch = await axios.get(
-      `http://146.59.150.192:5001/user/${user._id}`
-    );
+    const afterpatch = await axios.get(`/user/${user._id}`);
 
     dispatch({ type: "UPDATE_USER", payload: afterpatch.data });
 

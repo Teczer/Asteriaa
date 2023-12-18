@@ -12,12 +12,14 @@ export const useLogin = () => {
     setError(null);
     try {
       const data = await loginUser(email, password);
-
+      console.log("data", data);
+      const userData = { ...data, loginService: "asteria" };
+      console.log("userData", userData);
       // save the user to localstorage
-      localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem("user", JSON.stringify(userData));
 
       // update the auth context
-      dispatch({ type: "LOGIN", payload: data });
+      dispatch({ type: "LOGIN", payload: userData });
       setIsLoading(false);
     } catch (error) {
       console.error(error);

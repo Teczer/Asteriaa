@@ -4,45 +4,51 @@ import bcrypt from "bcrypt";
 
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
+const userSchema = new Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    googleId: {
+      type: String,
+      unique: true,
+    },
+    password: {
+      type: String,
+    },
+    userName: {
+      type: String,
+    },
+    isAdmin: {
+      type: Boolean,
+    },
+    isEmailVerified: {
+      type: Boolean,
+      default: false, // Nouveaux utilisateurs n'ont pas encore vérifié leur e-mail
+    },
+    profilePicture: {
+      type: String,
+    },
+    quizzSystemeSolaire: {
+      type: Number,
+    },
+    quizzGalaxies: {
+      type: Number,
+    },
+    quizzPhenomenesObservables: {
+      type: Number,
+    },
+    quizzAstronautes: {
+      type: Number,
+    },
+    verificationToken: {
+      type: String,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-  userName: {
-    type: String,
-  },
-  isAdmin: {
-    type: Boolean,
-  },
-  isEmailVerified: {
-    type: Boolean,
-    default: false, // Nouveaux utilisateurs n'ont pas encore vérifié leur e-mail
-  },
-  profilePicture: {
-    type: String,
-  },
-  quizzSystemeSolaire: {
-    type: Number,
-  },
-  quizzGalaxies: {
-    type: Number,
-  },
-  quizzPhenomenesObservables: {
-    type: Number,
-  },
-  quizzAstronautes: {
-    type: Number,
-  },
-  verificationToken: {
-    type: String,
-  },
-});
+  { versionKey: false }
+);
 
 // static signup method
 userSchema.statics.signup = async function (

@@ -1,6 +1,7 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
+
 const manifestForPlugIn = {
   registerType: "prompt",
   includeAssests: ["favicon.ico", "apple-touc-icon.png", "masked-icon.svg"],
@@ -42,7 +43,23 @@ const manifestForPlugIn = {
     orientation: "portrait",
   },
 };
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react(), VitePWA(manifestForPlugIn)],
-});
+
+export default ({ mode }) => {
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
+
+  const apiURL =
+    process.env.VITE_NODE_ENV === "development"
+      ? process.env.VITE_SERVER_LOCAL_URL_API
+      : process.env.VITE_PROD_URL_API;
+
+  return defineConfig({
+    plugins: [react(), VitePWA(manifestForPlugIn)],
+    server: {
+      proxy: {
+        "/auth": apiURL,
+        "/user": apiURL,
+        "/quizz": apiURL,
+      },
+    },
+  });
+};

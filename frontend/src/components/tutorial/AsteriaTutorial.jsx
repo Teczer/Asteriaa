@@ -24,10 +24,6 @@ function AsteriaTutorial() {
     }
   };
 
-  useEffect(() => {
-    document.title = "Tutoriel | Asteria";
-  }, []);
-
   // test build
 
   const renderStepContent = () => {

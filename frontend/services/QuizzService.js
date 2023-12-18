@@ -1,14 +1,9 @@
 import axios from "axios";
 
-const apiURL =
-  import.meta.env.VITE_NODE_ENV === "development"
-    ? import.meta.env.VITE_SERVER_LOCAL_URL_API
-    : import.meta.env.VITE_PROD_URL_API;
-
 // POST QUIZZ CONTROLLER
 export async function getSqlQuizz(params) {
   try {
-    const response = await axios.post(`${apiURL}/quizz`, {
+    const response = await axios.post(`/quizz`, {
       quizzType: params.quizzType,
       quizzProgression: params.quizzProgression,
     });
@@ -24,7 +19,7 @@ export async function getSqlQuizz(params) {
 // GET ALL QUIZZ
 export async function getAllQuizz() {
   try {
-    const response = await axios.get(`${apiURL}/quizz/all`);
+    const response = await axios.get(`/quizz/all`);
     console.log("Axios GET All Quizz Response", response.data);
     return response.data;
   } catch (error) {
@@ -36,7 +31,7 @@ export async function getAllQuizz() {
 // GET QUIZZ BY ID
 export async function getFullQuizzById(quizzId) {
   try {
-    const response = await axios.get(`${apiURL}/quizz/${quizzId}`);
+    const response = await axios.get(`/quizz/${quizzId}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -47,7 +42,7 @@ export async function getFullQuizzById(quizzId) {
 // POST CREATE QUIZZ
 export async function createQuizz(quizz) {
   try {
-    const response = await axios.post(`${apiURL}/quizz/create`, quizz);
+    const response = await axios.post(`/quizz/create`, quizz);
     console.log("Axios POST Create Quizz Response", response.data);
     return response.data;
   } catch (error) {
@@ -59,7 +54,7 @@ export async function createQuizz(quizz) {
 // DELETE QUIZZ
 export async function deleteQuizz(quizzId) {
   try {
-    const response = await axios.delete(`${apiURL}/quizz/${quizzId}`);
+    const response = await axios.delete(`/quizz/${quizzId}`);
     console.log("Axios DELETE Quizz Response", response.data);
     return response.data;
   } catch (error) {
@@ -71,10 +66,7 @@ export async function deleteQuizz(quizzId) {
 // PATCH UPDATE QUIZZ
 export async function updateQuizz(quizzId, updatedQuizz) {
   try {
-    const response = await axios.patch(
-      `${apiURL}/quizz/${quizzId}`,
-      updatedQuizz
-    );
+    const response = await axios.patch(`/quizz/${quizzId}`, updatedQuizz);
     console.log("Axios PATCH Update Quizz Response", response.data);
     return response.data;
   } catch (error) {

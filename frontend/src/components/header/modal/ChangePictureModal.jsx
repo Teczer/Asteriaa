@@ -36,7 +36,7 @@ function ChangePictureModal({ setIsChangingProfilePicture }) {
 
   const createPost = async (newImage) => {
     try {
-      await axios.post(`http://146.59.150.192:5001/user/${user._id}`, newImage);
+      await axios.post(`/user/${user._id}`, newImage);
     } catch (error) {
       console.log(error);
     }
