@@ -120,7 +120,9 @@ const Header = ({ isAdmin }) => {
                 alt="user-profil-picture"
               />
             </figure>
-            <p>{user.userName}</p>
+            <p style={{ fontSize: "16px" }} className="username-modal">
+              {user.userName}
+            </p>
             {userModal && (
               <Usermodal
                 setUserModal={setUserModal}

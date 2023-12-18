@@ -1,3 +1,5 @@
+@import "../../../scss/media-queries";
+
 .question-response {
   text-align: center;
   display: flex;
@@ -9,6 +11,10 @@
   margin-bottom: 14px;
   font-weight: 300;
   margin-top: 10px;
+
+  @include xs {
+    margin-top: 0px;
+  }
 }
 
 .question-correctanswer {
@@ -65,6 +71,19 @@
   opacity: 1;
 }
 
+.question-correctanswer-explnation-container {
+  height: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+
+  @include xs {
+    height: 40%;
+  }
+}
+
 .disappear-animation {
   animation: fadein 300ms linear both;
 }
@@ -82,6 +101,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   height: 100%;
 }

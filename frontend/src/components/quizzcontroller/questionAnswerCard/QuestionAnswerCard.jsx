@@ -42,26 +42,28 @@ function QuestionAnswerCard({ post, handleNextQuestion }) {
             />
           </div>
         </div>
-        <h4 className="question-correctanswer">
-          {correctAnswer && correctAnswer.questionAnswer}
-        </h4>
-        <p className="answer-explanation">{post.answerExplanation}</p>
+        <div className="question-correctanswer-explnation-container">
+          <h4 className="question-correctanswer">
+            {correctAnswer && correctAnswer.questionAnswer}
+          </h4>
+          <p className="answer-explanation">{post.answerExplanation}</p>
+        </div>
+        <button
+          className="button-next-question"
+          tabIndex={1}
+          onClick={() => {
+            setAnswerCardDisappear(true);
+            setTimeout(() => {
+              handleNextQuestion();
+              setAnswerCardDisappear(false);
+            }, 500);
+            cancelButtonAbuse();
+          }}
+          disabled={!buttonEnabled}
+        >
+          Continuer
+        </button>
       </div>
-      <button
-        className="button-next-question"
-        tabIndex={1}
-        onClick={() => {
-          setAnswerCardDisappear(true);
-          setTimeout(() => {
-            handleNextQuestion();
-            setAnswerCardDisappear(false);
-          }, 500);
-          cancelButtonAbuse();
-        }}
-        disabled={!buttonEnabled}
-      >
-        Continuer
-      </button>
     </div>
   );
 }

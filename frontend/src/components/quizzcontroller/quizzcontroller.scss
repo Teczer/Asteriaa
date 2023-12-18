@@ -25,7 +25,8 @@
 
   &.--backgroundblur {
     background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
   }
   @include xs {
     justify-content: flex-start !important;
@@ -185,7 +186,7 @@
 
   @include xs {
     width: 95vw;
-    height: 100%;
+    height: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
