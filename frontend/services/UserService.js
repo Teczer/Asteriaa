@@ -115,7 +115,9 @@ export const updateUser = async (userId, data) => {
     });
 
     // Re-récupérez les données mises à jour de l'utilisateur après le patch
-    const { data: updatedUserData } = await axios.get(`/user/${userId}`);
+    const { data: updatedUserData } = await axios.get(
+      `${apiURL}/user/${userId}`
+    );
 
     // Retournez les données mises à jour
     return updatedUserData;
