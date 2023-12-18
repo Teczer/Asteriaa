@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLogin } from "../../../hooks/useLogin";
+import { apiURL } from "../../../services/UserService";
 import image from "./launchlogo@3x 2.png";
 
 import "./login.scss";
@@ -17,7 +18,7 @@ function Login() {
   };
 
   const loginWithGoogle = () => {
-    window.open("/auth/google/callback", "_self");
+    window.open(`${apiURL}/auth/google/callback`, "_self");
   };
 
   return (

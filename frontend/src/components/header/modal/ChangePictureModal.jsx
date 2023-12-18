@@ -3,6 +3,7 @@ import { useAuthContext } from "../../../../hooks/useAuthContext";
 import Previews from "./DropZoneImg";
 import axios from "axios";
 import { updateUser } from "../../../../services/UserService";
+import { apiURL } from "../../../../services/UserService";
 
 function ChangePictureModal({ setIsChangingProfilePicture }) {
   const { user, updateUserContext } = useAuthContext();
@@ -36,7 +37,7 @@ function ChangePictureModal({ setIsChangingProfilePicture }) {
 
   const createPost = async (newImage) => {
     try {
-      await axios.post(`/user/${user._id}`, newImage);
+      await axios.post(`${apiURL}/user/${user._id}`, newImage);
     } catch (error) {
       console.log(error);
     }

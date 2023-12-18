@@ -3,6 +3,7 @@ import Article from "../article/Article";
 import Main from "../main/Main";
 import axios from "axios";
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import { apiURL } from "../../../services/UserService";
 
 function Homepage() {
   const marginFix = 20;
@@ -18,7 +19,7 @@ function Homepage() {
 
     const getUser = async () => {
       try {
-        const response = await axios.get("/auth/profile", {
+        const response = await axios.get(`${apiURL}/auth/profile`, {
           withCredentials: true,
         });
 

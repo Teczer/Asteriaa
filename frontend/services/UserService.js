@@ -1,10 +1,14 @@
 import axios from "axios";
 
 export const SECRET_ADMIN_KEY = import.meta.env.VITE_SECRET_ADMIN_KEY;
+export const apiURL =
+  import.meta.env.VITE_NODE_ENV === "development"
+    ? import.meta.env.VITE_SERVER_LOCAL_URL_API
+    : import.meta.env.VITE_PROD_URL_API;
 
 export const getUser = async (userId) => {
   try {
-    const { data } = await axios.get(`/user/${userId}`);
+    const { data } = await axios.get(`${apiURL}/user/${userId}`);
     console.log("data", data);
     return data; // Renvoie les informations de l'utilisateur
   } catch (error) {
@@ -26,7 +30,7 @@ export const getUser = async (userId) => {
 
 export const getAllUsers = async () => {
   try {
-    const { data } = await axios.get(`/user/`, {
+    const { data } = await axios.get(`${apiURL}/user/`, {
       headers: {
         secretadminkey: SECRET_ADMIN_KEY,
       },
@@ -44,7 +48,7 @@ export const getAllUsers = async () => {
 export const loginUser = async (email, password) => {
   try {
     const { data } = await axios.post(
-      `/user/login`,
+      `${apiURL}/user/login`,
       JSON.stringify({ email, password }),
       {
         headers: { "Content-Type": "application/json" },
@@ -63,7 +67,7 @@ export const loginUser = async (email, password) => {
 export const signupUser = async (email, password, userName) => {
   try {
     const { data } = await axios.post(
-      `/user/signup`,
+      `${apiURL}/user/signup`,
       JSON.stringify({
         email,
         password,
@@ -89,7 +93,7 @@ export const signupUser = async (email, password, userName) => {
 export const sendVerificationEmail = async (email, userId, username) => {
   try {
     const { data } = await axios.post(
-      `/user/send-verification-email`,
+      `${apiURL}/user/send-verification-email`,
       { email, userId, username },
       {
         headers: { "Content-Type": "application/json" },
@@ -104,7 +108,7 @@ export const sendVerificationEmail = async (email, userId, username) => {
 export const updateUser = async (userId, data) => {
   try {
     // Effectuez la requête PATCH pour mettre à jour l'utilisateur
-    await axios.patch(`/user/${userId}`, data, {
+    await axios.patch(`${apiURL}/user/${userId}`, data, {
       headers: {
         secretadminkey: SECRET_ADMIN_KEY,
       },
@@ -125,7 +129,7 @@ export const deleteUserNeedPassword = async (userId, password) => {
   try {
     // Effectuez la requête POST pour supprimer l'utilisateur avec un mot de passe
     const response = await axios.post(
-      `/user/delete/${userId}`,
+      `${apiURL}/user/delete/${userId}`,
       { password },
       {
         headers: {
@@ -143,7 +147,7 @@ export const deleteUserNeedPassword = async (userId, password) => {
 
 export const createUser = async (user) => {
   try {
-    const { data } = await axios.post(`/user/create`, user, {
+    const { data } = await axios.post(`${apiURL}/user/create`, user, {
       headers: {
         secretadminkey: SECRET_ADMIN_KEY,
       },

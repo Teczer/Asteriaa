@@ -5,6 +5,8 @@ import "./verifyEmail.scss";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import getUserIdFromToken from "./getUserIdFromToken";
 
+import { apiURL } from "../../../services/UserService";
+
 function VerifyEmail() {
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get("token");
@@ -23,7 +25,7 @@ function VerifyEmail() {
   const sendVerificationEmail = async (email, userId, username) => {
     try {
       const response = await axios.post(
-        `/user/send-verification-email`,
+        `${apiURL}/user/send-verification-email`,
         { email, userId, username },
         {
           headers: { "Content-Type": "application/json" },
@@ -51,7 +53,7 @@ function VerifyEmail() {
       const verifyEmail = async () => {
         try {
           const response = await axios.get(
-            `/user/verify/verify-email?token=${token}`
+            `${apiURL}/user/verify/verify-email?token=${token}`
           );
           setLoading(false);
           setSucess(true);
@@ -59,7 +61,7 @@ function VerifyEmail() {
 
           if (userId) {
             // Effectuer la requête pour récupérer les nouvelles données utilisateur
-            const afterpatch = await axios.get(`/user/${userId}`);
+            const afterpatch = await axios.get(`${apiURL}/user/${userId}`);
             const updatedUserData = afterpatch.data;
 
             // Mettre à jour le contexte avec les nouvelles données utilisateur

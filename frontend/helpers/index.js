@@ -1,3 +1,5 @@
+import { apiURL } from "../services/UserService";
+
 export function convertToBase64(file) {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader();
@@ -23,7 +25,7 @@ onDrop: async (acceptedFiles) => {
 
       const base64 = await convertToBase64(compressedFile);
 
-      return axios.patch(`/user/${user._id}`, {
+      return axios.patch(`${apiURL}/user/${user._id}`, {
         profilePicture: base64,
       });
     })
@@ -31,7 +33,7 @@ onDrop: async (acceptedFiles) => {
 
   try {
     const responses = await Promise.all(compressedFiles);
-    const afterpatch = await axios.get(`/user/${user._id}`);
+    const afterpatch = await axios.get(`${apiURL}/user/${user._id}`);
 
     dispatch({ type: "UPDATE_USER", payload: afterpatch.data });
 

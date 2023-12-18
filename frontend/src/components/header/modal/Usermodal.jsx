@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 
+import { apiURL } from "../../../../services/UserService";
+
 function Usermodal({ setUserModal, setIsChangingProfilePicture }) {
   const { user, logoutUser } = useAuthContext();
   const googleLogout = () => {
     logoutUser();
-    window.open("/auth/logout", "_self");
+    window.open(`${apiURL}/auth/logout`, "_self");
     window.location.href = "/login";
   };
 

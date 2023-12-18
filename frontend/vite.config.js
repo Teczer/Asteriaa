@@ -47,19 +47,20 @@ const manifestForPlugIn = {
 export default ({ mode }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
 
-  const apiURL =
-    process.env.VITE_NODE_ENV === "development"
-      ? process.env.VITE_SERVER_LOCAL_URL_API
-      : process.env.VITE_PROD_URL_API;
+  const isDevServer = process.env.VITE_NODE_ENV === "development";
+
+  const apiURL = process.env.VITE_SERVER_REAL_LOCAL_URL_API;
 
   return defineConfig({
     plugins: [react(), VitePWA(manifestForPlugIn)],
-    server: {
-      proxy: {
-        "/auth": apiURL,
-        "/user": apiURL,
-        "/quizz": apiURL,
+    ...(isDevServer && {
+      server: {
+        proxy: {
+          "/auth": apiURL,
+          "/user": apiURL,
+          "/quizz": apiURL,
+        },
       },
-    },
+    }),
   });
 };
