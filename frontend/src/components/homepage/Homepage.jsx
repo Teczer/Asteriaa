@@ -22,14 +22,15 @@ function Homepage() {
           withCredentials: true,
         });
 
-        console.log("response", response?.data);
-        if (!response.data) return;
-        const userData = { ...response.data.user, loginService: "google" };
-        // save the user to localstorage
-        localStorage.setItem("user", JSON.stringify(userData));
+        console.log("response", response);
+        if (response.data.user) {
+          const userData = { ...response.data.user, loginService: "google" };
+          // save the user to localstorage
+          localStorage.setItem("user", JSON.stringify(userData));
 
-        // update the auth context
-        dispatch({ type: "LOGIN", payload: userData });
+          // update the auth context
+          dispatch({ type: "LOGIN", payload: userData });
+        }
       } catch (error) {
         console.log("error", error);
       }
