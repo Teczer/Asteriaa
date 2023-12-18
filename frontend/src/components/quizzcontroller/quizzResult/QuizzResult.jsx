@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import "./quizzresult.scss";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 import { useCollection } from "../../../../hooks/useCollection";
 import ActualCardViewFront from "../../collections/ActualCardViewFront";
 import { updateUser } from "../../../../services/UserService";
+import Stepper from "../stepper/Stepper";
+import "./quizzresult.scss";
+import "../../collections/collection.scss";
 
-function QuizzResult({ CorrectAns }) {
+function QuizzResult({ CorrectAns, showResult }) {
   const params = useParams();
   const { user, updateUserContext } = useAuthContext();
   const collections = useCollection();
@@ -63,11 +65,24 @@ function QuizzResult({ CorrectAns }) {
 
   useEffect(() => {
     // Lors du chargement de la page, déplacez la div test vers le milieu
-    setTestVisible(true);
-  }, []);
+    if (!showResult) return;
+    const timeout = setTimeout(() => {
+      setTestVisible(true);
+    }, 100);
+    return () => clearTimeout(timeout);
+  }, [showResult]);
 
   return (
     <>
+      {/* QUIZZ CONTROLLER SECTION */}
+      <div
+        style={{ width: "100%", overflow: "visible" }}
+        className={`swipe --left ${testVisible ? "active" : ""}`}
+      >
+        <div className="stepper-leave-container">
+          <Stepper currentQuestion1={3} />
+        </div>
+      </div>
       {actualCardView ? (
         <div
           className="actualCardView-layout"
@@ -77,42 +92,64 @@ function QuizzResult({ CorrectAns }) {
         </div>
       ) : (
         <>
-          <p style={{ color: "white" }}>
-            Félicitations vous avez gagné la carte{" "}
-            {currentCollection.cardTitle[Number(params.quizzProgression)]}
-          </p>
-          <article
-            className="card"
-            onClick={() =>
-              handleCardClick(
-                currentCollection,
-                Number(params.quizzProgression)
-              )
-            }
+          <div className="correct-ans-box">
+            <div>
+              <div
+                className={`swipe --left ${testVisible ? "active --1sec" : ""}`}
+              >
+                <p className="good-job-cyril">Bien joué !</p>
+              </div>
+              <div
+                className={`swipe --left ${
+                  testVisible ? "active --1-5sec" : ""
+                }`}
+              >
+                <p>Tu remportes une carte</p>
+              </div>
+            </div>
+            <div>
+              <div className={`swipe --right ${testVisible ? "active" : ""}`}>
+                <span className="correct-ans-number">{CorrectAns}</span> sur 3
+              </div>
+            </div>
+          </div>
+          <div
+            className={`swipe --right ${testVisible ? "active --2sec" : ""}`}
           >
-            <img
-              src={
-                currentCollection.cardFrontImage[
+            <article
+              className="card-ending-view"
+              onClick={() =>
+                handleCardClick(
+                  currentCollection,
                   Number(params.quizzProgression)
-                ]
+                )
               }
-              alt="collection-img"
-            />
-          </article>
-          <div className={`test ${testVisible ? "active" : ""}`}>
-            <div className="modal-user-notconnected-buttons">
+            >
+              <p className="collection-title">
+                {currentCollection.cardTitle[Number(params.quizzProgression)]}
+              </p>
+              <img
+                className="collection-card-img-ending"
+                src={
+                  currentCollection.cardFrontImage[
+                    Number(params.quizzProgression)
+                  ]
+                }
+                alt="collection-img"
+              />
+            </article>
+          </div>
+          <div className={`swipe --left ${testVisible ? "active --3sec" : ""}`}>
+            <div className="ending-view-buttons-wrapper">
               <a
-                className="modal-user-notconnected-inscription"
+                className="ending-view-nextquizz-button"
                 href={`/quizzcontroller/${params.quizzType}/${
                   Number(params.quizzProgression) + 1
                 }`}
               >
                 Niveau suivant
               </a>
-              <Link
-                className="modal-user-notconnected-connexion --result"
-                to="/"
-              >
+              <Link className="ending-view-backhome-button" to="/">
                 Retourner à l'accueil
               </Link>
             </div>

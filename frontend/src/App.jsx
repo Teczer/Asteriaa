@@ -27,6 +27,7 @@ const UserSettings = lazy(() =>
 const VerifyEmail = lazy(() => import("./components/verifyEmail/VerifyEmail"));
 
 import "./scss/app.scss";
+import ContactPage from "./components/contact/ContactPage";
 
 function App() {
   const location = useLocation();
@@ -62,6 +63,7 @@ function App() {
           <Route path="/quizz" element={<Main />} />
           <Route path="/news" element={<Article />} />
           <Route path="/collection" element={<Collection />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/settings/profile" element={<UserSettings />} />
           <Route path="/admin/:type" element={<AdminPage />} />
           <Route path="/admin/:type/:id" element={<EditEntrieView />} />

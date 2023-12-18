@@ -1,3 +1,5 @@
+@import "../../../scss//media-queries";
+
 .quizzresult-container {
   display: flex;
   flex-direction: column;
@@ -6,7 +8,6 @@
   width: 700px;
   height: 500px;
   border-radius: 20px;
-  background-color: var(--space-cadet);
   box-shadow: 0 0 10px white;
   padding: 20px 0px 20px 0px;
 
@@ -63,19 +64,60 @@
   color: var(--lavender-blush);
 }
 
-.test {
+.swipe {
   position: relative;
-  top: 0;
-  left: -300%; /* Commence à l'extérieur de l'écran à gauche */
-  transition: left 1s ease-in-out; /* Animation pour le déplacement latéral */
+  transition: left 0.7s ease-in-out; /* Animation pour le déplacement latéral */
   overflow: hidden; /* Cache le contenu qui dépasse */
-}
 
-.test.active {
+  &.--left {
+    left: -150svh; /* Commence à l'extérieur de l'écran à gauche */
+  }
+
+  &.--right {
+    left: 150svw; /* Commence à l'extérieur de l'écran à gauche */
+  }
+  &.--bottom {
+    top: -150svw; /* Commence à l'extérieur de l'écran à gauche */
+  }
+}
+@keyframes carnationPinkFade {
+  0% {
+    scale: 0.5;
+    filter: drop-shadow(0px 0px 20px rgba(255, 173, 219, 0));
+    opacity: 1;
+  }
+
+  100% {
+    scale: 1.1;
+    filter: drop-shadow(0px 0px 25px rgba(255, 173, 219, 0.5));
+    opacity: 1;
+  }
+}
+.swipe.active {
   left: 0; /* Placez la div "test" au milieu de l'écran */
+  right: 0;
+  top: 0;
+
+  &.--1sec {
+    transition-delay: 0.6s;
+  }
+  &.--1-5sec {
+    transition-delay: 0.8s;
+  }
+
+  &.--2sec {
+    scale: 0.5;
+    transition-delay: 1.4s;
+    animation: carnationPinkFade 3s forwards 2.5s; // Ajout de "forwards" pour maintenir les styles finaux après l'animation
+  }
+
+  &.--3sec {
+    transition-delay: 1s;
+  }
 }
 
-article.shesh {
+.card-ending-view {
+  position: relative;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -83,22 +125,136 @@ article.shesh {
   width: 274px;
   height: 472px;
   border-radius: 20px;
-  border: 1px solid var(--lavender-blush);
-  transition: transform 1s ease-in-out; /* Animation pour la transformation */
-  transform: translateX(100%); /* Commence en dehors de l'écran à droite */
+  border: 2px solid var(--lavender-blush);
+
+  @include xs {
+    width: 60svw;
+    height: 50svh;
+  }
+
+  &:hover {
+    border-color: var(--carnation-pink);
+  }
 }
 
-article.shesh img.sheesh {
+.collection-card-img-ending {
+  position: relative;
+  z-index: -1;
   width: 272px;
   height: 100%;
   object-fit: cover;
-  border-top-left-radius: 20px 20px;
-  border-top-right-radius: 20px 20px;
-  transform: translateZ(
-    -1px
-  ); /* Applique une transformation 3D légère pour donner l'effet de profondeur */
+  border-radius: 20px;
+
+  @include xs {
+    width: 60svw;
+    height: 50svh;
+  }
 }
 
-article.shesh.transformed {
-  transform: translateX(0); /* Déplacez la carte vers le centre */
+.ending-view-buttons-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  text-align: center;
+  padding: 20px;
+
+  @include xs {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.good-job-cyril {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+.correct-ans-box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+  gap: 5px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.correct-ans-number {
+  color: white !important;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+.ending-view-nextquizz-button {
+  width: 200px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: var(--cyber-grape);
+  color: var(--lavender-blush);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.5em;
+  border: none;
+  font-size: 14px;
+  padding: 0;
+  cursor: pointer;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+  &:hover {
+    scale: 1.1;
+  }
+}
+
+.ending-view-backhome-button {
+  width: 200px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: var(--oxford-blue);
+  color: var(--lavender-blush);
+  transition: background-color 0.3s ease-out;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.5em;
+  font-size: 14px;
+  padding: 0;
+  cursor: pointer;
+  border: 1px solid var(--cyber-grape);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+  &:hover {
+    scale: 1.1;
+  }
+}
+
+.collection-title {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  margin-top: 5svh;
+  color: var(--lavender-blush);
+  font-size: 15px;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  font-weight: 300;
+  opacity: 0.9;
+
+  @include xs {
+    font-size: 13px;
+    letter-spacing: 2px;
+  }
 }

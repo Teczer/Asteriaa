@@ -74,65 +74,70 @@ function Quizzcontroller() {
   }, [user]);
 
   return (
-    <div className="quizzcontroller">
-      {/* MODAL CONTROLLER SECTION */}
-      {modal && (
-        <AlertModal
-          setModal={setModal}
-          submitValue="QUITTER"
-          modalMessage="retourner à l'accueil"
-        />
-      )}
-      {/* ICON BACK MENU */}
+    <div className={`${showResult ? "endingbgimg" : ""}`}>
       <div
-        className={`question-stepper-wrapper ${showResult ? "--result" : ""}`}
+        className={`quizzcontroller ${showResult ? "--backgroundblur" : ""}`}
       >
-        <div className="stepper-leave-container">
+        {/* MODAL CONTROLLER SECTION */}
+        {modal && (
+          <AlertModal
+            setModal={setModal}
+            submitValue="QUITTER"
+            modalMessage="retourner à l'accueil"
+          />
+        )}
+        {/* ICON BACK MENU */}
+        <div
+          className={`question-stepper-wrapper ${showResult ? "--result" : ""}`}
+        >
           {!showResult && (
-            <div className="back-icon-container">
-              <i
-                className="fa-solid fa-circle-chevron-left"
-                onClick={() => setModal(true)}
-              />
+            <div className="stepper-leave-container">
+              <div className="back-icon-container">
+                <i
+                  className="fa-solid fa-circle-chevron-left"
+                  onClick={() => setModal(true)}
+                />
+              </div>
+              {/* QUIZZ CONTROLLER SECTION */}
+              <Stepper currentQuestion1={currentQuestion1} />
             </div>
           )}
-          {/* QUIZZ CONTROLLER SECTION */}
-          <Stepper currentQuestion1={currentQuestion1} />
-        </div>
-        {showResult ? (
-          <QuizzResult CorrectAns={CorrectAns} />
-        ) : (
-          <>
-            {posts.map((post, index) => (
-              <React.Fragment key={index}>
-                {index >= currentQuestion && index < currentQuestion1 && (
-                  <div className="main-zoubli">
-                    <div
-                      className={classNames(
-                        "zoubli",
-                        isFlipping && "rotate-card"
-                      )}
-                    >
-                      <QuestionCard
-                        post={post}
-                        currentQuestionNumber={index + 1}
-                        CorrectAns={CorrectAns}
-                        setCorrectAns={setCorrectAns}
-                        setIsFlipping={setIsFlipping}
-                      />
-                      {index >= currentQuestion && index < currentQuestion1 && (
-                        <QuestionAnswerCard
+          {showResult ? (
+            <QuizzResult CorrectAns={CorrectAns} showResult={showResult} />
+          ) : (
+            <>
+              {posts.map((post, index) => (
+                <React.Fragment key={index}>
+                  {index >= currentQuestion && index < currentQuestion1 && (
+                    <div className="main-zoubli">
+                      <div
+                        className={classNames(
+                          "zoubli",
+                          isFlipping && "rotate-card"
+                        )}
+                      >
+                        <QuestionCard
                           post={post}
-                          handleNextQuestion={handleNextQuestion}
+                          currentQuestionNumber={index + 1}
+                          CorrectAns={CorrectAns}
+                          setCorrectAns={setCorrectAns}
+                          setIsFlipping={setIsFlipping}
                         />
-                      )}
+                        {index >= currentQuestion &&
+                          index < currentQuestion1 && (
+                            <QuestionAnswerCard
+                              post={post}
+                              handleNextQuestion={handleNextQuestion}
+                            />
+                          )}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </React.Fragment>
-            ))}
-          </>
-        )}
+                  )}
+                </React.Fragment>
+              ))}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

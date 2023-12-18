@@ -1,5 +1,11 @@
 @import "../../scss/media-queries";
 
+.endingbgimg {
+  width: 100svw;
+  height: 100svh;
+  background-image: url("https://i.etsystatic.com/17400595/r/il/c87449/1475953546/il_fullxfull.1475953546_ooku.jpg");
+}
+
 .quizzcontroller {
   position: fixed;
   top: 0;
@@ -10,12 +16,17 @@
   justify-content: center;
   width: 100vw;
   height: 100svh;
+  user-select: none;
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.7),
     rgba(0, 0, 0, 0.3)
   );
 
+  &.--backgroundblur {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(20px);
+  }
   @include xs {
     justify-content: flex-start !important;
     padding-top: 20px;
@@ -42,7 +53,7 @@
     align-items: center;
     justify-content: center;
     gap: 40px;
-    height: 90svh;
+    height: 100svh;
     width: auto;
     padding: 0px 20px;
 
@@ -63,13 +74,13 @@
         gap: 40px !important;
         width: 85%;
         justify-content: center;
-        height: 90%;
+        height: 100svh;
       }
     }
 
     @include xs {
       justify-content: flex-start;
-      height: 90%;
+      height: 100svh;
     }
   }
 
@@ -79,8 +90,8 @@
   }
 
   .backToHomeModal {
-    width: 100vw;
-    height: 100vh;
+    width: 100svw;
+    height: 100svh;
     display: flex;
     flex-direction: column;
     justify-content: center;

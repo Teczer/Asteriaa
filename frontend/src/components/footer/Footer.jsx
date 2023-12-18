@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
-import { useRef } from "react";
-import emailjs from "@emailjs/browser";
-import "./footer.scss";
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import "./footer.scss";
 
 function Footer() {
-  const form = useRef();
   const { user } = useAuthContext();
   // IF USER IS NOT CONNECTED
   const progressionSystemeSolaireLocal = localStorage.getItem(
@@ -16,27 +13,6 @@ function Footer() {
     "quizzPhenomenesObservables"
   );
   const progressionAstronautesLocal = localStorage.getItem("quizzAstronautes");
-  console.log("useraaa", user);
-
-  const sendEmail = (e) => {
-    e.preventDefault();
-
-    emailjs
-      .sendForm(
-        "service_fivz3u6",
-        "template_f3uhroi",
-        form.current,
-        "pONDnjqrno0secEVs"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
-  };
 
   const footerSections = [
     {
@@ -95,64 +71,59 @@ function Footer() {
     },
   ];
 
+  const footerMobileSection = [
+    {
+      text: "Collection de cartes",
+      to: "/collection",
+    },
+    {
+      text: "Contactez-nous",
+      to: "/contact",
+    },
+    {
+      text: "Accueil",
+      to: "/",
+    },
+    {
+      text: "Les dernières actualités !",
+      to: "/news",
+    },
+    {
+      text: "Quizz",
+      to: "/quizz",
+    },
+  ];
+
   return (
     <footer className="footer-asteria">
       <div className="footer-sections-container">
-        <form className="contact-form" ref={form} onSubmit={sendEmail}>
-          <label htmlFor="from_name" className="contact-form-label">
-            Nom
-          </label>
-          <input
-            id="from_name"
-            className="contact-form-input"
-            type="text"
-            name="from_name"
-            placeholder="Nom"
-          />
-          <label htmlFor="from_email" className="contact-form-label">
-            Email
-          </label>
-          <input
-            id="from_email"
-            className="contact-form-input"
-            type="email"
-            name="from_email"
-            placeholder="email@gmail.com"
-          />
-          <label htmlFor="message" className="contact-form-label">
-            Message
-          </label>
-          <textarea
-            placeholder="Message"
-            id="message"
-            className="contact-form-textarea"
-            name="message"
-          />
-          <div className="contact-form-submit-box">
-            <input
-              className="contact-form-submit"
-              type="submit"
-              value="Envoyer"
-            />
-          </div>
-        </form>
+        {/* FOOTER MOBILE */}
+        <section className="footer-section --mobile">
+          <ul className="footer-link-container --mobile">
+            {footerMobileSection.map((title, index) => (
+              <li className="footer-link-item --mobile" key={index}>
+                <Link className="footer-h3 --mobile" to={title.to}>
+                  {title.text}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
         {/* FOOTER DESKTOP */}
-        <div className="footer-section-links-container">
-          {footerSections.map((section, index) => (
-            <section key={index} className="footer-section">
-              <h3 className="footer-h3">{section.title}</h3>
-              <ul className="footer-link-container">
-                {section.links.map((link, index) => (
-                  <li key={index} className="footer-link-item">
-                    <Link className="footer-link" to={link.to}>
-                      {link.text}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-        </div>
+        {footerSections.map((section, index) => (
+          <section key={index} className="footer-section">
+            <h3 className="footer-h3">{section.title}</h3>
+            <ul className="footer-link-container">
+              {section.links.map((link, index) => (
+                <li key={index} className="footer-link-item">
+                  <Link className="footer-link" to={link.to}>
+                    {link.text}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
       </div>
       <div className="social-medials --mobile">
         <div className="footer-copyright">

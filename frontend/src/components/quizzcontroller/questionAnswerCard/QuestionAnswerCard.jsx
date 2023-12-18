@@ -8,8 +8,6 @@ function QuestionAnswerCard({ post, handleNextQuestion }) {
     (option) => option.isCorrect === true
   );
 
-  console.log("correctAnswer", correctAnswer);
-  console.log("post", post);
   // ANTI ABUSE BUTTON
 
   const [buttonEnabled, setButtonEnabled] = useState(true);

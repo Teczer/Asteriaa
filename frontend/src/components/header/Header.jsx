@@ -1,13 +1,13 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import "./header.scss";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-import { useState, useEffect } from "react";
 import Usermodal from "./modal/Usermodal";
 import Modalburger from "./modal/Modalburger";
 import ChangePictureModal from "./modal/ChangePictureModal";
 import AsteriaHeaderLogo from "../../assets/AsteriaHeaderLogo.svg";
+import "./header.scss";
 
-const Header = ({ isAdmin, location }) => {
+const Header = ({ isAdmin }) => {
   const [modalBurger, setModalBurger] = useState(false);
   const [modalAuthentification, setModalAuthentification] = useState(false);
   const [userModal, setUserModal] = useState(false);
@@ -103,9 +103,12 @@ const Header = ({ isAdmin, location }) => {
           <Link className="link-nav-wrapper" to="collection">
             Collection
           </Link>
+          <Link className="link-nav-wrapper" to="contact">
+            Contact
+          </Link>
         </div>
         {user && (
-          <>
+          <div className="user-header-box">
             <figure
               className="figure-user-profile-picture"
               onClick={() => setUserModal(true)}
@@ -117,14 +120,14 @@ const Header = ({ isAdmin, location }) => {
                 alt="user-profil-picture"
               />
             </figure>
-
+            <p>{user.userName}</p>
             {userModal && (
               <Usermodal
                 setUserModal={setUserModal}
                 setIsChangingProfilePicture={setIsChangingProfilePicture}
               />
             )}
-          </>
+          </div>
         )}
 
         {!user && (
