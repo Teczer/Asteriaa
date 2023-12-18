@@ -24,6 +24,6 @@ jobs:
           port: 22
           script: |
             cd teczer-deployement/Asteriaa/
-            sudo git pull origin main
+            git pull origin main
             sudo docker compose build
             sudo docker compose up -d
