@@ -124,7 +124,7 @@ const sendVerificationEmail = async (
                   bgcolor="#0a1e3e"
                 >
                   <a
-                    href="https://asteria.mehdiv.fr/verify?token=${verificationToken}"
+                    href="https://asteriaspace.fr/verify?token=${verificationToken}"
                     class="button-link"
                     target="_blank"
                   >

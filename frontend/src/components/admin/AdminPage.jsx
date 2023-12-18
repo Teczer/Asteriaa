@@ -79,6 +79,7 @@ export default function AdminPage() {
             {collection.map((value, index) => {
               const AllCollectionKey = Object.keys(collection[0]).slice(0, 5);
               console.log("AllCollectionKey", AllCollectionKey);
+              console.log("value", value);
               return (
                 <div
                   className="entrie-item-button-controller-wrapper"
@@ -98,7 +99,7 @@ export default function AdminPage() {
                           } ${value[key] === true ? "true" : "false"}`}
                           key={index}
                         >
-                          {value[key].toString()}
+                          {`${value[key]}`}
                         </span>
                       ))}
                     </div>

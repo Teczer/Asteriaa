@@ -1,9 +1,10 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import "../contact/contactpage.scss";
 
 export default function ContactForm() {
   const form = useRef();
+  const [message, setMessage] = useState(null);
   const sendEmail = (e) => {
     e.preventDefault();
 
@@ -17,9 +18,11 @@ export default function ContactForm() {
       .then(
         (result) => {
           console.log(result.text);
+          setMessage("Votre mail a bien été envoyé !");
         },
         (error) => {
           console.log(error.text);
+          setMessage(error.text);
         }
       );
   };
@@ -57,6 +60,11 @@ export default function ContactForm() {
       <div className="contact-form-submit-box">
         <input className="contact-form-submit" type="submit" value="Envoyer" />
       </div>
+      {message && (
+        <p style={{ color: "var(--carnation-pink)", marginTop: "5Opx" }}>
+          {message}
+        </p>
+      )}
     </form>
   );
 }
