@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import AlertModal from "../header/modal/AlertModal";
 import { useAuthContext } from "../../../hooks/useAuthContext";

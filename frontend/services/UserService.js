@@ -127,7 +127,7 @@ export const updateUser = async (userId, data) => {
   }
 };
 
-export const deleteUserNeedPassword = async (userId, password) => {
+export const deleteUser = async (userId, password) => {
   try {
     // Effectuez la requête POST pour supprimer l'utilisateur avec un mot de passe
     const response = await axios.post(
@@ -139,6 +139,20 @@ export const deleteUserNeedPassword = async (userId, password) => {
         },
       }
     );
+
+    return response; // Vous pouvez également renvoyer d'autres données en fonction de l'API
+  } catch (error) {
+    console.error("Erreur lors de la suppression de l'utilisateur : ", error);
+    throw error; // Propagez l'erreur pour la gérer au niveau supérieur si nécessaire
+  }
+};
+
+export const deleteUserNeedPassword = async (userId, password) => {
+  try {
+    // Effectuez la requête POST pour supprimer l'utilisateur avec un mot de passe
+    const response = await axios.post(`${apiURL}/user/delete/${userId}`, {
+      password,
+    });
 
     return response; // Vous pouvez également renvoyer d'autres données en fonction de l'API
   } catch (error) {

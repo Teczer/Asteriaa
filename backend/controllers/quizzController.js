@@ -23,9 +23,6 @@ export const getAllQuizzController = async (req, res) => {
 export const getQuizzByCat = async (req, res) => {
   const { quizzType, quizzProgression } = req.body;
 
-  console.log("quizzType", quizzType);
-  console.log("quizzProgression", quizzProgression);
-
   const quizz = await getQuizzSQLByCat(quizzType, quizzProgression);
 
   res.json(quizz);
@@ -80,9 +77,6 @@ export const getFullQuizzById = async (req, res) => {
 
 export const createQuizz = async (req, res) => {
   const { quizzName, questions } = req.body;
-
-  console.log("quizzName", quizzName);
-  console.log("questions", questions);
 
   const result = await createQuizzCat(quizzName, questions);
 

@@ -206,12 +206,6 @@ export const deleteUser = async (req, res) => {
       return res.status(404).json({ error: "Utilisateur non trouvé" });
     }
 
-    if (user.isAdmin === true) {
-      return res
-        .status(401)
-        .json({ message: "Vous ne pouvez pas supprimer un Administrateur" });
-    }
-
     // Si la clé secrète est égale à "process.env.SECRET_ADMIN_KEY", supprime l'utilisateur sans vérifier le mot de passe
     if (secretadminkey === process.env.SECRET_ADMIN_KEY) {
       await User.findByIdAndRemove(id);
@@ -222,7 +216,6 @@ export const deleteUser = async (req, res) => {
 
     // Vérifiez si le mot de passe fourni correspond au mot de passe de l'utilisateur
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    console.log("bcryptPass", isPasswordValid);
 
     if (!isPasswordValid) {
       return res.status(401).json({

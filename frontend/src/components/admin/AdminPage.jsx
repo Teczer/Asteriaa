@@ -2,10 +2,7 @@ import { useEffect, useState } from "react";
 import { deleteQuizz, getAllQuizz } from "../../../services/QuizzService";
 import { Link, useParams } from "react-router-dom";
 import "./adminpage.scss";
-import {
-  deleteUserNeedPassword,
-  getAllUsers,
-} from "../../../services/UserService";
+import { deleteUser, getAllUsers } from "../../../services/UserService";
 
 export default function AdminPage() {
   const [collection, setCollection] = useState([]);
@@ -78,8 +75,6 @@ export default function AdminPage() {
             </div>
             {collection.map((value, index) => {
               const AllCollectionKey = Object.keys(collection[0]).slice(0, 5);
-              console.log("AllCollectionKey", AllCollectionKey);
-              console.log("value", value);
               return (
                 <div
                   className="entrie-item-button-controller-wrapper"
@@ -111,7 +106,7 @@ export default function AdminPage() {
                       setModal={setModal}
                       deleteFunction={async () => {
                         if (params.type === "user") {
-                          await deleteUserNeedPassword(value?._id);
+                          await deleteUser(value?._id);
                           await fetchAllUsers();
                         }
                         if (params.type === "quizz") {
