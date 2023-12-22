@@ -1,4 +1,6 @@
 import nodemailer from "nodemailer";
+import config from "../config/index.js";
+
 const sendVerificationEmail = async (
   userEmail,
   verificationToken,
@@ -8,7 +10,7 @@ const sendVerificationEmail = async (
     service: "Gmail", // Remplacez par le service de messagerie que vous souhaitez utiliser
     auth: {
       user: "asteria.noreply@gmail.com", // Remplacez par votre adresse e-mail d'expéditeur
-      pass: "pbjshcxceavqxgzu", // Remplacez par le mot de passe de votre adresse e-mail
+      pass: config.emailSecretPass, // Remplacez par le mot de passe de votre adresse e-mail
     },
   });
 

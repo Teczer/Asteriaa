@@ -88,7 +88,7 @@ function AsteriaTutorial() {
             )}
             <Spline
               onLoad={() => setIsLoading(true)}
-              scene="https://prod.spline.design/nq2Ddo1xg8yV2Kxd/scene.splinecode"
+              scene="https://prod.spline.design/4ndWoXGNrSmD2GAi/scene.splinecode"
             />
           </div>
         );
