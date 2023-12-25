@@ -26,6 +26,7 @@ function PropertyController({
   const [goodDeleteUserResponse, setGoodDeleteUserResponse] = useState(false);
 
   const [modal, setModal] = useState(false);
+  const [tutorialModal, setTutorialModal] = useState(false);
   const { updateUserContext, logoutUser } = useAuthContext();
   const navigate = useNavigate();
 
@@ -41,6 +42,8 @@ function PropertyController({
 
       // Mettez à jour le contexte avec les nouvelles données utilisateur
       updateUserContext(updatedUser);
+
+      navigate("/");
     } catch (error) {
       console.error("Erreur lors de la mise à jour de l'utilisateur : ", error);
     }
@@ -96,6 +99,13 @@ function PropertyController({
 
       return;
     }
+  }
+
+  // FONCTION POUR REVOIR LE TUTORIEL
+
+  function rewatchTutorial() {
+    localStorage.setItem("completedTutorial", false);
+    navigate("/tutorial");
   }
 
   // Fonction pour gérer les modifications dans l'entrée du pseudo
@@ -225,6 +235,19 @@ function PropertyController({
               </p>
             </div>
           </div>
+          <div className="property-container --progressdown">
+            <label className="label-title-property">Tutoriel</label>
+            <div className="property-button-input-label-wrapper">
+              <div className="property-button-row-wrapper">
+                <button
+                  className="property-button --dangerous"
+                  onClick={() => setTutorialModal(true)}
+                >
+                  Revoir le tutoriel
+                </button>
+              </div>
+            </div>
+          </div>
           {deleteUserModal && (
             <DeleteUserModal
               setDeleteUserModal={setDeleteUserModal}
@@ -243,6 +266,15 @@ function PropertyController({
               setModal={setModal}
               submitValue="RÉINITIALISER"
               modalMessage="réinitialiser votre progression"
+            />
+          )}
+          {tutorialModal && (
+            <AlertModal
+              submitFunction={rewatchTutorial}
+              setModal={setTutorialModal}
+              submitValue="REVOIR"
+              modalMessage="revoir le tutoriel"
+              navigate={"/tutorial"}
             />
           )}
         </div>

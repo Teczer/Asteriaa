@@ -1,6 +1,5 @@
 import React from "react";
 import "../../quizzcontroller/quizzcontroller.scss";
-import { Link } from "react-router-dom";
 
 function AlertModal({ setModal, submitValue, submitFunction, modalMessage }) {
   return (
@@ -8,9 +7,7 @@ function AlertModal({ setModal, submitValue, submitFunction, modalMessage }) {
       <h3 className="backtohome-title">
         Êtes vous sûr de vouloir {modalMessage} ?
       </h3>
-      <Link to="/">
-        <input onClick={submitFunction} type="submit" value={submitValue} />
-      </Link>
+      <input onClick={submitFunction} type="submit" value={submitValue} />
       <div className="cancelBackToHome" onClick={() => setModal(false)}>
         <input type="submit" value="ANNULER" />
       </div>
