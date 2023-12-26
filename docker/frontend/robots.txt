@@ -1,5 +1,17 @@
 User-agent: *
 Disallow: /quizzcontroller/
+Disallow: /quizzcontroller/quizzSystemeSolaire
+Disallow: /quizzcontroller/quizzGalaxies
+Disallow: /quizzcontroller/quizzPhenomenesObservables
+Disallow: /quizzcontroller/quizzAstronautes
+Disallow: /quizzcontroller/quizzSystemeSolaire/
+Disallow: /quizzcontroller/quizzGalaxies/
+Disallow: /quizzcontroller/quizzPhenomenesObservables/
+Disallow: /quizzcontroller/quizzAstronautes/
+Disallow: /quizzcontroller/quizzSystemeSolaire/null
+Disallow: /quizzcontroller/quizzGalaxies/null
+Disallow: /quizzcontroller/quizzPhenomenesObservables/null
+Disallow: /quizzcontroller/quizzAstronautes/null
 Disallow: /verify/
 Disallow: /admin/
 Disallow: /settings/profile
