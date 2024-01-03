@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import "./asteriaTutorial.scss";
-import image from "./launchlogo@3x 2.png";
-import cardimage from "./Group 72.png";
-import collectionimage from "./Group 63.png";
-import snappi from "./MascotHappyFace.svg";
-import textbulle from "./Component 7.svg";
 import Spline from "@splinetool/react-spline";
 import { Spinner } from "@chakra-ui/spinner";
 
+import "./asteriaTutorial.scss";
+
 function AsteriaTutorial() {
+  useEffect(() => {
+    document.title = "Asteria : Quizz, Space, Actus, Collections | Asteria";
+  }, []);
+
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const handleNextStep = () => {
