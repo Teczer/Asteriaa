@@ -82,6 +82,7 @@ function Quizzcontroller() {
         {modal && (
           <AlertModal
             setModal={setModal}
+            submitFunction={() => (window.location.href = "/")}
             submitValue="QUITTER"
             modalMessage="retourner à l'accueil"
           />
