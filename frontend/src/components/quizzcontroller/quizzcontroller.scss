@@ -3,7 +3,11 @@
 .endingbgimg {
   width: 100svw;
   height: 100svh;
-  background-image: url("https://i.etsystatic.com/17400595/r/il/c87449/1475953546/il_fullxfull.1475953546_ooku.jpg");
+  background-image: url("/bg-quizz.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .quizzcontroller {
@@ -24,9 +28,9 @@
   );
 
   &.--backgroundblur {
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
   }
   @include xs {
     justify-content: flex-start !important;

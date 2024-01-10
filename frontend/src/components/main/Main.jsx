@@ -29,6 +29,9 @@ import imageAstronautes2 from "../../assets/quizzData/collec4-cardFrontImage-17-
 import imageAstronautes3 from "../../assets/quizzData/collec4-cardBackImage-17-armstrong_stxghf.webp";
 import imageAstronautes4 from "../../assets/quizzData/collec4-cardBackImage-20-terechkova_nuti1l.webp";
 
+// Niveau Fini
+import imageNiveauFini from "/bg-quizz.jpg";
+
 import "./main.scss";
 
 function Main() {
@@ -165,7 +168,7 @@ function Main() {
                 <span className="category-level-progression">
                   {value.level >= 5
                     ? "Niveau fini"
-                    : `Niveau ${value.level} / 5`}
+                    : `Niveau ${value.level} / 4`}
                 </span>
                 <Link
                   className="card-quizz-link"
@@ -176,9 +179,10 @@ function Main() {
                   }
                 >
                   <CardQuizz
+                    overideMain="overideCardImageMain"
                     src={
                       value.level >= 5
-                        ? "https://res.cloudinary.com/dw3mwclgk/image/upload/v1670677915/images-quizz/PhenomenesObservable/nebuleuse4_3x_hhw3yd.jpg"
+                        ? imageNiveauFini
                         : value.img[value.level - 1]
                     }
                     label={value.label}

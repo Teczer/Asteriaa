@@ -1,14 +1,14 @@
-import "./quizzcontroller.scss";
 import React, { useState, useEffect } from "react";
 import QuestionCard from "./questionCard/QuestionCard";
 import QuestionAnswerCard from "./questionAnswerCard/QuestionAnswerCard";
 import QuizzResult from "./quizzResult/QuizzResult";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import classNames from "classnames";
 import Stepper from "./stepper/Stepper";
 import AlertModal from "../header/modal/AlertModal";
-import { useAuthContext } from "../../../hooks/useAuthContext";
 import { getSqlQuizz } from "../../../services/QuizzService";
+
+import "./quizzcontroller.scss";
 
 function Quizzcontroller() {
   const [posts, setPosts] = useState([]);
@@ -55,23 +55,6 @@ function Quizzcontroller() {
   // Modal Quizz Controller
 
   const [modal, setModal] = useState(false);
-
-  useEffect(() => {
-    // console.log("currentQuestion1", currentQuestion1);
-  });
-
-  // ANTI-CHEAT for Asteria Users
-
-  const navigate = useNavigate();
-  const { user } = useAuthContext();
-
-  useEffect(() => {
-    if (!user) return;
-
-    if (user[params.quizzType] < params.quizzProgression) {
-      navigate("/filou");
-    }
-  }, [user]);
 
   return (
     <div className={`${showResult ? "endingbgimg" : ""}`}>

@@ -44,3 +44,8 @@
   width: 274px;
   height: 472px;
 }
+
+.overideCardImageMain {
+  height: 100%;
+  object-fit: cover;
+}
