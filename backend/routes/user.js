@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import User from "../models/userModel.js";
 import sendVerificationEmail from "../utils/sendVerificationEmail.js";
+import { requireAuth } from "../middleware/requireAuth.js";
 
 dotenv.config({ path: "../.env" });
 
@@ -21,30 +22,30 @@ import { createUser } from "../controllers/userController.js";
 const router = express.Router();
 
 // login route
-router.post("/login", loginUser);
+router.post("/login", loginUser, requireAuth);
 
 // signup route
-router.post("/signup", signupUser);
+router.post("/signup", signupUser, requireAuth);
 
 // create user
 
-router.post("/create", createUser);
+router.post("/create", createUser, requireAuth);
 
 // delete user
 
-router.post("/delete/:id", deleteUser);
+router.post("/delete/:id", deleteUser, requireAuth);
 
 // UPDATE a single user
 
-router.patch("/:id", updateUser);
+router.patch("/:id", updateUser, requireAuth);
 
 // GET single user
 
-router.get("/:id", getUser);
+router.get("/:id", getUser, requireAuth);
 
 // GET ALL USERS
 
-router.get("/", getAllUsers);
+router.get("/", getAllUsers, requireAuth);
 
 export default router;
 
