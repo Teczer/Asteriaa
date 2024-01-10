@@ -32,7 +32,7 @@ function Login() {
       <div className="login-form-wrapper">
         <h1 className="login-title">
           Bienvenue sur <span className="asteria-name">Asteria</span>,
-          veuillez-vous authenthifier
+          veuillez-vous authentifier
         </h1>
         <section className="loginform-container">
           <div id="login">
