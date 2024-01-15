@@ -50,8 +50,6 @@ router.post("/send-verification-email", async (req, res) => {
       }
     );
 
-    console.log("userFROMSending", userIdString);
-
     // Enregistrez le jeton dans la base de données pour vérification ultérieure
     user.verificationToken = verificationToken;
     await user.save();
@@ -90,8 +88,6 @@ router.get("/verify/verify-email", async (req, res) => {
         .status(404)
         .json({ error: "Jeton de vérification invalide ou expiré" });
     }
-    console.log("user", user);
-
     // Marquez l'e-mail de l'utilisateur comme vérifié
     user.isEmailVerified = true;
     user.verificationToken = undefined; // Effacez le jeton de vérification
