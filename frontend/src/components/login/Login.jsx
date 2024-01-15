@@ -69,9 +69,9 @@ function Login() {
                 </div>
               )}
             </form>
-            <button onClick={loginWithGoogle} className="login-with-google-btn">
+            {/* <button onClick={loginWithGoogle} className="login-with-google-btn">
               Connexion Google
-            </button>
+            </button> */}
           </div>
           <div className="notmember-container">
             <p>

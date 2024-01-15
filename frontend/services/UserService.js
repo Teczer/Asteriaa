@@ -8,9 +8,16 @@ export const apiURL =
 
 export const getUser = async (userId) => {
   try {
-    const { data } = await axios.get(`${apiURL}/user/${userId}`);
+    const token = localStorage.getItem("authToken");
+
+    const { data } = await axios.get(`${apiURL}/user/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Utilisez directement le token depuis la clé "user"
+      },
+    });
+
     console.log("data", data);
-    return data; // Renvoie les informations de l'utilisateur
+    return data;
   } catch (error) {
     console.error(
       "Erreur lors de la récupération des informations de l'utilisateur : ",
@@ -30,12 +37,15 @@ export const getUser = async (userId) => {
 
 export const getAllUsers = async () => {
   try {
+    const token = localStorage.getItem("authToken");
+
     const { data } = await axios.get(`${apiURL}/user/`, {
       headers: {
-        secretadminkey: SECRET_ADMIN_KEY,
+        Authorization: `Bearer ${token}`,
       },
     });
-    return data; // Renvoie les informations de l'utilisateur
+
+    return data;
   } catch (error) {
     console.error(
       "Erreur lors de la récupération des informations de l'utilisateur : ",
@@ -107,16 +117,23 @@ export const sendVerificationEmail = async (email, userId, username) => {
 
 export const updateUser = async (userId, data) => {
   try {
-    // Effectuez la requête PATCH pour mettre à jour l'utilisateur
+    const token = localStorage.getItem("authToken");
+
+    // Effectuez la requête PATCH pour mettre à jour l'utilisateur avec le token d'autorisation
     await axios.patch(`${apiURL}/user/${userId}`, data, {
       headers: {
-        secretadminkey: SECRET_ADMIN_KEY,
+        Authorization: `Bearer ${token}`,
       },
     });
 
     // Re-récupérez les données mises à jour de l'utilisateur après le patch
     const { data: updatedUserData } = await axios.get(
-      `${apiURL}/user/${userId}`
+      `${apiURL}/user/${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
 
     // Retournez les données mises à jour
@@ -128,19 +145,24 @@ export const updateUser = async (userId, data) => {
 };
 
 export const deleteUser = async (userId, password) => {
+  const token = localStorage.getItem("authToken");
+
   try {
-    // Effectuez la requête POST pour supprimer l'utilisateur avec un mot de passe
+    // Effectuez la requête POST pour supprimer l'utilisateur avec un mot de passe et le token d'autorisation
     const response = await axios.post(
       `${apiURL}/user/delete/${userId}`,
-      { password },
+      {
+        password,
+      },
       {
         headers: {
+          Authorization: `Bearer ${token}`,
           secretadminkey: SECRET_ADMIN_KEY,
         },
       }
     );
 
-    return response; // Vous pouvez également renvoyer d'autres données en fonction de l'API
+    return response;
   } catch (error) {
     console.error("Erreur lors de la suppression de l'utilisateur : ", error);
     throw error; // Propagez l'erreur pour la gérer au niveau supérieur si nécessaire
@@ -149,12 +171,22 @@ export const deleteUser = async (userId, password) => {
 
 export const deleteUserNeedPassword = async (userId, password) => {
   try {
-    // Effectuez la requête POST pour supprimer l'utilisateur avec un mot de passe
-    const response = await axios.post(`${apiURL}/user/delete/${userId}`, {
-      password,
-    });
+    const token = localStorage.getItem("authToken");
 
-    return response; // Vous pouvez également renvoyer d'autres données en fonction de l'API
+    // Effectuez la requête POST pour supprimer l'utilisateur avec un mot de passe et le token d'autorisation
+    const response = await axios.post(
+      `${apiURL}/user/delete/${userId}`,
+      {
+        password,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response;
   } catch (error) {
     console.error("Erreur lors de la suppression de l'utilisateur : ", error);
     throw error; // Propagez l'erreur pour la gérer au niveau supérieur si nécessaire
@@ -163,11 +195,7 @@ export const deleteUserNeedPassword = async (userId, password) => {
 
 export const createUser = async (user) => {
   try {
-    const { data } = await axios.post(`${apiURL}/user/create`, user, {
-      headers: {
-        secretadminkey: SECRET_ADMIN_KEY,
-      },
-    });
+    const { data } = await axios.post(`${apiURL}/user/create`, user);
     return data;
   } catch (error) {
     console.error("Erreur lors de la création de l'utilisateur : ", error);

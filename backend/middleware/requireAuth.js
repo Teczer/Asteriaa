@@ -1,37 +1,42 @@
 import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 
+import config from "../config/index.js";
+
 export const requireAuth = async (req, res, next) => {
-  const { authorization } = req.headers;
+  const token = req.header("Authorization");
 
-  if (!authorization) {
-    return res.status(401).json({ error: "Authorization token required" });
-  }
+  // Vérifier si le token existe
+  if (token) {
+    try {
+      // Retirer le préfixe "Bearer" du token
+      const tokenWithoutBearer = token.replace("Bearer ", "");
 
-  const token = authorization.split(" ")[1];
+      // Vérifier le token
+      const decoded = jwt.verify(tokenWithoutBearer, config.SECRET);
 
-  try {
-    const { _id } = jwt.verify(token, process.env.SECRET);
+      // Vérifie si l'utilisateur correspondant au token existe
+      const user = await User.findById(decoded._id);
 
-    req.user = await User.findOne({ _id }).select("_id");
-    next();
-  } catch (error) {
-    console.log(error);
-    res.status(401).json({ error: "Request is not authorized" });
-  }
-};
+      if (!user) {
+        throw new Error("Utilisateur non trouvé");
+      }
 
-export const requireAdmin = (req, res, next) => {
-  // Assuming that you attach user information to the request object after authentication
-  const user = req.user;
+      // Attacher l'utilisateur au req pour une utilisation ultérieure dans les routes
+      req.user = user;
 
-  if (user && user.isAdmin === true) {
-    // If the user is an admin, proceed to the next middleware or route handler
-    next();
+      // Vérifier si l'utilisateur est admin
+      if (user.isAdmin) {
+        next();
+      } else {
+        res
+          .status(403)
+          .json({ error: "Accès interdit. Vous devez être administrateur." });
+      }
+    } catch (error) {
+      res.status(401).json({ error: "Token invalide" });
+    }
   } else {
-    // If not an admin, send a 403 Forbidden response
-    res
-      .status(403)
-      .json({ error: "Permission denied. Admin access required." });
+    res.status(401).json({ error: "Token manquant" });
   }
 };

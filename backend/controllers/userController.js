@@ -115,13 +115,6 @@ export const signupUser = async (req, res) => {
 export const updateUser = async (req, res) => {
   const { id } = req.params;
   const { userName } = req.body;
-  const { secretadminkey } = req.headers;
-
-  if (secretadminkey !== process.env.SECRET_ADMIN_KEY) {
-    return res.status(401).json({
-      error: "Vous n'avez pas l'autorisation de modifier un utilisateur !",
-    });
-  }
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "No such user" });
@@ -170,15 +163,6 @@ export const getUser = async (req, res) => {
 
 // GET ALL USERS
 export const getAllUsers = async (req, res) => {
-  const { secretadminkey } = req.headers;
-
-  if (secretadminkey !== process.env.SECRET_ADMIN_KEY) {
-    return res.status(401).json({
-      error:
-        "Vous n'avez pas l'autorisation de récuperer les informations de tout les utilisateurs !",
-    });
-  }
-
   try {
     const users = await User.find();
     res.status(200).json(users);
@@ -249,13 +233,6 @@ export const createUser = async (req, res) => {
     quizzPhenomenesObservables,
     quizzAstronautes,
   } = req.body;
-  const { secretadminkey } = req.headers;
-
-  if (secretadminkey !== process.env.SECRET_ADMIN_KEY) {
-    return res.status(401).json({
-      error: "Vous n'avez pas l'autorisation de créer un utilisateur !",
-    });
-  }
 
   // Vérifier que tous les champs nécessaires sont remplis et ne sont pas vides
   if (

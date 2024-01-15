@@ -65,8 +65,14 @@ function App() {
           <Route path="/collection" element={<Collection />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/settings/profile" element={<UserSettings />} />
-          <Route path="/admin/:type" element={<AdminPage />} />
-          <Route path="/admin/:type/:id" element={<EditEntrieView />} />
+          <Route
+            path="/admin/:type"
+            element={user?.isAdmin ? <AdminPage /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/admin/:type/:id"
+            element={user?.isAdmin ? <EditEntrieView /> : <Navigate to="/" />}
+          />
           <Route
             path="/quizzcontroller/:quizzType/:quizzProgression"
             element={<Quizzcontroller />}

@@ -37,6 +37,7 @@ export const AuthContextProvider = ({ children }) => {
   const logoutUser = () => {
     // Pour se déconnecter, vous pouvez simplement effacer les données utilisateur du 'localStorage'
     localStorage.removeItem("user");
+    localStorage.removeItem("authToken");
     // Ensuite, utilisez le dispatch pour mettre à jour le contexte avec 'user: null'
     dispatch({ type: "LOGOUT" });
   };

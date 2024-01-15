@@ -16,6 +16,7 @@ export const useLogin = () => {
       const userData = { ...data, loginService: "asteria" };
       console.log("userData", userData);
       // save the user to localstorage
+      localStorage.setItem("authToken", userData?.token);
       localStorage.setItem("user", JSON.stringify(userData));
 
       // update the auth context

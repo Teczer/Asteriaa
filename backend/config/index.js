@@ -22,6 +22,8 @@ const config = {
   databasePORT: process.env.DATABASE_PORT,
   // MAIL
   emailSecretPass: process.env.EMAIL_PASS,
+  // JWT SECRET
+  SECRET: process.env.SECRET,
 };
 
 export default config;

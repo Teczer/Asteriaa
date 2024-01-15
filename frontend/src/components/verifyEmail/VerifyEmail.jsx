@@ -1,24 +1,23 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./verifyEmail.scss";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import getUserIdFromToken from "./getUserIdFromToken";
 
 import { apiURL } from "../../../services/UserService";
 
+import "./verifyEmail.scss";
+
 function VerifyEmail() {
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get("token");
   const type = searchParams.get("type");
-  console.log("token", token);
-  console.log("type", type);
+  const authToken = localStorage.getItem("authToken");
   const [message, setMessage] = useState(null);
   const [sucess, setSucess] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { user, updateUserContext } = useAuthContext();
-  console.log("user", user);
   const [timerRedirection, setTimerRedirection] = useState(3);
   const userId = getUserIdFromToken(token);
 
@@ -50,6 +49,9 @@ function VerifyEmail() {
 
   useEffect(() => {
     if (token) {
+      console.log("apiURL", apiURL);
+      console.log("token", token);
+      console.log("userId", userId);
       const verifyEmail = async () => {
         try {
           const response = await axios.get(
@@ -61,7 +63,11 @@ function VerifyEmail() {
 
           if (userId) {
             // Effectuer la requête pour récupérer les nouvelles données utilisateur
-            const afterpatch = await axios.get(`${apiURL}/user/${userId}`);
+            const afterpatch = await axios.get(`${apiURL}/user/${userId}`, {
+              headers: {
+                Authorization: `Bearer ${authToken}`, // Utilisez directement le token depuis la clé "user"
+              },
+            });
             const updatedUserData = afterpatch.data;
 
             // Mettre à jour le contexte avec les nouvelles données utilisateur
@@ -163,6 +169,7 @@ function VerifyEmail() {
               className="verify-email-resend-button"
               onClick={() => {
                 localStorage.removeItem("user");
+                localStorage.removeItem("authToken");
                 localStorage.removeItem("isVerifiedAccount");
                 window.location.href = "/login";
                 console.log("yo");

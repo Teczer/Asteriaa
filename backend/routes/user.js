@@ -1,14 +1,13 @@
 import express from "express";
-import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { requireAuth } from "../middleware/requireAuth.js";
+import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 import sendVerificationEmail from "../utils/sendVerificationEmail.js";
-import { requireAuth } from "../middleware/requireAuth.js";
 
 dotenv.config({ path: "../.env" });
 
 // controller functions
-
 import {
   signupUser,
   loginUser,
@@ -16,38 +15,10 @@ import {
   getUser,
   getAllUsers,
   deleteUser,
+  createUser,
 } from "../controllers/userController.js";
-import { createUser } from "../controllers/userController.js";
 
 const router = express.Router();
-
-// login route
-router.post("/login", loginUser, requireAuth);
-
-// signup route
-router.post("/signup", signupUser, requireAuth);
-
-// create user
-
-router.post("/create", createUser, requireAuth);
-
-// delete user
-
-router.post("/delete/:id", deleteUser, requireAuth);
-
-// UPDATE a single user
-
-router.patch("/:id", updateUser, requireAuth);
-
-// GET single user
-
-router.get("/:id", getUser, requireAuth);
-
-// GET ALL USERS
-
-router.get("/", getAllUsers, requireAuth);
-
-export default router;
 
 // VERIFICATION PHASE
 
@@ -134,3 +105,30 @@ router.get("/verify/verify-email", async (req, res) => {
     });
   }
 });
+
+// login route
+router.post("/login", loginUser);
+
+// signup route
+router.post("/signup", signupUser);
+
+// Middleware requireAuth appliqué à partir d'ici
+
+router.use(requireAuth);
+
+// create user
+router.post("/create", createUser);
+
+// delete user
+router.post("/delete/:id", deleteUser);
+
+// UPDATE a single user
+router.patch("/:id", updateUser);
+
+// GET single user
+router.get("/:id", getUser);
+
+// GET ALL USERS
+router.get("/", getAllUsers);
+
+export default router;

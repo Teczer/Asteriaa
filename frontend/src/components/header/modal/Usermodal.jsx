@@ -6,6 +6,8 @@ import { apiURL } from "../../../../services/UserService";
 function Usermodal({ setUserModal, setIsChangingProfilePicture }) {
   const { user, logoutUser } = useAuthContext();
   const googleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("authToken");
     logoutUser();
     window.open(`${apiURL}/auth/logout`, "_self");
     window.location.href = "/login";

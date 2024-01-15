@@ -214,7 +214,7 @@ export default function EditEntrieView() {
                     try {
                       await updateUser(params?.id, editedUser);
                       setRequestMessage({
-                        message: `L'utilisateur a bien été modifié ${entrie?.userName}`,
+                        message: `L'utilisateur  ${entrie?.userName} a bien été modifié`,
                         status: true,
                       });
                     } catch (error) {
