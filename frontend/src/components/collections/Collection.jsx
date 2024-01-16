@@ -1,7 +1,8 @@
 import { useState } from "react";
-import "./collection.scss";
 import ActualCardViewFront from "./ActualCardViewFront";
 import { useCollection } from "../../../hooks/useCollection";
+
+import "./collection.scss";
 
 export default function Collection() {
   document.title = "Ma collection | Asteria";

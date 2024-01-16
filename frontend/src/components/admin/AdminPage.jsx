@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { deleteQuizz, getAllQuizz } from "../../../services/QuizzService";
 import { Link, useParams } from "react-router-dom";
-import "./adminpage.scss";
 import { deleteUser, getAllUsers } from "../../../services/UserService";
+
+import "./adminpage.scss";
 
 export default function AdminPage() {
   const [collection, setCollection] = useState([]);

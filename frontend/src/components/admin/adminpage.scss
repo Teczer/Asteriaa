@@ -1,7 +1,7 @@
 .main-content-admin {
   display: flex;
-  height: 100%;
-  width: 100vw;
+  height: 100svh;
+  width: 100svw;
   border-bottom: 2px solid var(--space-cadet);
   margin-top: 90px;
 }
@@ -34,9 +34,7 @@
 .collections-type {
   width: 20%;
   background: rgb(24, 24, 38);
-  position: sticky;
-  top: 0px;
-  height: 100svh;
+  height: 100%;
   overflow-y: auto;
   border-right: 1px solid rgb(74, 74, 106);
   z-index: 1;
@@ -45,6 +43,7 @@
   flex-direction: column;
   align-items: center;
   gap: 50px;
+  position: fixed;
 }
 
 .collection-type-link {
@@ -64,7 +63,9 @@
   display: flex;
   flex-direction: column;
   width: 80%;
-  height: 100%;
+  height: auto;
+  margin-left: 19%;
+  background-color: rgb(24, 24, 38);
 }
 
 .collection-entrie-create-message-box {
@@ -134,17 +135,15 @@
   margin: 0px;
   padding: 0px;
   border: 0px;
-  font: inherit;
-  vertical-align: baseline;
   padding-right: 56px;
   padding-left: 56px;
   width: 100%;
-  height: 100svh;
+  height: auto;
   background: rgb(24, 24, 38);
   padding-bottom: 30px;
 
   &.--quizz {
-    height: 100%;
+    height: auto;
   }
 }
 
@@ -246,6 +245,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 20px;
+  margin-top: 20px;
 }
 
 .isTrueOrFalse {

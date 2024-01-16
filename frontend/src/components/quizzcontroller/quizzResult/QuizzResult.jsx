@@ -14,6 +14,8 @@ function QuizzResult({ CorrectAns, showResult }) {
   const collections = useCollection();
   const [actualCardView, setActualCardView] = useState(null);
 
+  console.log("params", params);
+
   const currentCollection = collections.find(
     (collection) => params.quizzType === collection.slug
   );
@@ -141,14 +143,17 @@ function QuizzResult({ CorrectAns, showResult }) {
           </div>
           <div className={`swipe --left ${testVisible ? "active --3sec" : ""}`}>
             <div className="ending-view-buttons-wrapper">
-              <a
-                className="ending-view-nextquizz-button"
-                href={`/quizzcontroller/${params.quizzType}/${
-                  Number(params.quizzProgression) + 1
-                }`}
-              >
-                Niveau suivant
-              </a>
+              {params.quizzProgression < "4" && (
+                <a
+                  className="ending-view-nextquizz-button"
+                  href={`/quizzcontroller/${params.quizzType}/${
+                    Number(params.quizzProgression) + 1
+                  }`}
+                >
+                  Niveau suivant
+                </a>
+              )}
+
               <Link className="ending-view-backhome-button" to="/">
                 Retourner à l'accueil
               </Link>

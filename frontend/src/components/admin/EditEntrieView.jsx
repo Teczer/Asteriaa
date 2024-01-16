@@ -5,8 +5,9 @@ import {
   getFullQuizzById,
   updateQuizz,
 } from "../../../services/QuizzService";
-import "./editentrieview.scss";
 import { createUser, getUser, updateUser } from "../../../services/UserService";
+
+import "./editentrieview.scss";
 
 export default function EditEntrieView() {
   const [entrie, setEntrie] = useState([]);
@@ -332,6 +333,7 @@ export default function EditEntrieView() {
                           className={`collection-text-input --overide ${
                             key === "_id" ||
                             (key === "password" && params?.id !== "create") ||
+                            key === "googleId" ||
                             key === "__v0"
                               ? "--block"
                               : ""
@@ -356,7 +358,14 @@ export default function EditEntrieView() {
                 const allCollectionKeys = Object.keys(question);
                 return (
                   <div key={questionIndex} className="question-serie-container">
-                    <span style={{ color: "white" }}>
+                    <span
+                      style={{
+                        color: "white",
+                        fontSize: "20px",
+                        fontWeight: "bold",
+                        marginBottom: "10px",
+                      }}
+                    >
                       Question {questionIndex + 1}
                     </span>
                     <div className="collection-entries-section-container">
