@@ -6,9 +6,9 @@ import config from "../config/index.js";
 export const requireAuth = async (req, res, next) => {
   const token = req.header("Authorization");
   // Retirer le préfixe "Bearer" du token
-  const tokenWithoutBearer = token.replace("Bearer ", "");
 
   if (token) {
+    const tokenWithoutBearer = token?.replace("Bearer ", "");
     try {
       const decoded = jwt.verify(tokenWithoutBearer, config.SECRET);
 
