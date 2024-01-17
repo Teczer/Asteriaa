@@ -114,7 +114,7 @@ export const signupUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { userName, isAdmin, email, password, ...updateData } = req.body;
+  const { userName } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "No such user" });
@@ -128,21 +128,10 @@ export const updateUser = async (req, res) => {
     });
   }
 
-  // If isAdmin, email, or password is present in the updateData, ignore them
-  if ("isAdmin" in updateData) {
-    delete updateData.isAdmin;
-  }
-  if ("email" in updateData) {
-    delete updateData.email;
-  }
-  if ("password" in updateData) {
-    delete updateData.password;
-  }
-
   const user = await User.findByIdAndUpdate(
     { _id: id },
     {
-      ...updateData,
+      ...req.body,
     },
     { new: true } // To get the updated user as the result
   );
