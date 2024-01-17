@@ -213,7 +213,10 @@ export default function EditEntrieView() {
                   }
                   if (params?.type === "user" && params?.id !== "create") {
                     try {
-                      await updateUser(params?.id, editedUser);
+                      // Exclure les clés spécifiques avant d'envoyer à updateUser
+                      const { _id, isAdmin, password, email, ...updatedUser } =
+                        editedUser;
+                      await updateUser(params?.id, updatedUser);
                       setRequestMessage({
                         message: `L'utilisateur  ${entrie?.userName} a bien été modifié`,
                         status: true,
