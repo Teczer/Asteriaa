@@ -56,6 +56,7 @@ function QuizzResult({ CorrectAns, showResult }) {
       cardDescription: collection.cardDescription[cardIndex],
     };
     setActualCardView(selectedCard);
+    setAlreadyAnimated(true);
   };
 
   useEffect(() => {
@@ -64,6 +65,7 @@ function QuizzResult({ CorrectAns, showResult }) {
   }, []);
 
   const [testVisible, setTestVisible] = useState(false);
+  const [alreadyAnimated, setAlreadyAnimated] = useState(false);
 
   useEffect(() => {
     // Lors du chargement de la page, déplacez la div test vers le milieu
@@ -116,7 +118,11 @@ function QuizzResult({ CorrectAns, showResult }) {
             </div>
           </div>
           <div
-            className={`swipe --right ${testVisible ? "active --2sec" : ""}`}
+            className={`${
+              alreadyAnimated
+                ? ""
+                : `swipe --right ${testVisible ? "active --2sec" : ""}`
+            }`}
           >
             <article
               className="card-ending-view"
