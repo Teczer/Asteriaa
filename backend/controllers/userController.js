@@ -128,6 +128,15 @@ export const updateUser = async (req, res) => {
     });
   }
 
+  console.log("req.body", req.body);
+
+  // Check if isAdmin, email, or password is present in req.body
+  if ("isAdmin" in req.body || "email" in req.body || "password" in req.body) {
+    return res.status(401).json({
+      error: "Vous n'êtes pas autorisé à modifier ces valeurs",
+    });
+  }
+
   const user = await User.findByIdAndUpdate(
     { _id: id },
     {

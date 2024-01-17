@@ -320,7 +320,8 @@ export default function EditEntrieView() {
                         {key}
                         <span style={{ color: "red" }}> *</span>
                       </label>
-                      {typeof editedUser[key] === "boolean" ? (
+                      {typeof editedUser[key] === "boolean" &&
+                      key !== "isAdmin" ? (
                         <Checkbox
                           checked={editedUser[key]}
                           onChange={(e) =>
@@ -334,6 +335,8 @@ export default function EditEntrieView() {
                             key === "_id" ||
                             (key === "password" && params?.id !== "create") ||
                             key === "googleId" ||
+                            key === "email" ||
+                            key === "isAdmin" ||
                             key === "__v0"
                               ? "--block"
                               : ""
@@ -341,6 +344,9 @@ export default function EditEntrieView() {
                           value={editedUser[key]}
                           disabled={
                             key === "_id" ||
+                            key === "isAdmin" ||
+                            key === "googleId" ||
+                            key === "email" ||
                             (key === "password" && params?.id !== "create") ||
                             key === "__v0"
                           }
