@@ -5,8 +5,6 @@ import config from "../config/index.js";
 
 export const requireAuth = async (req, res, next) => {
   const token = req.header("Authorization");
-  // Retirer le préfixe "Bearer" du token
-
   if (token) {
     const tokenWithoutBearer = token?.replace("Bearer ", "");
     try {
@@ -15,9 +13,18 @@ export const requireAuth = async (req, res, next) => {
       // Vérifie si l'utilisateur correspondant au token existe
       const user = await User.findById(decoded._id);
 
-      if (!user || user._id.toString() !== decoded._id) {
-        // Si l'utilisateur n'est pas trouvé ou si les identifiants ne correspondent pas
-        throw new Error("Accès interdit");
+      // Extraire l'ID du chemin de la requête
+      const urlPath = req._parsedUrl.pathname;
+      const tokenId = decoded._id;
+      const idPath = urlPath.split("/").pop();
+
+      console.log("tokenId", tokenId);
+      console.log("idPath", idPath);
+
+      if (idPath !== tokenId && user.isAdmin === false) {
+        return res.status(401).json({
+          error: "Vous ne pouvez pas modifier un autre utilisateur !",
+        });
       }
 
       // Attache l'utilisateur au req pour une utilisation ultérieure dans les routes
