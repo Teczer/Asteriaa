@@ -50,6 +50,9 @@ function Main() {
         "Erreur lors de la récupération des informations de l'utilisateur : ",
         error
       );
+      localStorage.removeItem("user");
+      localStorage.removeItem("authToken");
+      window.location.reload();
     }
   }
 
