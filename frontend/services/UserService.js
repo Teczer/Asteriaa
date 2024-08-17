@@ -15,22 +15,16 @@ export const getUser = async (userId) => {
         Authorization: `Bearer ${token}`, // Utilisez directement le token depuis la clé "user"
       },
     });
-
-    console.log("data", data);
     return data;
   } catch (error) {
     console.error(
       "Erreur lors de la récupération des informations de l'utilisateur : ",
       error
     );
-
-    // Vérifie si l'erreur est due à un statut 404 (Si l'utilisateur a été supprimé alors que l'utilisateur était connecté)
-    if (error.response && error.response.status === 404) {
-      // Si le statut est 404, vide la clé "user" du stockage local
-      localStorage.removeItem("user");
-      // Redirige l'utilisateur vers la page d'accueil
-      window.location.href = "/";
-    }
+    console.log("c'est là");
+    localStorage.removeItem("user");
+    localStorage.removeItem("authToken");
+    window.location.href = "/";
     return null;
   }
 };
