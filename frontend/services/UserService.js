@@ -24,7 +24,7 @@ export const getUser = async (userId) => {
     console.log("c'est là");
     localStorage.removeItem("user");
     localStorage.removeItem("authToken");
-    window.location.href = "/";
+    window.location.reload();
     return null;
   }
 };
